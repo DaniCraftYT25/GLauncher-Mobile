@@ -142,28 +142,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @JavascriptInterface
-        public void installMinecraftVersion(final String installOptionsJson) {
+        public void installMinecraftVersion(final String versionJson) {
             new Thread(() -> {
                 try {
-                    JSONObject installOptions = new JSONObject(installOptionsJson);
-                    JSONObject version = installOptions.getJSONObject("version");
-                    String javaPath = installOptions.getString("javaPath");
-
                     File baseDir = new File(Environment.getExternalStorageDirectory(), "GLauncher");
-                    File jreDir = new File(baseDir, "runtime");
 
-                    // 1. Copiar y extraer el JRE seleccionado desde los assets si no existe
-                    if (!jreDir.exists() || jreDir.list().length == 0) {
-                        jreDir.mkdirs();
-                        File jreArchive = new File(getCacheDir(), "jre.tar.gz");
-                        runJs("updateDownloadProgress(10, 'Copiando OpenJDK (Runtime)...')");
-                        copyAsset("runtimes/" + javaPath, jreArchive);
-                        runJs("updateDownloadProgress(45, 'Extrayendo OpenJDK...')");
-                        extractTarGz(jreArchive, jreDir); // Extracción real
-                        jreArchive.delete();
-                    }
-
-                    // 2. Descargar archivos de la versión de Minecraft
+                    // 1. Descargar archivos de la versión de Minecraft
+                    JSONObject version = new JSONObject(versionJson);
                     String versionId = version.getString("id");
                     String manifestUrl = version.getString("url");
 
@@ -173,25 +158,27 @@ public class MainActivity extends AppCompatActivity {
                     // Descargar el manifest de la versión
                     runJs("updateDownloadProgress(5, 'Descargando manifiesto...')");
                     File versionManifestFile = new File(versionDir, versionId + ".json");
-                    downloadFile(manifestUrl, versionManifestFile, "Descargando manifiesto...", 5, 15);
+                    downloadFile(manifestUrl, versionManifestFile, "Descargando manifiesto...", 5, 10);
 
-                    // 2. Parsear el manifiesto y descargar los archivos reales
+                    // 2. Parsear el manifiesto y descargar los archivos del juego
                     runJs("updateDownloadProgress(20, 'Leyendo manifiesto...')");
                     String manifestContent = new java.util.Scanner(versionManifestFile).useDelimiter("\\A").next();
                     JSONObject manifestJson = new JSONObject(manifestContent);
 
                     // Descargar el client.jar
-                        JSONObject clientInfo = manifestJson.getJSONObject("downloads").getJSONObject("client");
-                        String clientUrl = clientInfo.getString("url");
-                        File clientJarFile = new File(versionDir, versionId + ".jar");
-                        downloadFile(clientUrl, clientJarFile, "Descargando cliente...", 65, 20);
-                    }
+                    JSONObject clientInfo = manifestJson.getJSONObject("downloads").getJSONObject("client");
+                    String clientUrl = clientInfo.getString("url");
+                    File clientJarFile = new File(versionDir, versionId + ".jar");
+                    downloadFile(clientUrl, clientJarFile, "Descargando cliente...", 20, 30);
 
                     // Descargar las librerías
                     File libsDir = new File(baseDir, "libraries");
                     libsDir.mkdirs();
                     JSONArray libraries = manifestJson.getJSONArray("libraries");
                     for (int i = 0; i < libraries.length(); i++) {
+                        if (i % 10 == 0) { // Actualizar mensaje de vez en cuando
+                            runJs("updateDownloadProgress(" + (50 + (int)((i * 50.0) / libraries.length())) + ", 'Descargando librerías...')");
+                        }
                         JSONObject lib = libraries.getJSONObject(i);
                         // Algunos modloaders (Forge) no tienen 'downloads' en todas las librerías
                         if (lib.has("downloads")) {
@@ -202,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                             String libPath = artifact.getString("path");
                             String libUrl = artifact.getString("url");
                             File libFile = new File(libsDir, libPath);
-                            downloadFile(libUrl, libFile, "Descargando librerías...", 65, 35 * (i + 1) / libraries.length());
+                            downloadFile(libUrl, libFile, "Descargando librerías...", 50 + (int)((i * 50.0) / libraries.length()), 0); // Progress handled above
                         }
                     }
                     runJs("updateDownloadProgress(100, '¡Instalación completada!')");
