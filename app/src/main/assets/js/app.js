@@ -971,8 +971,8 @@
     // ═══════════════════════════════════════════════════════════════
 
     // Detecta automáticamente la IP del servidor si está en la misma red
-    const GMUSIC_API = `${window.location.origin}/api/search`;
-
+    // Apuntamos a una API pública para que funcione en el APK directamente.
+    const GMUSIC_API = `https://glauncher-api.onrender.com/api/search`;
     let gmusicIsPlaying = false;
 
     function initGMusic() {
@@ -1037,7 +1037,7 @@
         resultsContainer.innerHTML = `
             <div class="loading-spinner">
                 <div class="spinner"></div>
-                <span>Buscando en servidor local (192.168.0.100:3000)...</span>
+                <span>Buscando en GMusic API...</span>
             </div>
         `;
 
