@@ -102,8 +102,7 @@
             animations: true,
             closeOnLaunch: false,
             showSnapshots: false,
-            jvmArgs: '-XX:+UseG1GC',
-            javaVersion: 'java-17/jre-17-aarch64.tar.gz' // Valor por defecto
+            jvmArgs: '-XX:+UseG1GC'
         }
     };
 
@@ -655,12 +654,7 @@
         
         // Llamada al puente nativo de Android
         if (window.AndroidAudioBridge && window.AndroidAudioBridge.installMinecraftVersion) {
-            // Enviamos la versión Y la configuración de Java seleccionada
-            const installOptions = {
-                version: version,
-                javaPath: state.settings.javaVersion
-            };
-            window.AndroidAudioBridge.installMinecraftVersion(JSON.stringify(installOptions));
+            window.AndroidAudioBridge.installMinecraftVersion(JSON.stringify(version));
         }
     }
 
@@ -1345,15 +1339,6 @@
             animToggle.addEventListener('change', (e) => {
                 state.settings.animations = e.target.checked;
                 document.body.classList.toggle('no-animations', !e.target.checked);
-            });
-        }
-
-        // Java Version Selector
-        const javaSelect = $('#java-version-select');
-        if (javaSelect) {
-            javaSelect.addEventListener('change', (e) => {
-                state.settings.javaVersion = e.target.value;
-                showNotification(`Runtime de Java cambiado a ${e.target.options[e.target.selectedIndex].text}`, 'info');
             });
         }
 

@@ -171,16 +171,16 @@ public class MainActivity extends AppCompatActivity {
                     versionDir.mkdirs();
 
                     // Descargar el manifest de la versión
+                    runJs("updateDownloadProgress(5, 'Descargando manifiesto...')");
                     File versionManifestFile = new File(versionDir, versionId + ".json");
-                    downloadFile(manifestUrl, versionManifestFile, "Descargando manifiesto...", 50, 10);
+                    downloadFile(manifestUrl, versionManifestFile, "Descargando manifiesto...", 5, 15);
 
-                    // 3. Parsear el manifiesto y descargar los archivos reales
-                    runJs("updateDownloadProgress(60, 'Leyendo manifiesto...')");
+                    // 2. Parsear el manifiesto y descargar los archivos reales
+                    runJs("updateDownloadProgress(20, 'Leyendo manifiesto...')");
                     String manifestContent = new java.util.Scanner(versionManifestFile).useDelimiter("\\A").next();
                     JSONObject manifestJson = new JSONObject(manifestContent);
 
                     // Descargar el client.jar
-                    if (manifestJson.has("downloads") && manifestJson.getJSONObject("downloads").has("client")) {
                         JSONObject clientInfo = manifestJson.getJSONObject("downloads").getJSONObject("client");
                         String clientUrl = clientInfo.getString("url");
                         File clientJarFile = new File(versionDir, versionId + ".jar");
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                             String libPath = artifact.getString("path");
                             String libUrl = artifact.getString("url");
                             File libFile = new File(libsDir, libPath);
-                            downloadFile(libUrl, libFile, "Descargando librerías...", 85, 15 * (i + 1) / libraries.length());
+                            downloadFile(libUrl, libFile, "Descargando librerías...", 65, 35 * (i + 1) / libraries.length());
                         }
                     }
                     runJs("updateDownloadProgress(100, '¡Instalación completada!')");
@@ -211,23 +211,6 @@ public class MainActivity extends AppCompatActivity {
                     runJs("updateDownloadProgress(-1, 'Error: " + e.getMessage().replace("'", "") + "')");
                 }
             }).start();
-        }
-
-        private void copyAsset(String assetPath, File destFile) throws IOException {
-            InputStream in = null;
-            OutputStream out = null;
-            try {
-                in = getAssets().open(assetPath);
-                out = new FileOutputStream(destFile);
-                byte[] buffer = new byte[4096];
-                int read;
-                while ((read = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, read);
-                }
-            } finally {
-                if (in != null) in.close();
-                if (out != null) out.close();
-            }
         }
 
         private void downloadFile(String fileURL, File destFile, String message, int progressStart, int progressWeight) throws IOException {
@@ -259,47 +242,6 @@ public class MainActivity extends AppCompatActivity {
                 input.close();
             } finally {
                 urlConnection.disconnect();
-            }
-        }
-
-        private void extractTarGz(File tarGzFile, File destDir) throws IOException {
-            // Usa GZIPInputStream para descomprimir el .gz
-            try (InputStream fi = new java.io.FileInputStream(tarGzFile);
-                 BufferedInputStream bi = new BufferedInputStream(fi);
-                 java.util.zip.GZIPInputStream gzi = new java.util.zip.GZIPInputStream(bi)) {
-
-                // Ahora procesamos el archivo .tar resultante
-                // Esta es una implementación simple de "untar"
-                byte[] buffer = new byte[1024];
-                int count;
-                
-                while (true) {
-                    // Leer la cabecera del archivo TAR (512 bytes)
-                    byte[] header = new byte[512];
-                    int headerRead = gzi.read(header);
-                    if (headerRead < 512) break; // Fin del archivo
-
-                    // Obtener el tamaño del archivo de la cabecera (en octal)
-                    String sizeStr = new String(header, 124, 12).trim();
-                    long size = Long.parseLong(sizeStr, 8);
-
-                    // Obtener el nombre del archivo
-                    String name = new String(header, 0, 100).trim();
-                    File outputFile = new File(destDir, name);
-
-                    if (size > 0) { // Solo procesar si es un archivo
-                        outputFile.getParentFile().mkdirs();
-                        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-                            long remaining = size;
-                            while (remaining > 0) {
-                                count = gzi.read(buffer, 0, (int) Math.min(remaining, buffer.length));
-                                if (count == -1) break;
-                                fos.write(buffer, 0, count);
-                                remaining -= count;
-                            }
-                        }
-                    }
-                }
             }
         }
 
