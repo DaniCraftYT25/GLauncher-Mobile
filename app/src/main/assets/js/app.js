@@ -1580,6 +1580,7 @@
         const addAttackBtn = $('#vc-add-attack');
         const addUseBtn = $('#vc-add-use');
         const toggleMouseModeBtn = $('#vc-toggle-mouse-mode');
+        const palette = $('.vc-palette');
 
         // ─── Drag State ───
         let isDragging = false;
@@ -1594,6 +1595,12 @@
             });
         }
 
+        // Deseleccionar al hacer clic en el canvas
+        canvas.addEventListener('mousedown', (e) => {
+            if (e.target === canvas) {
+                selectControl(null);
+            }
+        });
         if (closeBtn) closeBtn.addEventListener('click', () => editor.style.display = 'none');
 
         // ─── Adding Controls ───
@@ -1739,9 +1746,21 @@
         function selectControl(id) {
             state.virtualControls.selectedId = id;
             $$('.vc-element').forEach(el => el.classList.toggle('selected', el.id === id));
-            $('#vc-no-selection').style.display = id ? 'none' : 'flex';
-            $('#vc-prop-fields').style.display = id ? 'flex' : 'none';
-            if (id) updatePropertyInputs();
+            
+            // Lógica para mostrar/ocultar paneles
+            const propPanel = $('#vc-properties');
+            const noSelection = $('#vc-no-selection');
+            const propFields = $('#vc-prop-fields');
+            const addPanel = $('.vc-palette');
+            
+            propPanel.style.display = id ? 'flex' : 'none';
+            if (noSelection) noSelection.style.display = id ? 'none' : 'flex';
+            if (propFields) propFields.style.display = id ? 'flex' : 'none';
+            addPanel.classList.toggle('hidden', !!id);
+
+            if (id) {
+                updatePropertyInputs();
+            }
         }
 
         function getSelectedControl() {
@@ -1864,6 +1883,42 @@
                 editor.style.display = 'none';
                 showNotification('Controles virtuales guardados correctamente', 'success');
             });
+        }
+
+        // --- Lógica para arrastrar el panel de "Añadir" ---
+        const paletteHeader = $('.vc-palette-header');
+        let isDraggingPalette = false;
+        let paletteOffsetX, paletteOffsetY;
+
+        paletteHeader.addEventListener('mousedown', (e) => {
+            isDraggingPalette = true;
+            palette.style.transition = 'none'; // Desactivar transición mientras se arrastra
+            paletteOffsetX = e.clientX - palette.offsetLeft;
+            paletteOffsetY = e.clientY - palette.offsetTop;
+            document.addEventListener('mousemove', onPaletteDrag);
+            document.addEventListener('mouseup', stopPaletteDrag);
+        });
+
+        function onPaletteDrag(e) {
+            if (!isDraggingPalette) return;
+            const mainBounds = $('.vc-editor-main').getBoundingClientRect();
+            
+            let newX = e.clientX - paletteOffsetX;
+            let newY = e.clientY - paletteOffsetY;
+
+            // Limitar a los bordes del contenedor principal
+            newX = Math.max(0, Math.min(newX, mainBounds.width - palette.offsetWidth));
+            newY = Math.max(0, Math.min(newY, mainBounds.height - palette.offsetHeight));
+
+            palette.style.left = `${newX}px`;
+            palette.style.top = `${newY}px`;
+        }
+
+        function stopPaletteDrag() {
+            isDraggingPalette = false;
+            palette.style.transition = ''; // Reactivar transición
+            document.removeEventListener('mousemove', onPaletteDrag);
+            document.removeEventListener('mouseup', stopPaletteDrag);
         }
     }
 

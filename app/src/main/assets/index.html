@@ -670,38 +670,39 @@
         <div class="vc-editor-main">
 
             <!-- Left Palette -->
-            <div class="vc-palette">
-                <div class="vc-palette-title"><i class="fas fa-plus-circle"></i> Añadir</div>
-                <button class="vc-palette-item" id="vc-add-btn" title="Añadir botón de acción">
-                    <div class="vc-palette-icon" style="border-radius:50%;">A/B</div>
-                    <span>Botón</span>
-                </button>
-                <button class="vc-palette-item" id="vc-add-joystick" title="Añadir joystick">
-                    <div class="vc-palette-icon joystick-icon">
-                        <i class="fas fa-dot-circle" style="font-size:1.2rem;"></i>
+            <div class="vc-palette" id="vc-palette">
+                <div class="vc-palette-header">Añadir Control</div>
+                <div class="vc-palette-content">
+                    <button class="vc-palette-item" id="vc-add-btn" title="Añadir botón de acción">
+                        <div class="vc-palette-icon" style="border-radius:50%;">A/B</div>
+                        <span>Botón</span>
+                    </button>
+                    <button class="vc-palette-item" id="vc-add-joystick" title="Añadir joystick">
+                        <div class="vc-palette-icon joystick-icon">
+                            <i class="fas fa-dot-circle" style="font-size:1.2rem;"></i>
+                        </div>
+                        <span>Joystick</span>
+                    </button>
+                    <button class="vc-palette-item" id="vc-add-attack" title="Añadir botón de ataque (clic izquierdo)">
+                        <div class="vc-palette-icon" style="border-radius:6px;"><i class="fas fa-hand-rock"></i></div>
+                        <span>Atacar</span>
+                    </button>
+                    <button class="vc-palette-item" id="vc-add-use" title="Añadir botón de usar (clic derecho)">
+                        <div class="vc-palette-icon" style="border-radius:6px;"><i class="fas fa-hand-paper"></i></div>
+                        <span>Usar</span>
+                    </button>
+                    <button class="vc-palette-item" id="vc-toggle-mouse-mode" title="Activar/desactivar modo de mouse virtual">
+                        <div class="vc-palette-icon" style="border-radius:6px;" id="vc-mouse-mode-icon">
+                            <i class="fas fa-mouse"></i>
+                        </div>
+                        <span>Mouse</span>
+                    </button>
+                    <div class="vc-palette-divider"></div>
+                    <div class="vc-palette-help">
+                        <p><i class="fas fa-hand-point-up"></i> Arrastra para mover</p>
+                        <p><i class="fas fa-mouse-pointer"></i> Click para editar</p>
+                        <p><i class="fas fa-trash"></i> Supr/Delete para borrar</p>
                     </div>
-                    <span>Joystick</span>
-                </button>
-                <button class="vc-palette-item" id="vc-add-attack" title="Añadir botón de ataque (clic izquierdo)">
-                    <div class="vc-palette-icon" style="border-radius:6px;"><i class="fas fa-hand-rock"></i></div>
-                    <span>Atacar</span>
-                </button>
-                <button class="vc-palette-item" id="vc-add-use" title="Añadir botón de usar (clic derecho)">
-                    <div class="vc-palette-icon" style="border-radius:6px;"><i class="fas fa-hand-paper"></i></div>
-                    <span>Usar</span>
-                </button>
-                <button class="vc-palette-item" id="vc-toggle-mouse-mode" title="Activar/desactivar modo de mouse virtual">
-                    <div class="vc-palette-icon" style="border-radius:6px;" id="vc-mouse-mode-icon">
-                        <i class="fas fa-mouse"></i>
-                    </div>
-                    <span>Mouse</span>
-                </button>
-                <div class="vc-palette-divider"></div>
-                <div class="vc-palette-title"><i class="fas fa-info-circle"></i> Ayuda</div>
-                <div class="vc-palette-help">
-                    <p><i class="fas fa-hand-point-up"></i> Arrastra para mover</p>
-                    <p><i class="fas fa-mouse-pointer"></i> Click para editar</p>
-                    <p><i class="fas fa-trash"></i> Supr/Delete para borrar</p>
                 </div>
             </div>
 
@@ -752,40 +753,67 @@
                     <div class="vc-prop-group" id="prop-group-function">
                         <label class="vc-prop-label">Función (tecla/botón)</label>
                         <select class="vc-prop-select" id="prop-function">
-                            <optgroup label="Teclado — Movimiento">
+                            <optgroup label="Acciones Principales">
+                                <option value="mouse_left">Mouse — Atacar / Romper</option>
+                                <option value="mouse_right">Mouse — Usar / Colocar</option>
+                                <option value="mouse_middle">Mouse — Seleccionar Bloque</option>
+                                <option value="key_escape">Esc — Menú / Pausa</option>
+                            </optgroup>
+                            <optgroup label="Movimiento">
                                 <option value="key_w">W — Adelante</option>
                                 <option value="key_s">S — Atrás</option>
                                 <option value="key_a">A — Izquierda</option>
                                 <option value="key_d">D — Derecha</option>
-                            </optgroup>
-                            <optgroup label="Teclado — Acciones">
                                 <option value="key_space">Space — Saltar</option>
-                                <option value="key_shift">Shift — Agacharse</option>
-                                <option value="key_e">E — Inventario</option>
-                                <option value="key_q">Q — Soltar item</option>
-                                <option value="key_f">F — Cambiar mano</option>
-                                <option value="key_r">R — Mapa</option>
-                                <option value="key_escape">Esc — Pausa</option>
-                                <option value="key_enter">Enter</option>
-                                <option value="key_tab">Tab</option>
-                                <option value="key_t">T — Chat</option>
+                                <option value="key_shift">Shift — Agacharse / Bajar</option>
                                 <option value="key_ctrl">Ctrl — Sprint</option>
                             </optgroup>
-                            <optgroup label="Teclado — Hotbar">
-                                <option value="key_1">1 — Slot 1</option>
-                                <option value="key_2">2 — Slot 2</option>
-                                <option value="key_3">3 — Slot 3</option>
-                                <option value="key_4">4 — Slot 4</option>
-                                <option value="key_5">5 — Slot 5</option>
-                                <option value="key_6">6 — Slot 6</option>
-                                <option value="key_7">7 — Slot 7</option>
-                                <option value="key_8">8 — Slot 8</option>
-                                <option value="key_9">9 — Slot 9</option>
+                            <optgroup label="Juego e Inventario">
+                                <option value="key_q">Q — Soltar Objeto</option>
+                                <option value="key_f">F — Cambiar de Mano</option>
+                                <option value="key_e">E — Inventario</option>
+                                <option value="key_t">T — Abrir Chat</option>
+                                <option value="key_slash">/ — Abrir Comandos</option>
+                                <option value="key_tab">Tab — Lista de Jugadores</option>
+                                <option value="key_l">L — Logros</option>
+                                <option value="key_p">P — Espectador</option>
                             </optgroup>
-                            <optgroup label="Mouse">
-                                <option value="mouse_left">Mouse — Click Izquierdo</option>
-                                <option value="mouse_right">Mouse — Click Derecho</option>
-                                <option value="mouse_middle">Mouse — Click Medio</option>
+                            <optgroup label="Teclado (A-Z)">
+                                <option value="key_a">A</option><option value="key_b">B</option><option value="key_c">C</option><option value="key_d">D</option><option value="key_e">E</option><option value="key_f">F</option><option value="key_g">G</option><option value="key_h">H</option><option value="key_i">I</option><option value="key_j">J</option><option value="key_k">K</option><option value="key_l">L</option><option value="key_m">M</option><option value="key_n">N</option><option value="key_o">O</option><option value="key_p">P</option><option value="key_q">Q</option><option value="key_r">R</option><option value="key_s">S</option><option value="key_t">T</option><option value="key_u">U</option><option value="key_v">V</option><option value="key_w">W</option><option value="key_x">X</option><option value="key_y">Y</option><option value="key_z">Z</option>
+                            </optgroup>
+                            <optgroup label="Teclado (Números y Hotbar)">
+                                <option value="key_1">1</option><option value="key_2">2</option><option value="key_3">3</option><option value="key_4">4</option><option value="key_5">5</option><option value="key_6">6</option><option value="key_7">7</option><option value="key_8">8</option><option value="key_9">9</option><option value="key_0">0</option>
+                            </optgroup>
+                            <optgroup label="Teclado (Función)">
+                                <option value="key_f1">F1 — Ocultar HUD</option>
+                                <option value="key_f2">F2 — Screenshot</option>
+                                <option value="key_f3">F3 — Pantalla de Debug</option>
+                                <option value="key_f4">F4</option>
+                                <option value="key_f5">F5 — Cambiar Perspectiva</option>
+                                <option value="key_f6">F6</option><option value="key_f7">F7</option><option value="key_f8">F8</option><option value="key_f9">F9</option><option value="key_f10">F10</option><option value="key_f11">F11</option><option value="key_f12">F12</option>
+                            </optgroup>
+                            <optgroup label="Teclado (Especiales)">
+                                <option value="key_enter">Enter — Aceptar</option>
+                                <option value="key_backspace">Backspace</option>
+                                <option value="key_delete">Delete</option>
+                                <option value="key_insert">Insert</option>
+                                <option value="key_home">Home</option>
+                                <option value="key_end">End</option>
+                                <option value="key_pageup">Page Up</option>
+                                <option value="key_pagedown">Page Down</option>
+                            </optgroup>
+                            <optgroup label="Teclado (Flechas)">
+                                <option value="key_up">Flecha Arriba</option>
+                                <option value="key_down">Flecha Abajo</option>
+                                <option value="key_left">Flecha Izquierda</option>
+                                <option value="key_right">Flecha Derecha</option>
+                            </optgroup>
+                            <optgroup label="Teclado (Sistema)">
+                                <option value="key_printscreen">Impr Pant</option>
+                                <option value="key_scrolllock">Bloq Despl</option>
+                                <option value="key_pause">Pausa</option>
+                            </optgroup>
+                            <optgroup label="Mouse y Scroll">
                                 <option value="scroll_up">Scroll Arriba</option>
                                 <option value="scroll_down">Scroll Abajo</option>
                             </optgroup>
