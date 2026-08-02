@@ -1730,6 +1730,34 @@ input[type="range"]::-webkit-slider-thumb {
     color: #fff;
 }
 
+/* --- Carrusel de Estadísticas (Home) --- */
+.stats-scroller {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 0 12px 0; /* Espacio para la sombra y el scroll */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.stats-scroller::-webkit-scrollbar {
+    display: none; /* Ocultar scrollbar para Chrome, Safari y Opera */
+}
+
+.stat-box {
+    flex: 0 0 140px; /* Base de 140px, no se encoge, no crece */
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-box .stat-value { font-size: 1.5rem; color: var(--primary); font-family: 'MinecraftTen'; }
+.stat-box .stat-label { font-size: 0.5rem; color: var(--text-muted); text-transform: uppercase; }
+
+
 .account-selector-card.active .avatar-wrapper {
     border-color: var(--minecraft-green);
     box-shadow: 0 0 25px rgba(60, 133, 39, 0.5);

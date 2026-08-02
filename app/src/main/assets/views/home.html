@@ -1,0 +1,87 @@
+<!-- ════════════════════════════════════════════
+     VIEW: HOME (Inicio)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-home">
+    <div class="home-layout">
+        <div class="home-main">
+            <!-- Hero Card -->
+            <div class="hero-card">
+                <img src="icons/minecraft_title.png" alt="GLauncher" class="hero-logo">
+                <div class="hero-info">
+                    <h1>GLauncher</h1>
+                    <p>Tu launcher de Minecraft para Android. Juega con Vanilla, Fabric, Forge y NeoForge.</p>
+                    <div class="hero-actions" id="hero-actions">
+                        <div class="hero-version-selector" id="hero-version-selector">
+                            <span id="hero-version-selected-text">
+                                Seleccionar versión
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                            <div class="hero-version-dropdown" id="hero-version-dropdown"></div>
+                        </div>
+                        <button class="hero-play-btn" id="btn-play-hero">
+                            <i class="fas fa-play"></i> JUGAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-gamepad"></i></div>
+                    <span class="stat-value" id="stat-installed">0</span>
+                    <span class="stat-label">Instaladas</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <span class="stat-value" id="stat-playtime">0h</span>
+                    <span class="stat-label">Jugado</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <span class="stat-value" id="stat-mods">0</span>
+                    <span class="stat-label">Mods</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                    <span class="stat-value" id="stat-versions">—</span>
+                    <span class="stat-label">Disponibles</span>
+                </div>
+            </div>
+
+            <!-- News Feed -->
+            <div>
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> Novedades</h2>
+                </div>
+                <div class="news-scroll" id="news-scroll">
+                    <div class="news-card">
+                        <span class="news-tag update">Actualización</span>
+                        <h4>Minecraft 1.21.5</h4>
+                        <p>Nueva actualización con el bioma de Pale Garden y nuevas criaturas.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag fabric">Fabric</span>
+                        <h4>Fabric Loader 0.16.x</h4>
+                        <p>Nuevo loader con mejoras de rendimiento y compatibilidad.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag forge">Forge</span>
+                        <h4>Forge para 1.21</h4>
+                        <p>Soporte completo de Forge para las últimas versiones de MC.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag mod">NeoForge</span>
+                        <h4>NeoForge Estable</h4>
+                        <p>El sucesor de Forge continúa ganando popularidad y mods.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag">GLauncher</span>
+                        <h4>GLauncher v1.0</h4>
+                        <p>Primera versión estable del launcher para Android. ¡Disfrútalo!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

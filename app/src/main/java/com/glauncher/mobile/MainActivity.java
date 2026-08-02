@@ -1,14 +1,18 @@
 package com.glauncher.mobile;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
+import android.util.Log;
+import android.net.Uri;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -34,28 +38,34 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
     private WebView audioWebView;
     private static final int STORAGE_PERMISSION_CODE = 101;
+    private static final int BACKGROUND_PICKER_CODE = 102;
     public static final String PREFS_NAME = "GLauncherPrefs";
     
-    private static final String JRE_17_URL = "https://github.com/PojavLauncherTeam/mobile-jre/releases/download/jre17-release/jre-17-aarch64.tar.gz";
-    private static final String JRE_8_URL = "https://github.com/PojavLauncherTeam/mobile-jre/releases/download/jre8-release/jre-8-aarch64.tar.gz";
+    private static final String JRE_17_URL = "https://github.com/DaniCraftYT25/GLauncher-Mobile/releases/download/JRES/jre17.zip";
+    private static final String JRE_21_URL = "https://github.com/DaniCraftYT25/GLauncher-Mobile/releases/download/JRES/jre21.zip";
+    private static final String JRE_8_URL = "https://github.com/DaniCraftYT25/GLauncher-Mobile/releases/download/JRES/jre8.zip";
 
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        }
+
+        setContentView(R.layout.activity_main);
         hideSystemUI();
 
         webView = findViewById(R.id.glauncher_webview);
@@ -75,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setAllowUniversalAccessFromFileURLs(true);
         webView.clearCache(true);
 
-        webView.addJavascriptInterface(new WebAppInterface(), "Android");
+        webView.addJavascriptInterface(new WebAppInterface(), "GLauncher");
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
 
@@ -129,6 +139,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BACKGROUND_PICKER_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                Uri uri = data.getData();
+                if (uri != null) {
+                    final int takeFlags = data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                    runJs("window.onBackgroundSelected('" + uri.toString() + "')");
+                }
+            }
+        }
+    }
+
     private void runJs(final String js) {
         runOnUiThread(() -> webView.evaluateJavascript(js, null));
     }
@@ -147,7 +172,50 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public String getVirtualControls() {
             SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-            return prefs.getString("virtual_controls_config", "[]"); // Devuelve un array JSON vacío si no hay nada
+            return prefs.getString("virtual_controls_config", "[]");
+        }
+
+        @JavascriptInterface
+        public void saveUserProfile(String jsonProfile) {
+            try {
+                File baseDir = new File(MainActivity.this.getExternalFilesDir(null), "GLauncher");
+                if (!baseDir.exists()) baseDir.mkdirs();
+                File profileFile = new File(baseDir, "user_profile.json");
+                try (FileOutputStream fos = new FileOutputStream(profileFile)) {
+                    fos.write(jsonProfile.getBytes(StandardCharsets.UTF_8));
+                }
+                runOnUiThread(() -> runJs("showNotification('Perfil de usuario guardado', 'success')"));
+            } catch (IOException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> runJs("showNotification('Error al guardar el perfil', 'error')"));
+            }
+        }
+
+        @JavascriptInterface
+        public String loadUserProfile() {
+            File baseDir = new File(MainActivity.this.getExternalFilesDir(null), "GLauncher");
+            File profileFile = new File(baseDir, "user_profile.json");
+            if (!profileFile.exists()) {
+                return "{}";
+            }
+            try (FileInputStream fis = new FileInputStream(profileFile)) {
+                int size = fis.available();
+                byte[] buffer = new byte[size];
+                fis.read(buffer);
+                return new String(buffer, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "{}";
+            }
+        }
+
+        @JavascriptInterface
+        public void selectBackgroundImage() {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/*", "video/*"});
+            startActivityForResult(intent, BACKGROUND_PICKER_CODE);
         }
 
         @JavascriptInterface
@@ -171,6 +239,20 @@ public class MainActivity extends AppCompatActivity {
                     + "</script></body></html>";
 
                 audioWebView.loadDataWithBaseURL("https://www.youtube.com", html, "text/html", "UTF-8", null);
+            });
+        }
+
+        @JavascriptInterface
+        public void togglePlayPause() {
+            runOnUiThread(() -> {
+                audioWebView.evaluateJavascript("if(player && typeof player.getPlayerState === 'function'){ if(player.getPlayerState() === 1) { player.pauseVideo(); } else { player.playVideo(); } }", null);
+            });
+        }
+
+        @JavascriptInterface
+        public void seekAudio(int seconds) {
+            runOnUiThread(() -> {
+                audioWebView.evaluateJavascript("if(player && typeof player.seekTo === 'function'){ player.seekTo(player.getCurrentTime() + " + seconds + ", true); }", null);
             });
         }
 
@@ -199,19 +281,61 @@ public class MainActivity extends AppCompatActivity {
                     downloadFile(clientUrl, clientJarFile, "Descargando cliente...", 20, 30);
 
                     File libsDir = new File(baseDir, "libraries");
+                    File nativesDir = new File(baseDir, "natives/" + versionId);
                     libsDir.mkdirs();
+                    nativesDir.mkdirs();
+
                     JSONArray libraries = manifestJson.getJSONArray("libraries");
                     for (int i = 0; i < libraries.length(); i++) {
                         if (i % 5 == 0) { runJs("updateDownloadProgress(" + (50 + (int)((i * 50.0) / libraries.length())) + ", 'Descargando librerías...')"); }
                         JSONObject lib = libraries.getJSONObject(i);
-                        if (lib.has("downloads")) {
-                            JSONObject downloads = lib.getJSONObject("downloads");
-                            if (!downloads.has("artifact")) continue;
+
+                        boolean allowed = true;
+                        if (lib.has("rules")) {
+                            allowed = false;
+                            JSONArray rules = lib.getJSONArray("rules");
+                            for (int j = 0; j < rules.length(); j++) {
+                                JSONObject rule = rules.getJSONObject(j);
+                                String action = rule.optString("action", "allow");
+                                if (!rule.has("os")) {
+                                    if (action.equals("allow")) allowed = true;
+                                    else if (action.equals("disallow")) allowed = false;
+                                } else {
+                                    String osName = rule.getJSONObject("os").optString("name", "");
+                                    if (osName.equals("linux") || osName.equals("osx") || osName.equals("windows")) {
+                                        // En Android tratamos las reglas de Linux/Genéricas como permitidas si action=allow
+                                        if (osName.equals("linux") && action.equals("allow")) allowed = true;
+                                        if (osName.equals("windows") && action.equals("allow")) allowed = false;
+                                    }
+                                }
+                            }
+                        }
+                        if (!allowed) continue;
+
+                        JSONObject downloads = lib.optJSONObject("downloads");
+                        if (downloads == null) continue;
+
+                        if (downloads.has("artifact")) {
                             JSONObject artifact = downloads.getJSONObject("artifact");
                             String libPath = artifact.getString("path");
                             String libUrl = artifact.getString("url");
                             File libFile = new File(libsDir, libPath);
-                            downloadFile(libUrl, libFile, "Descargando librerías...", 0, 0); 
+                            if (!libFile.exists()) {
+                                downloadFile(libUrl, libFile, "Descargando librerías...", 0, 0);
+                            }
+                        }
+
+                        if (lib.has("natives") && lib.getJSONObject("natives").has("linux")) {
+                            String classifier = lib.getJSONObject("natives").getString("linux");
+                            if (downloads.has("classifiers") && downloads.getJSONObject("classifiers").has(classifier)) {
+                                JSONObject nativeArtifact = downloads.getJSONObject("classifiers").getJSONObject(classifier);
+                                String nativeUrl = nativeArtifact.getString("url");
+                                File nativeJar = new File(libsDir, nativeArtifact.getString("path"));
+                                if (!nativeJar.exists()) {
+                                    downloadFile(nativeUrl, nativeJar, "Descargando nativos...", 0, 0);
+                                }
+                                extractZip(nativeJar, nativesDir);
+                            }
                         }
                     }
                     runJs("updateDownloadProgress(100, '¡Instalación completada!')");
@@ -220,6 +344,64 @@ public class MainActivity extends AppCompatActivity {
                     runJs("updateDownloadProgress(-1, 'Error: " + e.getMessage().replace("'", "") + "')");
                 }
             }).start();
+        }
+
+        @JavascriptInterface
+        public void deleteMinecraftVersion(final String versionId) {
+            new Thread(() -> {
+                try {
+                    File baseDir = new File(MainActivity.this.getExternalFilesDir(null), "GLauncher");
+                    File versionDir = new File(baseDir, "versions/" + versionId);
+                    if (versionDir.exists()) {
+                        deleteDirectory(versionDir);
+                        runOnUiThread(() -> runJs("showNotification('Versión " + versionId + " borrada correctamente', 'success')"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> runJs("showNotification('Error al borrar la versión: " + e.getMessage().replace("'", "") + "', 'error')"));
+                }
+            }).start();
+        }
+
+        private void deleteDirectory(File fileOrDirectory) {
+            if (fileOrDirectory.isDirectory()) {
+                File[] children = fileOrDirectory.listFiles();
+                if (children != null) {
+                    for (File child : children) {
+                        deleteDirectory(child);
+                    }
+                }
+            }
+            fileOrDirectory.delete();
+        }
+        
+        private void extractZip(File zipFile, File destDir) throws IOException {
+            try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(zipFile)))) {
+                ZipEntry zipEntry;
+                while ((zipEntry = zis.getNextEntry()) != null) {
+                    if (zipEntry.getName().startsWith("META-INF/")) {
+                        continue;
+                    }
+                    File newFile = new File(destDir, zipEntry.getName());
+                    if (zipEntry.isDirectory()) {
+                        if (!newFile.isDirectory() && !newFile.mkdirs()) {
+                            throw new IOException("Failed to create directory " + newFile);
+                        }
+                    } else {
+                        File parent = newFile.getParentFile();
+                        if (!parent.isDirectory() && !parent.mkdirs()) {
+                            throw new IOException("Failed to create directory " + parent);
+                        }
+                        try (FileOutputStream fos = new FileOutputStream(newFile)) {
+                            byte[] buffer = new byte[8192];
+                            int len;
+                            while ((len = zis.read(buffer)) > 0) {
+                                fos.write(buffer, 0, len);
+                            }
+                        }
+                    }
+                }
+            }
         }
         
         private void installJre(String jreUrl, String jreDirName) throws IOException {
@@ -251,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.connect();
                 destFile.getParentFile().mkdirs();
                 int fileLength = urlConnection.getContentLength();
-                InputStream input = new BufferedInputStream(urlConnection.getInputStream());
+                InputStream input = new BufferedInputStream(url.openStream());
                 OutputStream output = new FileOutputStream(destFile);
                 byte[] data = new byte[8192];
                 long total = 0;
@@ -302,41 +484,50 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        private String resolveJreDirName(String versionId) {
+            String normalizedVersion = versionId != null ? versionId.toLowerCase() : "";
+            if (normalizedVersion.startsWith("1.20.5") || normalizedVersion.startsWith("1.21") || normalizedVersion.startsWith("1.22")) {
+                return "jre21";
+            }
+            if (normalizedVersion.startsWith("1.17") || normalizedVersion.startsWith("1.18") || normalizedVersion.startsWith("1.19") || normalizedVersion.startsWith("1.20")) {
+                return "jre17";
+            }
+            return "jre8";
+        }
+
         @JavascriptInterface
-        public void launchMinecraftVersion(final String versionId) {
-            new Thread(() -> {
+        public void launchMinecraftVersion(final String versionId, final int ramMb) {
+            Log.d("GLauncher_ManoDura", "launchMinecraftVersion llamado para " + versionId + " con " + ramMb + "MB RAM");
+
+            if (versionId == null || versionId.trim().isEmpty()) {
+                runOnUiThread(() -> runJs("showNotification('Error: ID de versión inválido', 'error')"));
+                return;
+            }
+
+            // Lanzar GameActivity inmediatamente — ella gestionará el JRE internamente
+            runOnUiThread(() -> {
                 try {
-                    boolean useJre17 = false;
-                    String[] modernVersions = {"1.17", "1.18", "1.19", "1.20", "1.21", "1.22"};
-                    for (String modernVersion : modernVersions) {
-                        if (versionId.startsWith(modernVersion)) {
-                            useJre17 = true;
-                            break;
-                        }
-                    }
-
-                    String jreUrl = useJre17 ? JRE_17_URL : JRE_8_URL;
-                    String jreDirName = useJre17 ? "jre17" : "jre8";
-                    
-                    installJre(jreUrl, jreDirName);
-
                     SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                     String virtualControlsConfig = prefs.getString("virtual_controls_config", "[]");
 
-                    runOnUiThread(() -> runJs("showNotification('Iniciando GameActivity para " + versionId + "...', 'success')"));
+                    String jreDirName = resolveJreDirName(versionId);
                     File jreHome = new File(new File(MainActivity.this.getExternalFilesDir(null), "GLauncher"), "jres/" + jreDirName);
 
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     intent.putExtra("versionId", versionId);
                     intent.putExtra("jrePath", jreHome.getAbsolutePath());
+                    intent.putExtra("jreDirName", jreDirName);
+                    intent.putExtra("useJre17", "jre17".equals(jreDirName));
                     intent.putExtra("virtualControlsConfig", virtualControlsConfig);
-                    startActivity(intent);
+                    intent.putExtra("ramMb", ramMb);
 
+                    startActivity(intent);
+                    Log.i("GLauncher_ManoDura", "GameActivity lanzada para versión: " + versionId);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    runOnUiThread(() -> runJs("updateDownloadProgress(-1, 'Error al preparar Java: " + e.getMessage().replace("'", "") + "')"));
+                    Log.e("GLauncher_ManoDura", "Error al lanzar GameActivity", e);
+                    runJs("showNotification('Error al lanzar el juego: " + e.getMessage().replace("'", "") + "', 'error')");
                 }
-            }).start();
+            });
         }
     }
 

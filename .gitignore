@@ -2,3 +2,4 @@ node_modules/
 package.json
 package-lock.json
 app/src/main/assets/runtimes/
+android-openjdk-build-multiarch/

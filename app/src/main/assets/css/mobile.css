@@ -24,16 +24,16 @@
     --danger: #e74c3c;
     --warning: #f39c12;
     --success: #2ecc71;
-    --sidebar-width: 68px;
-    --topbar-height: 0px;
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
-    --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-    --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
-    --shadow-lg: 0 8px 40px rgba(0,0,0,0.6);
-    --shadow-glow: 0 0 25px var(--primary-glow);
+    --sidebar-width: 4.85rem; /* 68px */
+    --topbar-height: 0rem; /* 0px */
+    --radius-sm: 0.57rem; /* 8px */
+    --radius-md: 1rem; /* 14px */
+    --radius-lg: 1.42rem; /* 20px */
+    --radius-xl: 2rem; /* 28px */
+    --shadow-sm: 0 0.14rem 0.57rem rgba(0,0,0,0.3);
+    --shadow-md: 0 0.28rem 1.42rem rgba(0,0,0,0.4);
+    --shadow-lg: 0 0.57rem 2.85rem rgba(0,0,0,0.6);
+    --shadow-glow: 0 0 1.78rem var(--primary-glow);
     --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -433,6 +433,18 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     color: white;
 }
 
+.top-bar-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--glass-border-hover);
+    color: var(--text);
+}
+
+.top-bar-btn.danger {
+    color: var(--danger);
+    border-color: rgba(231, 76, 60, 0.3);
+    background: rgba(231, 76, 60, 0.1);
+}
+
 .notification-badge {
     position: absolute;
     top: -3px;
@@ -540,7 +552,6 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
 .home-layout {
     display: flex;
     gap: 16px;
-    height: 100%;
 }
 
 .home-main {
@@ -551,8 +562,8 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
 }
 
 .home-sidebar-right {
-    width: 220px;
-    min-width: 220px;
+    width: 15.7rem; /* 220px / 14px */
+    min-width: 15.7rem;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -618,14 +629,14 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
 .hero-play-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 28px;
+    gap: 6px;
+    padding: 9px 24px;
     background: var(--primary-gradient);
     border: none;
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-md);
     color: white;
     font-family: 'MinecraftTen', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     cursor: pointer;
     box-shadow: var(--shadow-glow);
     transition: all var(--transition-smooth);
@@ -634,8 +645,9 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
 }
 .hero-actions {
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    margin-top: 12px;
+    margin-top: 14px;
     align-items: stretch;
 }
 
@@ -651,10 +663,10 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 10px 16px;
+    padding: 9px 16px;
     background: rgba(0,0,0,0.4);
     border: 1px solid var(--glass-border);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-md);
     color: var(--text-dim);
     font-family: 'Minecraftia', sans-serif;
     font-size: 0.6rem;
@@ -707,12 +719,25 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
 
 /* Quick Stats Row */
 .quick-stats {
-    display: flex;
+    display: flex; /* Cambiado a flex para el carrusel */
     gap: 10px;
+    overflow-x: auto; /* Habilita el scroll horizontal */
+    padding-bottom: 6px; /* Espacio para la barra de scroll */
+    scroll-snap-type: x mandatory; /* Efecto de "snap" al deslizar */
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+}
+
+.quick-stats::-webkit-scrollbar {
+    height: 3px; /* Barra de scroll delgada */
+}
+
+.quick-stats::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
 }
 
 .stat-card {
-    flex: 1;
+    flex: 0 0 120px; /* Ancho fijo para cada tarjeta, no se encogen ni crecen */
     background: var(--surface);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
@@ -720,6 +745,7 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     text-align: center;
     transition: all var(--transition-smooth);
     backdrop-filter: blur(8px);
+    scroll-snap-align: start; /* Alinea las tarjetas al inicio del scroll */
 }
 
 .stat-card:active {
@@ -943,6 +969,114 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     font-family: 'Minecraftia', sans-serif;
     font-size: 0.5rem;
     color: var(--text-muted);
+}
+
+.tutorial-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.tutorial-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.tutorial-spotlight {
+    position: absolute;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75);
+    transition: all var(--transition-smooth);
+    pointer-events: none;
+}
+
+.tutorial-tooltip {
+    position: absolute;
+    width: 280px;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+    z-index: 9999;
+    transition: all var(--transition-smooth);
+    transform-origin: top left;
+}
+
+.tutorial-tooltip-content {
+    padding: 16px;
+}
+
+.tutorial-title {
+    font-family: 'MinecraftTen', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.tutorial-desc {
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+}
+
+.tutorial-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid var(--glass-border);
+}
+
+.tutorial-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.6rem;
+    gap: 6px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.tutorial-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.tutorial-btn.success {
+    background: var(--minecraft-green);
+    border-color: var(--minecraft-green);
+    color: white;
+}
+
+.tutorial-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.tutorial-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all var(--transition-fast);
+}
+
+.tutorial-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
 }
 
 .ql-item .ql-play {
@@ -1323,6 +1457,7 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     display: flex;
     gap: 8px;
     align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 14px;
     padding: 10px 14px;
     background: rgba(0, 0, 0, 0.3);
@@ -1331,7 +1466,7 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
 }
 
 .mods-search-bar input {
-    flex: 1;
+    width: 100%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm);
@@ -1340,6 +1475,7 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     font-family: 'Minecraftia', sans-serif;
     font-size: 0.65rem;
     outline: none;
+    flex: 1;
     transition: border-color var(--transition-fast);
 }
 
@@ -1359,6 +1495,89 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     outline: none;
     cursor: pointer;
     -webkit-appearance: none;
+}
+
+.installed-asset-item .version-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.installed-asset-item .top-bar-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+}
+
+.installed-asset-item .toggle-asset-btn .fa-toggle-on {
+    color: var(--minecraft-green);
+}
+
+.installed-asset-item .toggle-asset-btn .fa-toggle-off {
+    color: var(--text-muted);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   VIEW: INSTALLED ASSETS
+   ═══════════════════════════════════════════════════════════════ */
+
+.installed-assets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.installed-asset-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.installed-asset-item.disabled {
+    opacity: 0.5;
+    background: rgba(0,0,0,0.2);
+}
+
+.installed-asset-item.disabled .ia-name {
+    text-decoration: line-through;
+}
+
+.ia-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.ia-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ia-name {
+    font-family: 'MinecraftTen', sans-serif;
+    font-size: 0.7rem;
+    color: var(--text);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ia-meta {
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.5rem;
+    color: var(--text-muted);
 }
 
 /* Mods Grid */
@@ -2173,6 +2392,16 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     margin-right: auto;
 }
 
+/* Layout principal de GMusic */
+.gmusic-main-layout {
+    display: flex; gap: 16px; align-items: flex-start; height: calc(100% - 70px);
+}
+
+.gmusic-player-column {
+    width: 240px; /* Reducido de 280px */
+    flex-shrink: 0;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    GMUSIC PLAYLIST CHIPS
    ═══════════════════════════════════════════════════════════════ */
@@ -2202,6 +2431,52 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     color: white;
     border-color: var(--primary);
     box-shadow: var(--shadow-glow);
+}
+
+/* Botones Modernos (Estilo Global) */
+.btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid var(--glass-border);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Minecraftia', sans-serif;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.btn.btn-primary {
+    background: var(--primary-gradient);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Optimización: Desactivar animaciones */
+html.no-animations *,
+html.no-animations *::before,
+html.no-animations *::after {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Forzar visibilidad de elementos que dependen de animaciones para mostrarse */
+html.no-animations .view,
+html.no-animations .version-item,
+html.no-animations .mod-card,
+html.no-animations .notif-drawer-item,
+html.no-animations .modal-panel {
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .gmusic-playlist-chip:active {
@@ -2372,6 +2647,251 @@ h1, h2, h3, h4, h5, h6, .top-bar-title, .version-name, .mod-title, .hero-play-bt
     font-family: 'Minecraftia', sans-serif;
     font-size: 0.48rem;
     color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCOUNT SIDEBAR WIDGET
+   ═══════════════════════════════════════════════════════════════ */
+
+.account-sidebar-widget {
+    margin-top: 16px;
+}
+
+.account-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.account-sidebar-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    transition: all var(--transition-fast);
+}
+
+.account-sidebar-btn:hover:not(:disabled) {
+    background: rgba(155, 89, 182, 0.15);
+    color: var(--primary);
+}
+
+.account-sidebar-btn.active {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCOUNT SIDEBAR WIDGET
+   ═══════════════════════════════════════════════════════════════ */
+
+.account-sidebar-widget {
+    margin-top: 16px;
+}
+
+.account-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.account-sidebar-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    transition: all var(--transition-fast);
+}
+
+.account-sidebar-btn:hover:not(:disabled) {
+    background: rgba(155, 89, 182, 0.15);
+    color: var(--primary);
+}
+
+.account-sidebar-btn.active {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCOUNT TABS & GCHAT
+   ═══════════════════════════════════════════════════════════════ */
+
+.account-tab-content {
+    display: none;
+    animation: viewEnter 0.4s ease forwards;
+}
+
+.account-tab-content.active {
+    display: block;
+}
+
+/* Estilos específicos para la pestaña del chat para que el scroll funcione */
+.account-tab-content.is-chat-tab.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.gchat-container {
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.gchat-messages {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    max-height: 25rem; /* Límite para evitar que el chat se alargue indefinidamente */
+}
+
+.gchat-input-area {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid var(--glass-border);
+}
+
+#gchat-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.65rem;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+#gchat-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.gchat-message {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    max-width: 85%;
+    align-self: flex-start;
+    background: rgba(255,255,255,0.02);
+}
+
+.gchat-msg-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.gchat-username {
+    font-family: 'MinecraftTen', sans-serif;
+    font-size: 0.7rem;
+    color: var(--primary);
+}
+
+.gchat-timestamp {
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.5rem;
+    color: var(--text-muted);
+}
+
+.gchat-msg-content {
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.65rem;
+    color: var(--text);
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.gchat-gif {
+    max-width: 200px;
+    max-height: 150px;
+    border-radius: var(--radius-sm);
+    margin-top: 4px;
+    border: 1px solid var(--glass-border);
+}
+
+.giphy-result-item {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 2px solid transparent;
+}
+.giphy-result-item:hover { border-color: var(--primary); transform: scale(1.05); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MEDIA QUERIES PARA TABLETS (Pantallas > 1024px)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+
+    /* 1. Aumentar el tamaño base para una mejor legibilidad en pantallas grandes */
+    html {
+        font-size: 16px; /* Aumenta el tamaño base de 14px a 16px */
+    }
+
+    /* 2. Ajustar layouts para aprovechar el espacio extra */
+    .home-sidebar-right {
+        width: 17.5rem; /* 280px / 16px */
+        min-width: 17.5rem;
+    }
+
+    .versions-sidebar {
+        width: 260px; /* Panel de detalles de versión más ancho */
+        min-width: 260px;
+    }
+
+    /* 3. Mejorar las cuadrículas para mostrar más contenido */
+    .mods-grid {
+        /* Permite que las tarjetas de mods sean un poco más grandes */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .account-info-grid {
+        /* Pasa de 2 a 3 columnas en la vista de cuenta */
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .settings-layout {
+        /* Organiza los ajustes en 2 columnas */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
 }
 
 /* badge dinámico — usa el estilo definido en top-bar-btn section */

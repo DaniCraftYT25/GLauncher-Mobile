@@ -24,6 +24,14 @@
         modrinth: 'https://api.modrinth.com/v2/search'
     };
 
+    // ─── Service Keys ───
+    const SUPABASE_URL = 'https://ouqpeojilykkrmatijxp.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91cXBlb2ppbHlra3JtYXRpanhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk5OTc3NjgsImV4cCI6MjA4NTU3Mzc2OH0.cI5AV0N-F1B2tqvBUKgOz0T2XCF3i56K23spLb3sHHY';
+    const GIPHY_API_KEY = '1At7olUkhbz0QZOZCPdbbpYngyLOe3CS';
+
+    // FIX: Usar el objeto global 'supabase' para crear el cliente y guardarlo en una nueva variable.
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     // ─── App State ───
     const state = {
         currentView: 'home',
@@ -40,6 +48,8 @@
         searchQuery: '',
         currentPage: 0,
         notifications: [],
+        installedAssets: [], // Para mods, texturas, etc.
+        chatMessages: [],
         user: {
             name: 'Jugador',
             uuid: '00000000-0000-0000-0000-000000000000',
@@ -89,12 +99,11 @@
                     ], 
                     mouseMode: true 
                 },
-                { controls: [], mouseMode: false },
-                { controls: [], mouseMode: false }
+                { controls: [], mouseMode: true },
+                { controls: [], mouseMode: true }
             ],
             activePreset: 0,
             selectedId: null,
-            mouseMode: false
         },
         settings: {
             ram: 2048,
@@ -102,7 +111,11 @@
             animations: true,
             closeOnLaunch: false,
             showSnapshots: false,
-            jvmArgs: '-XX:+UseG1GC'
+            jvmArgs: '-XX:+UseG1GC',
+            uiZoom: 100,
+            backgroundUri: 'images/ifondo.png',
+            backgroundBlur: 1,
+            backgroundSaturate: 120
         }
     };
 
@@ -115,25 +128,44 @@
     // ─── Initialization ───
     document.addEventListener('DOMContentLoaded', () => {
         initNavigation();
+        loadUserProfile();
+        loadSettings();
+        loadInstalledVersions(); // ← Cargar versiones instaladas desde localStorage
+        applyBackgroundSettings();
         initParticles();
-        initSettings();
-        initVersionTabs();
-        initSearchFilters();
-        initPlayButton();
-        initAccountButtons();
         initNotifDrawer();
         initVirtualControls();
-        initHeroVersionSelector();
+        initTutorial();
         initInGameMenu();
-        loadVersions('vanilla');
-        loadMods();
-        showNotification('¡Bienvenido a GLauncher!', 'success');
+        initGMusicPlayerControls();
+        initPersistentChat();
+        loadAllVersionCounts().then(() => {
+            switchView('home');
+            showNotification('¡Bienvenido a GLauncher!', 'success');
+        });
     });
+
+    function saveInstalledVersions() {
+        localStorage.setItem('glauncher_installed_versions', JSON.stringify(state.installedVersions));
+    }
+
+    function loadInstalledVersions() {
+        try {
+            const saved = localStorage.getItem('glauncher_installed_versions');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed)) {
+                    state.installedVersions = parsed;
+                }
+            }
+        } catch(e) {
+            console.error('Error cargando versiones instaladas:', e);
+        }
+    }
 
     // ═══════════════════════════════════════════════════════════════
     // NAVIGATION SYSTEM
     // ═══════════════════════════════════════════════════════════════
-
     function initNavigation() {
         const navItems = $$('.nav-item');
         const viewTitles = {
@@ -208,20 +240,64 @@
     }
 
     function switchView(viewId) {
-        // Hide all views
-        $$('.view').forEach(v => {
-            v.classList.remove('active');
-        });
-
-        // Show target view
+        const contentArea = $('#content-area');
+        const allViews = $$('.view');
         const targetView = $(`#view-${viewId}`);
+
+        // Ocultar todas las vistas
+        allViews.forEach(view => view.classList.remove('active'));
+
         if (targetView) {
+            // Mostrar la vista correcta
             targetView.classList.add('active');
-            // Reset scroll
-            $('#content-area').scrollTop = 0;
+        } else {
+            console.error(`Error al cambiar de vista: No se encontró el elemento #view-${viewId}`);
+            contentArea.innerHTML = `<div class="empty-state"><h3>Error al cargar la vista</h3><p>No se encontró la vista '${viewId}'.</p></div>`;
+            return;
+        }
+
+        contentArea.scrollTop = 0;
+
+        // Ejecutar los inicializadores específicos de la vista
+        switch (viewId) {
+            case 'home':
+                initHeroVersionSelector();
+                initPlayButton();
+                updateStats();
+                break;
+            case 'versions':
+                initVersionTabs();
+                initSearchFilters();
+                loadVersions(state.currentLoader);
+                break;
+            case 'mods':
+                initInstalledAssets();
+                loadMods();
+                break;
+            case 'gmusic':
+                initGMusic();
+                break;
+            case 'account':
+                initAccountButtons();
+                updateUserUI();
+                initAccountTabs();
+                renderGChat(); // Solo renderizar, no reiniciar la conexión
+                break;
+            case 'settings':
+                initSettings();
+                break;
         }
     }
 
+    async function loadAllVersionCounts() {
+        // Carga en paralelo los datos de todas las versiones para tener las estadísticas listas
+        await Promise.all([
+            loadVanillaVersions().catch(e => console.error("Failed to load vanilla versions:", e)),
+            loadFabricVersions().catch(e => console.error("Failed to load fabric versions:", e)),
+            loadForgeVersions().catch(e => console.error("Failed to load forge versions:", e)),
+            loadNeoForgeVersions().catch(e => console.error("Failed to load neoforge versions:", e))
+        ]);
+    }
     // ═══════════════════════════════════════════════════════════════
     // VERSION MANAGEMENT
     // ═══════════════════════════════════════════════════════════════
@@ -358,9 +434,9 @@
                 if (!grouped[gameVersion]) {
                     grouped[gameVersion] = { id: gameVersion, type: 'release', loader: 'forge', releaseTime: v.releaseTime, loaderVersions: {} };
                 }
-                // Guardamos el objeto completo de la versión del loader, incluyendo su URL al manifiesto
-                if (v.version && v.url) {
-                    grouped[gameVersion].loaderVersions[v.version] = v.url;
+                // FIX: Guardar el objeto de versión completo, no solo la URL.
+                if (v.version) {
+                    grouped[gameVersion].loaderVersions[v.version] = v;
                 }
                 if (new Date(v.releaseTime) > new Date(grouped[gameVersion].releaseTime)) {
                     grouped[gameVersion].releaseTime = v.releaseTime;
@@ -383,9 +459,9 @@
                 if (!grouped[gameVersion]) {
                     grouped[gameVersion] = { id: gameVersion, type: 'release', loader: 'neoforge', releaseTime: v.releaseTime, loaderVersions: {} };
                 }
-                // Guardamos el objeto completo
-                if (v.version && v.url) {
-                    grouped[gameVersion].loaderVersions[v.version] = v.url;
+                // FIX: Guardar el objeto de versión completo, no solo la URL.
+                if (v.version) {
+                    grouped[gameVersion].loaderVersions[v.version] = v;
                 }
                 if (new Date(v.releaseTime) > new Date(grouped[gameVersion].releaseTime)) {
                     grouped[gameVersion].releaseTime = v.releaseTime;
@@ -423,10 +499,6 @@
         // Update count
         const countEl = $('#version-count-num');
         if (countEl) countEl.textContent = versions.length;
-
-        // Update home stat
-        const statVersions = $('#stat-versions');
-        if (statVersions) statVersions.textContent = state.versions.vanilla.length || '—';
 
         if (versions.length === 0) {
             list.innerHTML = `
@@ -516,9 +588,6 @@
                         <button class="version-action-btn download-btn" title="Descargar">
                             <i class="fas fa-download"></i>
                         </button>
-                        <button class="version-action-btn play-btn" title="Jugar">
-                            <i class="fas fa-play"></i>
-                        </button>
                     </div>
                 </div>
             `;
@@ -532,14 +601,6 @@
                 const version = versions.find(v => v.id === versionId);
                 if (version) selectVersion(version);
             });
-
-            const playBtn = item.querySelector('.play-btn');
-            if (playBtn) {
-                playBtn.addEventListener('click', () => {
-                    const versionId = item.dataset.versionId;
-                    launchVersion(versionId);
-                });
-            }
 
             const downloadBtn = item.querySelector('.download-btn');
             if (downloadBtn) {
@@ -589,11 +650,21 @@
         $('#vd-meta').style.display = 'flex';
         $('#vd-install-btn').style.display = 'block';
 
-        // Update info
-        $('#info-selversion').textContent = version.id;
+        // Cambiar el botón si la versión ya está instalada
+        const isInstalled = state.installedVersions.some(v => (v.id || v) === version.id);
+        const installBtn = $('#vd-install-btn');
+        installBtn.innerHTML = isInstalled 
+            ? '<i class="fas fa-trash"></i> BORRAR' 
+            : '<i class="fas fa-download"></i> INSTALAR';
+        installBtn.classList.toggle('danger', isInstalled);
+
+        const newInstallBtn = installBtn.cloneNode(true);
+        installBtn.parentNode.replaceChild(newInstallBtn, installBtn);
+        newInstallBtn.addEventListener('click', () => handleInstallClick(version));
     }
 
     // Esta función será llamada desde el código nativo de Android
+    // para actualizar el progreso de la descarga.
     window.updateDownloadProgress = function(percentage, message) {
         const progressFill = $('#vd-progress-fill');
         const progressText = $('#vd-progress-text');
@@ -607,11 +678,13 @@
                 $('#vd-download-progress').style.display = 'none';
                 if (installBtn) {
                     installBtn.disabled = false;
-                    installBtn.innerHTML = '<i class="fas fa-check"></i> INSTALADA';
-                    installBtn.style.background = 'var(--minecraft-green)';
+                    installBtn.innerHTML = '<i class="fas fa-trash"></i> BORRAR';
+                    installBtn.classList.add('danger');
                 }
-                if (state.selectedVersion && !state.installedVersions.includes(state.selectedVersion.id)) {
+                const isAlreadyInstalled = state.installedVersions.some(v => (v.id || v) === state.selectedVersion.id);
+                if (state.selectedVersion && !isAlreadyInstalled) {
                     state.installedVersions.push(state.selectedVersion.id);
+                    saveInstalledVersions(); // ← Persistir en localStorage
                     updateInstalledList();
                     updateHeroVersionSelector();
                     updateStats();
@@ -621,6 +694,24 @@
         }
     }
 
+    // Esta función será llamada desde el código nativo de Android
+    // después de que una versión haya sido borrada.
+    window.onVersionDeleted = function(versionId) {
+        state.installedVersions = state.installedVersions.filter(v => (v.id || v) !== versionId);
+        saveInstalledVersions(); // ← Persistir en localStorage
+        updateInstalledList();
+        updateHeroVersionSelector();
+        updateStats();
+        showNotification(`Versión ${versionId} eliminada`, 'success');
+    }
+
+    // FIX: Actualizar el botón de detalles cuando se borra una versión
+    if (state.selectedVersion && (state.selectedVersion.id || state.selectedVersion) === versionId) {
+        const installBtn = $('#vd-install-btn');
+        installBtn.innerHTML = '<i class="fas fa-download"></i> INSTALAR';
+        installBtn.classList.remove('danger');
+    }
+
     function resetVersionDetail() {
         $('#vd-name').textContent = 'Selecciona una versión';
         $('#vd-type').textContent = 'Toca una versión de la lista para ver sus detalles';
@@ -628,10 +719,57 @@
         $('#vd-install-btn').style.display = 'none';
         $('#vd-download-progress').style.display = 'none';
         const installBtn = $('#vd-install-btn');
+        installBtn.classList.remove('danger');
         if (installBtn) installBtn.disabled = false;
     }
 
+    function handleInstallClick(version) {
+        if (!version) return;
+        // Asegurarse de que la versión esté seleccionada para que la UI esté sincronizada
+        selectVersion(version);
+
+        const isInstalled = state.installedVersions.some(v => (v.id || v) === version.id);
+
+        if (isInstalled) {
+            openDeleteConfirmModal(version);
+        } else {
+            if (version.loader === 'forge' || version.loader === 'neoforge') {
+                openLoaderVersionModal(version);
+            } else {
+                installVersion(version);
+            }
+        }
+    }
+
+    function openDeleteConfirmModal(version) {
+        const modal = $('#delete-confirm-modal');
+        const versionNameEl = $('#delete-modal-version-name');
+        const cancelBtn = $('#delete-modal-cancel-btn');
+        const confirmBtn = $('#delete-modal-confirm-btn');
+
+        versionNameEl.textContent = version.id;
+        modal.classList.add('active');
+
+        const newConfirmBtn = confirmBtn.cloneNode(true);
+        confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+
+        newConfirmBtn.addEventListener('click', () => {
+            if (window.GLauncher && window.GLauncher.deleteMinecraftVersion) {
+                window.GLauncher.deleteMinecraftVersion(version.id);
+            }
+            modal.classList.remove('active');
+        });
+
+        cancelBtn.onclick = () => {
+            modal.classList.remove('active');
+        };
+    }
+
+
     function launchVersion(versionId) {
+        // FIX: Asegurarse de que versionId sea siempre una cadena, no un objeto.
+        const idToLaunch = (typeof versionId === 'object' && versionId !== null) ? versionId.id : versionId;
+
         showNotification(`Lanzando Minecraft ${versionId}...`, 'success');
         
         // Vibration feedback (Android)
@@ -640,8 +778,8 @@
         }
 
         // Llamada al puente nativo de Android
-        if (window.AndroidAudioBridge && window.AndroidAudioBridge.launchMinecraftVersion) {
-            window.AndroidAudioBridge.launchMinecraftVersion(versionId);
+        if (window.GLauncher && window.GLauncher.launchMinecraftVersion) {
+            window.GLauncher.launchMinecraftVersion(idToLaunch, state.settings.ram);
         }
     }
 
@@ -653,8 +791,8 @@
         if (progressBox) progressBox.style.display = 'block';
         
         // Llamada al puente nativo de Android
-        if (window.AndroidAudioBridge && window.AndroidAudioBridge.installMinecraftVersion) {
-            window.AndroidAudioBridge.installMinecraftVersion(JSON.stringify(version));
+        if (window.GLauncher && window.GLauncher.installMinecraftVersion) {
+            window.GLauncher.installMinecraftVersion(JSON.stringify(version));
         }
     }
 
@@ -671,8 +809,14 @@
         title.textContent = `Minecraft ${version.id}`;
         subtitle.textContent = `Selecciona una versión de ${loaderName}`;
 
-        // Populate select with loader versions
-        select.innerHTML = Object.keys(version.loaderVersions)
+        // FIX: Ordenar las versiones del loader de forma descendente (más nuevo primero)
+        // La API de Prism no garantiza el orden, así que lo forzamos aquí.
+        const sortedLoaderVersions = Object.keys(version.loaderVersions || {}).sort((a, b) => {
+            // Intentar una comparación semántica si es posible, si no, alfabética inversa.
+            return b.localeCompare(a, undefined, { numeric: true, sensitivity: 'base' });
+        });
+
+        select.innerHTML = sortedLoaderVersions
             .map(loaderVer => `<option value="${loaderVer}">${loaderName} ${loaderVer}</option>`)
             .join('');
 
@@ -682,14 +826,14 @@
 
         newConfirmBtn.addEventListener('click', () => {
             const selectedLoaderVersion = select.value;
-            // Creamos un objeto de versión completo para enviar al nativo
-            const versionToInstall = {
-                id: `${version.id}-${loaderName.toLowerCase()}-${selectedLoaderVersion}`,
-                url: version.loaderVersions[selectedLoaderVersion], // ¡La URL del manifiesto correcto!
-                loader: version.loader
-            };
+            // FIX: El objeto de la versión del loader ya contiene todo lo necesario (id, url, etc.)
+            // Simplemente lo obtenemos y lo pasamos a la función de instalación.
+            const loaderVersionObject = version.loaderVersions[selectedLoaderVersion];
 
-            installVersion(versionToInstall);
+            if (loaderVersionObject && loaderVersionObject.url) {
+                installVersion(loaderVersionObject);
+            }
+
             modal.classList.remove('active');
         });
 
@@ -778,23 +922,34 @@
 
     function updateStats() {
         $('#stat-installed').textContent = state.installedVersions.length;
+        
+        // FIX: Sumar todas las versiones de todos los loaders para la estadística de "Disponibles"
+        const totalVersions = Object.values(state.versions).reduce((sum, arr) => sum + arr.length, 0);
+        const statVersions = $('#stat-versions');
+        if (statVersions) {
+            statVersions.textContent = totalVersions > 0 ? totalVersions : '—';
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════
     // MODS
     // ═══════════════════════════════════════════════════════════════
 
-    async function loadMods(query = '') {
+    let currentModQuery = '';
+    let currentModProjectType = 'mod';
+
+    async function loadMods() {
         const grid = $('#mods-grid');
         grid.innerHTML = `
             <div class="loading-spinner" style="grid-column:1/-1;">
                 <div class="spinner"></div>
-                <span>Buscando mods en Modrinth...</span>
+                <span>Buscando en Modrinth...</span>
             </div>
         `;
 
         try {
-            const url = `${API.modrinth}?query=${encodeURIComponent(query)}&limit=20&facets=[["project_type:mod"]]`;
+            const facets = `[["project_type:${currentModProjectType}"]]`;
+            const url = `${API.modrinth}?query=${encodeURIComponent(currentModQuery)}&limit=20&facets=${encodeURIComponent(facets)}`;
             const response = await fetch(url);
             const data = await response.json();
             const mods = data.hits || [];
@@ -803,7 +958,7 @@
                 grid.innerHTML = `
                     <div class="empty-state" style="grid-column:1/-1;">
                         <i class="fas fa-search"></i>
-                        <h3>Sin resultados</h3>
+                        <h3>Sin resultados para "${currentModProjectType}"</h3>
                         <p>No se encontraron mods en Modrinth.</p>
                     </div>
                 `;
@@ -820,7 +975,7 @@
                     <div class="mod-card" style="animation-delay: ${i * 40}ms">
                         <img src="${iconUrl}" alt="${mod.title}" style="width:56px;height:56px;border-radius:var(--radius-sm);object-fit:cover;border:1px solid var(--glass-border);" onerror="this.src='icons/version_vanilla.png'">
                         <span class="mod-title">${mod.title}</span>
-                        <span class="mod-author">por <span>${mod.author}</span></span>
+                        <span class="mod-author">por <span>${mod.author || 'Desconocido'}</span></span>
                         <span class="mod-downloads"><i class="fas fa-download"></i> ${downloads}</span>
                         <button class="mod-install-btn" data-id="${mod.project_id || mod.id || mod.slug}" data-title="${mod.title}" data-author="${mod.author}" data-icon="${iconUrl}">
                             <i class="fas fa-plus"></i> Instalar
@@ -935,15 +1090,19 @@
                             if (currentActiveModBtn) {
                                 currentActiveModBtn.innerHTML = '<i class="fas fa-check"></i> Instalado';
                                 currentActiveModBtn.style.background = 'var(--minecraft-green)';
-                                currentActiveModBtn.style.color = 'white';
-                                currentActiveModBtn.style.borderColor = 'var(--minecraft-green)';
+                                currentActiveModBtn.disabled = true;
                             }
 
-                            showNotification(`Mod guardado en /sdcard/GLauncher/mods/ (${selectedLoader} - ${selectedVer})`, 'success');
-
-                            const installedCount = document.querySelectorAll('.mod-install-btn[style*="minecraft-green"]').length;
-                            $('#stat-mods').textContent = installedCount;
-                            $('#info-activemods').textContent = installedCount;
+                            // Añadir a la lista de assets instalados
+                            const newAsset = {
+                                id: currentActiveModBtn.dataset.id,
+                                name: currentActiveModBtn.dataset.title,
+                                icon: currentActiveModBtn.dataset.icon,
+                                enabled: true
+                            };
+                            state.installedAssets.push(newAsset);
+                            saveInstalledAssets();
+                            showNotification(`"${newAsset.name}" instalado correctamente`, 'success');
                         }, 500);
                     }
                 }, 150);
@@ -959,28 +1118,120 @@
             searchInput.addEventListener('input', (e) => {
                 clearTimeout(modSearchDebounce);
                 modSearchDebounce = setTimeout(() => {
-                    loadMods(e.target.value.trim());
+                    currentModQuery = e.target.value.trim();
+                    loadMods();
                 }, 400);
             });
         }
+
+        // Filtros de tipo de proyecto
+        const projectTypeTabs = $$('#mod-search-view .loader-tab');
+        projectTypeTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                projectTypeTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentModProjectType = tab.dataset.projectType;
+                loadMods();
+            });
+        });
+
         initGMusic();
     });
+
+    function initInstalledAssets() {
+        const installedView = $('#view-installed-assets');
+        const searchView = $('#view-mods');
+        const grid = $('#mods-grid');
+        const searchBar = $('#mod-search-view');
+
+        $('#view-installed-btn')?.addEventListener('click', () => {
+            grid.style.display = 'none';
+            searchBar.style.display = 'none';
+            installedView.classList.add('active');
+            renderInstalledAssets();
+        });
+
+        $('#back-to-search-btn')?.addEventListener('click', () => {
+            installedView.classList.remove('active');
+            grid.style.display = 'grid';
+            searchBar.style.display = 'flex';
+        });
+
+        loadInstalledAssets();
+    }
+
+    function renderInstalledAssets() {
+        const list = $('#installed-assets-list');
+        if (state.installedAssets.length === 0) {
+            list.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>No hay nada instalado</h3><p>Usa la búsqueda para encontrar y descargar mods, texturas y más.</p></div>`;
+            return;
+        }
+
+        list.innerHTML = state.installedAssets.map(asset => `
+            <div class="installed-asset-item ${!asset.enabled ? 'disabled' : ''}" data-id="${asset.id}">
+                <img src="${asset.icon}" class="ia-icon" onerror="this.src='icons/version_vanilla.png'">
+                <div class="ia-info">
+                    <span class="ia-name">${asset.name}</span>
+                    <span class="ia-meta">ID: ${asset.id}</span>
+                </div>
+                <div class="version-actions">
+                    <button class="top-bar-btn toggle-asset-btn" title="${asset.enabled ? 'Desactivar' : 'Activar'}">
+                        <i class="fas ${asset.enabled ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
+                    </button>
+                    <button class="top-bar-btn info-asset-btn" title="Información"><i class="fas fa-info-circle"></i></button>
+                    <button class="top-bar-btn danger delete-asset-btn" title="Eliminar"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+
+        // Add event listeners
+        list.querySelectorAll('.toggle-asset-btn').forEach(btn => btn.addEventListener('click', toggleAsset));
+        list.querySelectorAll('.delete-asset-btn').forEach(btn => btn.addEventListener('click', deleteAsset));
+    }
+
+    function toggleAsset(e) {
+        const item = e.currentTarget.closest('.installed-asset-item');
+        const assetId = item.dataset.id;
+        const asset = state.installedAssets.find(a => a.id === assetId);
+        if (asset) {
+            asset.enabled = !asset.enabled;
+            saveInstalledAssets();
+            renderInstalledAssets(); // Re-render para actualizar la UI
+            showNotification(`'${asset.name}' ${asset.enabled ? 'activado' : 'desactivado'}`, 'info');
+        }
+    }
+
+    function deleteAsset(e) {
+        const item = e.currentTarget.closest('.installed-asset-item');
+        const assetId = item.dataset.id;
+        const asset = state.installedAssets.find(a => a.id === assetId);
+        if (asset) {
+            if (confirm(`¿Seguro que quieres eliminar '${asset.name}'?`)) {
+                state.installedAssets = state.installedAssets.filter(a => a.id !== assetId);
+                saveInstalledAssets();
+                renderInstalledAssets();
+                showNotification(`'${asset.name}' ha sido eliminado`, 'success');
+                playSound('sounds/sfx/recicle.mp3');
+            }
+        }
+    }
+
+    function saveInstalledAssets() { localStorage.setItem('glauncher_installed_assets', JSON.stringify(state.installedAssets)); }
+    function loadInstalledAssets() { state.installedAssets = JSON.parse(localStorage.getItem('glauncher_installed_assets') || '[]'); }
 
     // ═══════════════════════════════════════════════════════════════
     // GMUSIC (Local API + YouTube Player)
     // ═══════════════════════════════════════════════════════════════
 
-    // Detecta automáticamente la IP del servidor si está en la misma red
-    // Apuntamos a una API pública para que funcione en el APK directamente.
-    const GMUSIC_API = `https://glauncher-api.onrender.com/api/search`;
+    // Proxy de búsqueda de YouTube que funciona sin clave de API
+    const GMUSIC_API = `https://pipedapi.kavin.rocks/search`;
+    const GMUSIC_THUMBNAIL_API = `https://pipedapi.kavin.rocks`;
     let gmusicIsPlaying = false;
 
     function initGMusic() {
+        // Esta función ahora solo se encarga de la búsqueda y las playlists
         const searchBtn = $('#gmusic-search-btn');
         const searchInput = $('#gmusic-search-input');
-        const playBtn = $('#gmusic-btn-play');
-        const rewindBtn = $('#gmusic-btn-rewind');
-        const forwardBtn = $('#gmusic-btn-forward');
         const playlistChips = $$('.gmusic-playlist-chip');
 
         if (searchBtn && searchInput) {
@@ -1005,26 +1256,6 @@
                 performGMusicSearch(query);
             });
         });
-
-        // Evento Play / Pause
-        if (playBtn) {
-            playBtn.addEventListener('click', () => {
-                toggleGMusicPlay();
-            });
-        }
-
-        // Eventos Retroceder -15s / Adelantar +15s
-        if (rewindBtn) {
-            rewindBtn.addEventListener('click', () => {
-                seekGMusicPlayer(-15);
-            });
-        }
-
-        if (forwardBtn) {
-            forwardBtn.addEventListener('click', () => {
-                seekGMusicPlayer(15);
-            });
-        }
     }
 
     async function performGMusicSearch(query) {
@@ -1037,15 +1268,45 @@
         resultsContainer.innerHTML = `
             <div class="loading-spinner">
                 <div class="spinner"></div>
-                <span>Buscando en GMusic API...</span>
+                <span>Buscando en YouTube Music...</span>
             </div>
         `;
 
         try {
-            const response = await fetch(`${GMUSIC_API}?q=${encodeURIComponent(query)}`);
+            // YouTube InnerTube API — la misma que usa la app de YouTube, sin clave de API
+            const response = await fetch('https://www.youtube.com/youtubei/v1/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-YouTube-Client-Name': '1',
+                    'X-YouTube-Client-Version': '2.20231121.08.00'
+                },
+                body: JSON.stringify({
+                    context: {
+                        client: {
+                            clientName: 'WEB',
+                            clientVersion: '2.20231121.08.00',
+                            hl: 'es',
+                            gl: 'US'
+                        }
+                    },
+                    query: query,
+                    // Filtro para videos de música
+                    params: 'EgWKAQIIAWoKEAoQAxAEEAkQBQ%3D%3D'
+                })
+            });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
-            
-            const items = Array.isArray(data) ? data : (data.videos || data.results || data.items || []);
+
+            // Extraer videos del response de InnerTube
+            const contents = data?.contents?.twoColumnSearchResultsRenderer?.primaryContents
+                ?.sectionListRenderer?.contents?.[0]?.itemSectionRenderer?.contents || [];
+
+            const items = contents
+                .filter(c => c.videoRenderer)
+                .map(c => c.videoRenderer)
+                .slice(0, 20);
 
             if (items.length === 0) {
                 resultsContainer.innerHTML = `
@@ -1058,12 +1319,12 @@
                 return;
             }
 
-            resultsContainer.innerHTML = items.map((item, index) => {
-                const title = item.title || item.name || 'Sin título';
-                const channel = item.author?.name || item.channel || item.artist || 'Desconocido';
-                const videoId = item.videoId || item.id || (item.url ? item.url.split('v=')[1] : '');
-                const thumbnail = item.thumbnail || item.image || (videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : 'icons/version_vanilla.png');
-                const duration = item.timestamp || item.duration || '';
+            resultsContainer.innerHTML = items.map(item => {
+                const videoId = item.videoId || '';
+                const title = item.title?.runs?.[0]?.text || 'Sin título';
+                const channel = item.ownerText?.runs?.[0]?.text || item.shortBylineText?.runs?.[0]?.text || 'Desconocido';
+                const thumbnail = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+                const duration = item.lengthText?.simpleText || '';
 
                 return `
                     <div class="ql-item gmusic-result-item" data-video-id="${videoId}" data-title="${escapeHtml(title)}" data-channel="${escapeHtml(channel)}" style="margin-bottom: 8px; padding: 10px; cursor: pointer;">
@@ -1082,7 +1343,6 @@
                     const videoId = item.dataset.videoId;
                     const title = item.dataset.title;
                     const channel = item.dataset.channel;
-
                     if (videoId) {
                         playGMusicVideo(videoId, title, channel);
                     } else {
@@ -1092,33 +1352,62 @@
             });
 
         } catch (error) {
-            console.error('Error in GMusic search:', error);
+            console.error('Error in GMusic InnerTube search:', error);
+            // Fallback: Piped API
+            try {
+                const fbRes = await fetch(`https://pipedapi.kavin.rocks/search?q=${encodeURIComponent(query)}&filter=music_songs`);
+                if (fbRes.ok) {
+                    const fbData = await fbRes.json();
+                    const fbItems = (fbData.items || []).slice(0, 20);
+                    if (fbItems.length > 0) {
+                        resultsContainer.innerHTML = fbItems.map(item => {
+                            const videoId = item.url ? item.url.replace('/watch?v=', '') : '';
+                            const title = item.title || 'Sin título';
+                            const channel = item.uploaderName || 'Desconocido';
+                            const thumbnail = videoId ? `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg` : 'icons/version_vanilla.png';
+                            const duration = item.duration > 0 ? formatDuration(item.duration) : '';
+                            return `
+                                <div class="ql-item gmusic-result-item" data-video-id="${videoId}" data-title="${escapeHtml(title)}" data-channel="${escapeHtml(channel)}" style="margin-bottom: 8px; padding: 10px; cursor: pointer;">
+                                    <img src="${thumbnail}" alt="" style="width: 48px; height: 36px; border-radius: 6px; object-fit: cover; border: 1px solid var(--glass-border);" onerror="this.src='icons/version_vanilla.png'">
+                                    <div class="ql-info" style="flex: 1; overflow: hidden; margin-left: 10px;">
+                                        <span class="ql-name" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block;">${title}</span>
+                                        <span class="ql-version" style="color: var(--text-muted); display: block;">${channel}${duration ? ' • ' + duration : ''}</span>
+                                    </div>
+                                    <i class="fas fa-play text-primary" style="font-size: 0.9rem; margin-left: 8px;"></i>
+                                </div>
+                            `;
+                        }).join('');
+                        resultsContainer.querySelectorAll('.gmusic-result-item').forEach(item => {
+                            item.addEventListener('click', () => {
+                                if (item.dataset.videoId) playGMusicVideo(item.dataset.videoId, item.dataset.title, item.dataset.channel);
+                            });
+                        });
+                        return;
+                    }
+                }
+            } catch(e2) { /* silenciar fallback */ }
+
             resultsContainer.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-exclamation-triangle"></i>
                     <h3>Error de Conexión</h3>
-                    <p>No se pudo conectar al servidor de música en ${GMUSIC_API}</p>
+                    <p>No se pudo conectar con YouTube Music. Verifica tu conexión a internet.</p>
                 </div>
             `;
-            showNotification('No se pudo conectar con servidor GMusic local', 'error');
+            showNotification('Error al buscar música. Verifica tu conexión.', 'error');
         }
     }
 
     function playGMusicVideo(videoId, title, channel) {
-        const iframe = $('#gmusic-iframe');
         const titleEl = $('#gmusic-playing-title');
         const channelEl = $('#gmusic-playing-channel');
         const discCover = $('#gmusic-disc-cover');
         const playIcon = $('#gmusic-play-icon');
 
-        // Si estamos ejecutando en el WebView de Android Nativo con nuestro AndroidAudioBridge
-        if (window.AndroidAudioBridge && window.AndroidAudioBridge.playAudioFromYouTube) {
-            window.AndroidAudioBridge.playAudioFromYouTube(videoId);
-        } else if (iframe) {
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1`;
+        if (window.GLauncher && window.GLauncher.playAudioFromYouTube) {
+            window.GLauncher.playAudioFromYouTube(videoId);
+            gmusicIsPlaying = true;
         }
-
-        gmusicIsPlaying = true;
 
         if (discCover) {
             discCover.style.animation = 'spin 3s linear infinite';
@@ -1134,23 +1423,11 @@
         showNotification(`Reproduciendo audio: ${title}`, 'success');
     }
 
-    function toggleGMusicPlay() {
-        const iframe = $('#gmusic-iframe');
+    function toggleGMusicPlay() {        
         const discCover = $('#gmusic-disc-cover');
         const playIcon = $('#gmusic-play-icon');
 
         gmusicIsPlaying = !gmusicIsPlaying;
-
-        if (window.AndroidAudioBridge && window.AndroidAudioBridge.togglePlayPause) {
-            window.AndroidAudioBridge.togglePlayPause();
-        } else if (iframe && iframe.src) {
-            const action = gmusicIsPlaying ? 'playVideo' : 'pauseVideo';
-            iframe.contentWindow.postMessage(JSON.stringify({
-                event: 'command',
-                func: action,
-                args: []
-            }), '*');
-        }
 
         if (discCover) {
             discCover.style.animationPlayState = gmusicIsPlaying ? 'running' : 'paused';
@@ -1160,23 +1437,36 @@
             playIcon.className = gmusicIsPlaying ? 'fas fa-pause' : 'fas fa-play';
         }
 
+        // FIX: Llamar directamente al método del puente de Android que ahora controla la reproducción de audio.
+        if (window.GLauncher && window.GLauncher.togglePlayPause) {
+            window.GLauncher.togglePlayPause();
+        }
         showNotification(gmusicIsPlaying ? 'Audio reanudado' : 'Audio pausado', 'info');
     }
 
     function seekGMusicPlayer(seconds) {
-        const iframe = $('#gmusic-iframe');
-
-        if (window.AndroidAudioBridge && window.AndroidAudioBridge.seekAudio) {
-            window.AndroidAudioBridge.seekAudio(seconds);
-        } else if (iframe && iframe.src) {
-            iframe.contentWindow.postMessage(JSON.stringify({
-                event: 'command',
-                func: 'seekBy',
-                args: [seconds, true]
-            }), '*');
+        // FIX: Llamar directamente al método del puente de Android.
+        if (window.GLauncher && window.GLauncher.seekAudio) {
+            window.GLauncher.seekAudio(seconds);
         }
-
         showNotification(seconds > 0 ? `Adelantado +${seconds}s` : `Retrocedido ${seconds}s`, 'info');
+    }
+
+    function initGMusicPlayerControls() {
+        // Esta función se llama una sola vez al inicio para evitar listeners duplicados.
+        const playBtn = $('#gmusic-btn-play');
+        const rewindBtn = $('#gmusic-btn-rewind');
+        const forwardBtn = $('#gmusic-btn-forward');
+
+        if (playBtn) {
+            playBtn.addEventListener('click', toggleGMusicPlay);
+        }
+        if (rewindBtn) {
+            rewindBtn.addEventListener('click', () => seekGMusicPlayer(-15));
+        }
+        if (forwardBtn) {
+            forwardBtn.addEventListener('click', () => seekGMusicPlayer(15));
+        }
     }
 
     function escapeHtml(str) {
@@ -1248,6 +1538,209 @@
         if (infoType) infoType.textContent = state.user.type === 'offline' ? 'Offline' : 'Microsoft';
     }
 
+    function saveUserProfile() {
+        if (window.GLauncher && window.GLauncher.saveUserProfile) {
+            window.GLauncher.saveUserProfile(JSON.stringify(state.user));
+        }
+    }
+
+    function loadUserProfile() {
+        if (window.GLauncher && window.GLauncher.loadUserProfile) {
+            try {
+                const profileJson = window.GLauncher.loadUserProfile();
+                const loadedProfile = JSON.parse(profileJson);
+                // Fusionar con el estado por defecto para evitar errores
+                Object.assign(state.user, loadedProfile);
+            } catch (e) {
+                console.error("Error al cargar el perfil de usuario:", e);
+                // Si hay un error, se usa el perfil por defecto
+            }
+        }
+        // Actualizar la UI con el perfil cargado (o el por defecto)
+        updateUserUI();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GCHAT (Supabase Realtime)
+    // ═══════════════════════════════════════════════════════════════
+    let chatSubscription = null;
+    let isChatCooldown = false;
+
+    function initPersistentChat() {
+        // Esta función se llama una sola vez al inicio de la app
+        fetchInitialMessages();
+        subscribeToChat();
+    }
+
+    function renderGChat() {
+        // Esta función se llama cada vez que se entra a la vista de la cuenta
+        const sendBtn = $('#gchat-send-btn');
+        const input = $('#gchat-input');
+        const gifBtn = $('#gchat-gif-btn');
+        const messagesBox = $('#gchat-messages-box');
+
+        if (!messagesBox) return;
+        
+        const sendMessage = async () => {
+            if (isChatCooldown) {
+                showNotification('Espera 5 segundos para enviar otro mensaje', 'warning');
+                return;
+            }
+
+            const messageText = input.value.trim();
+            if (!messageText) return;
+
+            const messagePayload = {
+                username: state.user.name,
+                message: messageText,
+                // user_id: supabase.auth.user()?.id // Descomentar si se implementa Supabase Auth
+            };
+
+            isChatCooldown = true;
+            sendBtn.disabled = true;
+            sendBtn.style.opacity = '0.5';
+
+            const { error } = await supabaseClient.from('global_chat').insert([messagePayload]);
+
+            if (error) {
+                showNotification('Error al enviar el mensaje', 'error');
+                console.error('Error sending message:', error);
+                isChatCooldown = false; // Reset cooldown on error
+                sendBtn.disabled = false;
+                sendBtn.style.opacity = '1';
+            } else {
+                input.value = '';
+                setTimeout(() => {
+                    isChatCooldown = false;
+                    sendBtn.disabled = false;
+                    sendBtn.style.opacity = '1';
+                }, 5000); // 5 segundos de cooldown
+            }
+        };
+
+        sendBtn?.addEventListener('click', sendMessage);
+        input?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        gifBtn?.addEventListener('click', openGiphyModal);
+
+        // Renderizar los mensajes que ya tenemos en el estado
+        messagesBox.innerHTML = '';
+        state.chatMessages.forEach(msg => renderMessage(msg, 'append'));
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    async function fetchInitialMessages() {
+        const { data, error } = await supabaseClient
+            .from('global_chat')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(50);
+
+        if (error) {
+            console.error("Error fetching initial chat messages:", error);
+            const messagesBox = $('#gchat-messages-box');
+            messagesBox.innerHTML = '<div class="empty-state"><p>Error al cargar mensajes.</p></div>';
+            return;
+        }
+
+        // Guardar mensajes en el estado, en el orden correcto (más antiguo primero)
+        state.chatMessages = data.reverse();
+    }
+
+    function subscribeToChat() {
+        // Cancelar suscripción anterior si existe
+        if (chatSubscription) {
+            chatSubscription.unsubscribe();
+        }
+
+        chatSubscription = supabaseClient.channel('public:global_chat')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'global_chat' }, payload => {
+                const newMessage = payload.new;
+                state.chatMessages.push(newMessage);
+                
+                // Si estamos en la vista de chat, renderizarlo inmediatamente
+                if (state.currentView === 'account' && $('#account-tab-gchat')?.classList.contains('active')) {
+                    renderMessage(newMessage, 'append');
+                    const messagesBox = $('#gchat-messages-box');
+                    if (messagesBox) messagesBox.scrollTop = messagesBox.scrollHeight;
+                } else {
+                    // Si no, mostrar una notificación
+                    showNotification(`Nuevo mensaje en GChat de ${newMessage.username}`, 'info');
+                }
+            })
+            .subscribe();
+    }
+
+    function renderMessage(msg, method = 'prepend') {
+        const messagesBox = $('#gchat-messages-box');
+        if (!messagesBox) return;
+
+        const msgEl = document.createElement('div');
+        msgEl.className = 'gchat-message';
+
+        // Detectar si el mensaje es una URL de GIF
+        // FIX: Usar una expresión regular para detectar URLs de Giphy de forma más flexible,
+        // ya que pueden venir de subdominios como media0, media1, etc.
+        const isGif = /https?:\/\/media\d*\.giphy\.com\/media\//.test(msg.message);
+        msgEl.innerHTML = `
+            <div class="gchat-msg-header">
+                <span class="gchat-username" style="color: ${getUserColor(msg.username)}">${msg.username}</span>
+                <span class="gchat-timestamp">${new Date(msg.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            </div>
+            <div class="gchat-msg-content">
+                ${isGif 
+                    ? `<img src="${msg.message}" class="gchat-gif" alt="GIF">` 
+                    : escapeHtml(msg.message)
+                }
+            </div>
+        `;
+
+        if (method === 'prepend') {
+            messagesBox.prepend(msgEl);
+            messagesBox.scrollTop = 0;
+        } else {
+            messagesBox.appendChild(msgEl);
+            // FIX: Hacer scroll hacia abajo para ver el nuevo mensaje
+            messagesBox.scrollTop = messagesBox.scrollHeight;
+        }
+    }
+
+    function getUserColor(username) {
+        let hash = 0;
+        for (let i = 0; i < username.length; i++) {
+            hash = username.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const color = `hsl(${hash % 360}, 70%, 75%)`;
+        return color;
+    }
+
+    function initAccountTabs() {
+        const tabButtons = $$('.account-sidebar-btn');
+        const tabContents = $$('.account-tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.disabled) return;
+
+                const tabId = button.dataset.tab;
+
+                // Update button active state
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Update content active state
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === `account-tab-${tabId}`) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+    }
+
     function generateOfflineUUID(name) {
         // Simple hash-based UUID for offline mode
         let hash = 0;
@@ -1259,6 +1752,64 @@
         const hex = Math.abs(hash).toString(16).padStart(8, '0');
         return `${hex.slice(0,8)}-${hex.slice(0,4)}-4${hex.slice(1,4)}-a${hex.slice(1,4)}-${hex.padEnd(12,'0').slice(0,12)}`;
     }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GIPHY INTEGRATION
+    // ═══════════════════════════════════════════════════════════════
+    function openGiphyModal() {
+        const modal = $('#giphy-modal');
+        const searchInput = $('#giphy-search-input');
+        const resultsContainer = $('#giphy-results');
+
+        modal.classList.add('active');
+        searchInput.focus();
+        resultsContainer.innerHTML = '<div class="empty-state"><p>Busca un GIF</p></div>';
+
+        let debounceTimer;
+        searchInput.oninput = () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const query = searchInput.value.trim();
+                if (query.length > 1) {
+                    searchGiphy(query);
+                }
+            }, 300);
+        };
+
+        $('#giphy-modal-close').onclick = () => modal.classList.remove('active');
+    }
+
+    async function searchGiphy(query) {
+        const resultsContainer = $('#giphy-results');
+        resultsContainer.innerHTML = '<div class="loading-spinner" style="grid-column: 1 / -1;"><div class="spinner"></div></div>';
+
+        const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=24&rating=g`;
+
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            resultsContainer.innerHTML = json.data.map(gif => `
+                <img src="${gif.images.fixed_width_downsampled.url}" alt="${gif.title}" class="giphy-result-item" data-full-url="${gif.images.original.url}">
+            `).join('');
+
+            resultsContainer.querySelectorAll('.giphy-result-item').forEach(item => {
+                item.onclick = async () => {
+                    const gifUrl = item.dataset.fullUrl.split('?')[0]; // URL limpia
+                    const { error } = await supabaseClient.from('global_chat').insert([{ username: state.user.name, message: gifUrl }]);
+                    if (error) {
+                        showNotification('Error al enviar el GIF', 'error');
+                    } else {
+                        $('#giphy-modal').classList.remove('active');
+                    }
+                };
+            });
+
+        } catch (error) {
+            console.error('Giphy search error:', error);
+            resultsContainer.innerHTML = '<div class="empty-state"><p>Error al buscar GIFs.</p></div>';
+        }
+    }
+
 
     // ═══════════════════════════════════════════════════════════════
     // PLAY BUTTON
@@ -1283,28 +1834,6 @@
             });
         }
 
-        // Install button in version detail
-        const installBtn = $('#vd-install-btn');
-        if (installBtn) {
-            installBtn.addEventListener('click', () => {
-                if (state.selectedVersion) {
-                    if (state.selectedVersion.loader === 'forge' || state.selectedVersion.loader === 'neoforge') {
-                        openLoaderVersionModal(state.selectedVersion);
-                    } else {
-                        installVersion(state.selectedVersion);
-                    }
-                }
-            });
-        }
-
-        // Quick launch items
-        const qlItems = $$('.ql-item');
-        qlItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const version = item.dataset.version;
-                if (version) launchVersion(version);
-            });
-        });
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -1312,14 +1841,19 @@
     // ═══════════════════════════════════════════════════════════════
 
     function initSettings() {
+        // Cargar los valores iniciales desde el estado a la UI
+        applySettings();
+
         // RAM Slider
         const ramSlider = $('#ram-slider');
         const ramDisplay = $('#ram-display');
         if (ramSlider && ramDisplay) {
             ramSlider.addEventListener('input', (e) => {
-                const val = e.target.value;
-                ramDisplay.textContent = val;
-                state.settings.ram = parseInt(val);
+                ramDisplay.textContent = e.target.value;
+            });
+            ramSlider.addEventListener('change', (e) => { // Guardar al soltar
+                state.settings.ram = parseInt(e.target.value);
+                saveSettings();
             });
         }
 
@@ -1330,6 +1864,7 @@
                 state.settings.particles = e.target.checked;
                 const canvas = $('#particles-canvas');
                 if (canvas) canvas.style.display = e.target.checked ? 'block' : 'none';
+                saveSettings();
             });
         }
 
@@ -1338,7 +1873,40 @@
         if (animToggle) {
             animToggle.addEventListener('change', (e) => {
                 state.settings.animations = e.target.checked;
-                document.body.classList.toggle('no-animations', !e.target.checked);
+                document.documentElement.classList.toggle('no-animations', !e.target.checked);
+                saveSettings();
+            });
+        }
+
+        // UI Zoom Slider
+        const zoomSlider = $('#ui-zoom-slider');
+        const zoomDisplay = $('#ui-zoom-display');
+        if (zoomSlider && zoomDisplay) {
+            zoomSlider.addEventListener('input', (e) => {
+                zoomDisplay.textContent = e.target.value;
+                document.documentElement.style.fontSize = `${14 * (e.target.value / 100)}px`;
+            });
+            zoomSlider.addEventListener('change', (e) => { // Guardar al soltar
+                state.settings.uiZoom = parseInt(e.target.value);
+                saveSettings();
+            });
+        }
+
+        // JVM Arguments
+        const jvmArgsInput = $('#jvm-args');
+        if (jvmArgsInput) {
+            jvmArgsInput.addEventListener('change', (e) => {
+                state.settings.jvmArgs = e.target.value;
+                saveSettings();
+            });
+        }
+
+        // Close on Launch toggle
+        const closeLaunchToggle = $('#toggle-close-launch');
+        if (closeLaunchToggle) {
+            closeLaunchToggle.addEventListener('change', (e) => {
+                state.settings.closeOnLaunch = e.target.checked;
+                saveSettings();
             });
         }
 
@@ -1350,8 +1918,133 @@
                 if (state.currentView === 'versions') {
                     renderVersionList();
                 }
+                state.settings.showSnapshots = e.target.checked;
+                saveSettings();
             });
         }
+    }
+
+    // --- Background Settings ---
+    const selectBgBtn = $('#btn-select-bg');
+    if (selectBgBtn) {
+        selectBgBtn.addEventListener('click', () => {
+            if (window.GLauncher && window.GLauncher.selectBackgroundImage) {
+                window.GLauncher.selectBackgroundImage();
+            } else {
+                showNotification('Función no disponible en este entorno', 'warning');
+            }
+        });
+    }
+
+    const resetBgBtn = $('#btn-reset-bg');
+    if (resetBgBtn) {
+        resetBgBtn.addEventListener('click', () => {
+            state.settings.backgroundUri = 'images/ifondo.png'; // Ruta por defecto
+            saveSettings();
+            applyBackgroundSettings();
+            showNotification('Fondo reseteado al predeterminado', 'success');
+        });
+    }
+
+    const bgBlurSlider = $('#bg-blur-slider');
+    const bgBlurDisplay = $('#bg-blur-display');
+    if (bgBlurSlider) {
+        bgBlurSlider.addEventListener('input', (e) => {
+            bgBlurDisplay.textContent = e.target.value;
+            state.settings.backgroundBlur = parseInt(e.target.value, 10);
+            applyBackgroundSettings();
+        });
+        bgBlurSlider.addEventListener('change', saveSettings);
+    }
+
+    const bgSaturateSlider = $('#bg-saturate-slider');
+    const bgSaturateDisplay = $('#bg-saturate-display');
+    if (bgSaturateSlider) {
+        bgSaturateSlider.addEventListener('input', (e) => {
+            bgSaturateDisplay.textContent = e.target.value;
+            state.settings.backgroundSaturate = parseInt(e.target.value, 10);
+            applyBackgroundSettings();
+        });
+        bgSaturateSlider.addEventListener('change', saveSettings);
+    }
+
+    // Esta función es llamada desde Java cuando se selecciona un archivo
+    window.onBackgroundSelected = function(uriString) {
+        state.settings.backgroundUri = uriString;
+        saveSettings();
+        applyBackgroundSettings();
+        showNotification('Nuevo fondo seleccionado', 'success');
+    };
+
+    function saveSettings() {
+        localStorage.setItem('glauncher_settings', JSON.stringify(state.settings));
+        showNotification('Ajustes guardados', 'info');
+    }
+
+    function loadSettings() {
+        const saved = localStorage.getItem('glauncher_settings');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                // Fusionar con los valores por defecto para evitar errores si se añaden nuevos ajustes
+                Object.assign(state.settings, parsed);
+                // Cargar también el estado de los snapshots
+                state.showSnapshots = state.settings.showSnapshots;
+            } catch (e) {
+                console.error("Error al cargar los ajustes", e);
+            }
+        }
+    }
+
+    function applySettings() {
+        // Aplicar los ajustes cargados a la UI
+        $('#ram-slider').value = state.settings.ram;
+        $('#ram-display').textContent = state.settings.ram;
+        $('#jvm-args').value = state.settings.jvmArgs;
+        $('#toggle-particles').checked = state.settings.particles;
+        $('#toggle-animations').checked = state.settings.animations;
+        $('#ui-zoom-slider').value = state.settings.uiZoom;
+        $('#ui-zoom-display').textContent = state.settings.uiZoom;
+        $('#toggle-close-launch').checked = state.settings.closeOnLaunch;
+        $('#toggle-snapshots').checked = state.settings.showSnapshots;
+        $('#bg-blur-slider').value = state.settings.backgroundBlur;
+        $('#bg-blur-display').textContent = state.settings.backgroundBlur;
+        $('#bg-saturate-slider').value = state.settings.backgroundSaturate;
+        $('#bg-saturate-display').textContent = state.settings.backgroundSaturate;
+
+        // Aplicar efectos visuales iniciales
+        $('#particles-canvas').style.display = state.settings.particles ? 'block' : 'none';
+        document.documentElement.classList.toggle('no-animations', !state.settings.animations);
+        // FIX: Aplicar el zoom guardado al iniciar.
+        document.documentElement.style.fontSize = `${14 * (state.settings.uiZoom / 100)}px`;
+    }
+
+    function applyBackgroundSettings() {
+        const bgContainer = $('#bg-container');
+        const uri = state.settings.backgroundUri;
+        const isVideo = uri.endsWith('.mp4') || uri.endsWith('.webm') || uri.includes('video');
+
+        let mediaElement = bgContainer.querySelector('.bg-media');
+
+        // Crear el elemento correcto (img o video) si no existe o es del tipo incorrecto
+        const expectedTag = isVideo ? 'VIDEO' : 'IMG';
+        if (!mediaElement || mediaElement.tagName !== expectedTag) {
+            bgContainer.innerHTML = ''; // Limpiar
+            mediaElement = document.createElement(isVideo ? 'video' : 'img');
+            mediaElement.classList.add('bg-media');
+            if (isVideo) {
+                mediaElement.autoplay = true;
+                mediaElement.loop = true;
+                mediaElement.muted = true;
+            }
+            bgContainer.appendChild(mediaElement);
+        }
+
+        mediaElement.src = uri;
+        mediaElement.style.filter = `blur(${state.settings.backgroundBlur}px) saturate(${state.settings.backgroundSaturate}%)`;
+
+        // Re-insertar el overlay del gradiente
+        bgContainer.insertAdjacentHTML('beforeend', '<div class="bg-overlay"></div>');
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -1579,7 +2272,6 @@
         const addJoystickBtn = $('#vc-add-joystick');
         const addAttackBtn = $('#vc-add-attack');
         const addUseBtn = $('#vc-add-use');
-        const toggleMouseModeBtn = $('#vc-toggle-mouse-mode');
         const palette = $('.vc-palette');
 
         // ─── Drag State ───
@@ -1591,6 +2283,8 @@
             openBtn.addEventListener('click', () => {
                 editor.style.display = 'flex';
                 loadControlsFromStorage(); // Cargar al abrir
+                selectControl(null); // Asegurarse de que no hay nada seleccionado al abrir
+                initVcTutorial(); // Iniciar el tutorial del editor
                 renderCanvas();
             });
         }
@@ -1624,21 +2318,11 @@
 
         addBtn?.addEventListener('click', () => addControl('button', 'A', 'key_space'));
         addJoystickBtn?.addEventListener('click', () => addControl('joystick', '', 'joystick_move', 100));
-        addAttackBtn?.addEventListener('click', () => addControl('button', 'ATK', 'mouse_left'));
-        addUseBtn?.addEventListener('click', () => addControl('button', 'USE', 'mouse_right'));
-
-        toggleMouseModeBtn?.addEventListener('click', () => {
-            const preset = state.virtualControls.presets[state.virtualControls.activePreset];
-            preset.mouseMode = !preset.mouseMode;
-            showNotification(`Modo mouse virtual ${preset.mouseMode ? 'activado' : 'desactivado'}`, 'info');
-            renderCanvas();
-        });
 
         // ─── Canvas Rendering ───
         function renderCanvas() {
             const preset = state.virtualControls.presets[state.virtualControls.activePreset];
             const controls = preset?.controls || [];
-            const mouseMode = preset.mouseMode || false;
 
             canvas.innerHTML = '<div class="vc-canvas-grid"></div>';
             
@@ -1651,7 +2335,7 @@
             }
 
             // Render trackpad overlay if mouse mode is active
-            if (preset.mouseMode) {
+            if (preset.mouseMode) { // Siempre será true ahora
                 canvas.innerHTML += `
                     <div class="vc-mouse-trackpad">
                         <div style="text-align:center; color:rgba(255,255,255,0.2); font-family:'Minecraftia'; font-size:0.6rem;">
@@ -1845,7 +2529,7 @@
             resetBtn.addEventListener('click', () => {
                 if (confirm('¿Resetear este preset?')) {
                     playSound('sounds/sfx/recicle.mp3');
-                    state.virtualControls.presets[state.virtualControls.activePreset] = { controls: [], mouseMode: false };
+                    state.virtualControls.presets[state.virtualControls.activePreset] = { controls: [], mouseMode: true };
                     selectControl(null);
                     renderCanvas();
                 }
@@ -1864,7 +2548,7 @@
                 if (Array.isArray(parsedPresets) && parsedPresets.length === 3) {
                     state.virtualControls.presets = parsedPresets.map(p => ({
                         controls: p?.controls || (Array.isArray(p) ? p : []), // Compatibilidad con la estructura vieja
-                        mouseMode: p?.mouseMode || false
+                        mouseMode: true // Forzar siempre a true
                     }));
                 }
             }
@@ -1877,8 +2561,8 @@
                 
                 // Enviar solo la configuración del PRESET ACTIVO al puente de Android
                 const activePresetConfig = JSON.stringify(state.virtualControls.presets[state.virtualControls.activePreset]);
-                if (window.AndroidAudioBridge && window.AndroidAudioBridge.setVirtualControls) {
-                    window.AndroidAudioBridge.setVirtualControls(activePresetConfig);
+                if (window.GLauncher && window.GLauncher.setVirtualControls) {
+                    window.GLauncher.setVirtualControls(activePresetConfig);
                 }
                 editor.style.display = 'none';
                 showNotification('Controles virtuales guardados correctamente', 'success');
@@ -1920,6 +2604,281 @@
             document.removeEventListener('mousemove', onPaletteDrag);
             document.removeEventListener('mouseup', stopPaletteDrag);
         }
+    }
+
+    function initVcTutorial() {
+        // Usamos el overlay del tutorial principal
+        const mainTutorialOverlay = $('#tutorial-overlay');
+        if (!mainTutorialOverlay) return;
+
+        const hasCompleted = localStorage.getItem('glauncher_vc_tutorial_completed');
+        if (hasCompleted) return;
+
+        const overlay = $('#tutorial-overlay');
+        const spotlight = $('#tutorial-spotlight');
+        const tooltip = $('#tutorial-tooltip');
+        const titleEl = $('#tutorial-title');
+        const descEl = $('#tutorial-desc');
+        const nextBtn = $('#tutorial-next');
+        const prevBtn = $('#tutorial-prev');
+        const finishBtn = $('#tutorial-finish');
+        const dotsContainer = $('#tutorial-dots');
+
+        const steps = [
+            {
+                element: '#vc-canvas',
+                title: '¡Editor de Controles!',
+                description: 'Este es el lienzo. Aquí verás una vista previa de tus controles sobre la pantalla del juego.',
+                position: 'center'
+            },
+            {
+                element: '#vc-palette',
+                title: 'Añadir Controles',
+                description: 'Usa este panel para añadir nuevos botones o joysticks a la pantalla. ¡Puedes arrastrar este panel para moverlo!',
+                position: 'right'
+            },
+            {
+                element: '#vc-properties',
+                title: 'Panel de Propiedades',
+                description: 'Cuando selecciones un control, este panel aparecerá para que puedas cambiar su tamaño, función, color y más.',
+                position: 'left' // Asumimos que aparecerá a la derecha
+            },
+            {
+                element: '.vc-presets-bar',
+                title: 'Presets',
+                description: 'Puedes guardar hasta 3 configuraciones de controles diferentes y cambiar entre ellas aquí.',
+                position: 'bottom'
+            },
+            {
+                element: '#vc-save-editor-btn',
+                title: 'Guardar y Salir',
+                description: 'Cuando termines, pulsa este botón para guardar los cambios y cerrar el editor.',
+                position: 'bottom'
+            }
+        ];
+
+        let currentStep = 0;
+
+        // Reutilizamos la función showStep del tutorial principal
+        function showStep(index) {
+            const step = steps[index];
+            const target = $(step.element);
+
+            if (!target) {
+                tooltip.style.opacity = 0;
+                spotlight.style.opacity = 0;
+                return;
+            }
+
+            const rect = target.getBoundingClientRect();
+            spotlight.style.width = `${rect.width + 8}px`;
+            spotlight.style.height = `${rect.height + 8}px`;
+            spotlight.style.top = `${rect.top - 4}px`;
+            spotlight.style.left = `${rect.left - 4}px`;
+
+            titleEl.innerHTML = step.title;
+            descEl.innerHTML = step.description;
+
+            // Lógica de posicionamiento del tooltip (copiada del tutorial principal)
+            setTimeout(() => {
+                const tooltipRect = tooltip.getBoundingClientRect();
+                let top, left;
+                const windowHeight = window.innerHeight;
+                const windowWidth = window.innerWidth;
+
+                if (step.position === 'right') { top = rect.top; left = rect.right + 15; } 
+                else if (step.position === 'bottom') { top = rect.bottom + 15; left = rect.left; } 
+                else if (step.position === 'left') { top = rect.top; left = rect.left - tooltipRect.width - 15; }
+                else { top = rect.top + rect.height / 2 - tooltipRect.height / 2; left = rect.left + rect.width / 2 - tooltipRect.width / 2; }
+
+                // Ajustar si se sale de la pantalla
+                if (top + tooltipRect.height > windowHeight - 10) {
+                    top = rect.top - tooltipRect.height - 15; // Moverlo arriba del elemento
+                }
+                if (left + tooltipRect.width > windowWidth - 10) {
+                    left = windowWidth - tooltipRect.width - 10;
+                }
+                left = Math.max(10, left);
+
+                tooltip.style.top = `${top}px`;
+                tooltip.style.left = `${left}px`;
+            }, 10);
+
+            prevBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+            nextBtn.style.display = index === steps.length - 1 ? 'none' : 'flex';
+            finishBtn.style.display = index === steps.length - 1 ? 'flex' : 'none';
+            dotsContainer.innerHTML = steps.map((_, i) => `<div class="tutorial-dot ${i === index ? 'active' : ''}"></div>`).join('');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        };
+        prevBtn.onclick = () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        };
+        finishBtn.onclick = () => {
+            localStorage.setItem('glauncher_vc_tutorial_completed', 'true');
+            mainTutorialOverlay.classList.remove('active');
+            // Restaurar estado normal del editor
+            selectControl(null);
+        };
+
+        mainTutorialOverlay.classList.add('active');
+        $('#vc-properties').style.display = 'flex'; // Forzar visibilidad para el tutorial
+        $('#vc-palette').classList.remove('hidden');
+        showStep(currentStep);
+    }
+
+    function initTutorial() {
+        const overlay = $('#tutorial-overlay');
+        if (!overlay) return;
+
+        const hasCompleted = localStorage.getItem('glauncher_tutorial_completed');
+        if (hasCompleted) return;
+
+        const spotlight = $('#tutorial-spotlight');
+        const tooltip = $('#tutorial-tooltip');
+        const titleEl = $('#tutorial-title');
+        const descEl = $('#tutorial-desc');
+        const nextBtn = $('#tutorial-next');
+        const prevBtn = $('#tutorial-prev');
+        const finishBtn = $('#tutorial-finish');
+        const dotsContainer = $('#tutorial-dots');
+
+        const steps = [
+            {
+                element: '#sidebar-logo',
+                title: '¡Bienvenido a GLauncher!',
+                description: 'Este es un rápido tour para mostrarte cómo funciona todo. ¡Vamos a empezar!',
+                position: 'center'
+            },
+            {
+                element: '#sidebar-nav',
+                title: 'Navegación Principal',
+                description: 'Usa la barra lateral para moverte entre las secciones: Inicio, Versiones, Mods, GMusic y tu Cuenta.',
+                position: 'right'
+            },
+            {
+                element: '#nav-versions',
+                title: 'Instalar y Jugar',
+                description: 'Ve a la pestaña de <strong>Versiones</strong> para instalar tus versiones favoritas de Minecraft.',
+                position: 'right'
+            },
+            {
+                element: '#hero-actions',
+                title: 'Selecciona tu Versión',
+                description: 'Una vez instalada, la versión aparecerá aquí. Selecciónala y pulsa JUGAR.',
+                position: 'bottom'
+            },
+            {
+                element: '#btn-virtual-controls',
+                title: 'Controles Virtuales',
+                description: 'Toca este ícono para abrir el <strong>editor de controles</strong>. Arrastra, añade y personaliza los botones a tu gusto.',
+                position: 'bottom'
+            },
+            {
+                element: '#nav-gmusic',
+                title: 'GMusic Player',
+                description: 'En la pestaña de <strong>GMusic</strong>, puedes buscar y reproducir música de fondo mientras juegas.',
+                position: 'right'
+            },
+            {
+                element: '#sidebar-logo',
+                title: '¡Todo Listo!',
+                description: 'Ya estás preparado para disfrutar de la experiencia completa. ¡Diviértete!',
+                position: 'center'
+            }
+        ];
+
+        let currentStep = 0;
+
+        function showStep(index) {
+            const step = steps[index];
+            const target = $(step.element);
+
+            if (!target) {
+                tooltip.style.opacity = 0;
+                spotlight.style.opacity = 0;
+                return;
+            }
+
+            const rect = target.getBoundingClientRect();
+            spotlight.style.width = `${rect.width + 8}px`;
+            spotlight.style.height = `${rect.height + 8}px`;
+            spotlight.style.top = `${rect.top - 4}px`;
+            spotlight.style.left = `${rect.left - 4}px`;
+
+            titleEl.innerHTML = step.title;
+            descEl.innerHTML = step.description;
+
+            // Usamos un timeout para asegurar que el contenido del tooltip se renderice
+            // y podamos obtener su altura/anchura real antes de posicionarlo.
+            setTimeout(() => {
+                const tooltipRect = tooltip.getBoundingClientRect();
+                const mainArea = $('.main-area').getBoundingClientRect();
+                let top, left;
+
+                if (step.position === 'right') {
+                    top = rect.top;
+                    left = rect.right + 15;
+                } else if (step.position === 'bottom') {
+                    top = rect.bottom + 15;
+                    left = rect.left;
+                } else if (step.position === 'top') {
+                    top = rect.top - tooltipRect.height - 15;
+                    left = rect.left;
+                } else { // center
+                    top = mainArea.height / 2 - tooltipRect.height / 2;
+                    left = mainArea.width / 2 - tooltipRect.width / 2;
+                    spotlight.style.width = '0px';
+                    spotlight.style.height = '0px';
+                }
+
+                // Ajustar si se sale de la pantalla
+                if (left + tooltipRect.width > mainArea.right - 10) {
+                    left = mainArea.right - tooltipRect.width - 10;
+                }
+                left = Math.max(10, left);
+
+                tooltip.style.top = `${top}px`;
+                tooltip.style.left = `${left}px`;
+            }, 10); // Pequeño delay
+
+            // Actualizar botones y puntos
+            prevBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+            nextBtn.style.display = index === steps.length - 1 ? 'none' : 'flex';
+            finishBtn.style.display = index === steps.length - 1 ? 'flex' : 'none';
+            dotsContainer.innerHTML = steps.map((_, i) => `<div class="tutorial-dot ${i === index ? 'active' : ''}"></div>`).join('');
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        finishBtn.addEventListener('click', () => {
+            localStorage.setItem('glauncher_tutorial_completed', 'true');
+            overlay.classList.remove('active');
+        });
+
+        // Iniciar tutorial
+        overlay.classList.add('active');
+        showStep(currentStep);
     }
 
     function initInGameMenu() {
@@ -1965,6 +2924,17 @@
         } catch {
             return '';
         }
+    }
+    // Formatea segundos a mm:ss o h:mm:ss (usado por GMusic)
+    function formatDuration(seconds) {
+        if (!seconds || seconds <= 0) return '';
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        if (h > 0) {
+            return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+        return `${m}:${String(s).padStart(2, '0')}`;
     }
 
 })();

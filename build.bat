@@ -22,7 +22,7 @@ REM Ejecuta el comando de Gradle para ensamblar la version de lanzamiento (relea
 REM Nota: Esto usa el Gradle instalado globalmente en tu sistema.
 REM Si falla, asegurate de que Gradle este en el PATH o usa 'gradlew.bat assembleRelease'.
 echo. > Compilando la aplicacion (assembleRelease)...
-gradle assembleRelease
+gradle :app:assembleRelease
 
 echo.
 echo =======================================================

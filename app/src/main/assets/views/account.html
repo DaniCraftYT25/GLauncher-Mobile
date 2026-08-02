@@ -1,0 +1,94 @@
+<!-- ════════════════════════════════════════════
+     VIEW: CUENTA (Account)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-account">
+    <div class="account-layout">
+        <div class="account-panel">
+            <div class="profile-card">
+                <img src="images/default_avatar.png" alt="Avatar" class="pc-avatar" id="account-avatar">
+                <span class="pc-name" id="account-name">Jugador</span>
+                <span class="pc-uuid" id="account-uuid">UUID: —</span>
+                <span class="pc-type-badge" id="account-type">Offline</span>
+
+                <div class="login-section">
+                    <button class="login-btn microsoft" id="btn-login-ms">
+                        <i class="fab fa-microsoft"></i> Microsoft
+                    </button>
+                    <button class="login-btn offline" id="btn-login-offline">
+                        <i class="fas fa-user-secret"></i> Modo Offline
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barra lateral de opciones de cuenta -->
+            <div class="widget-card account-sidebar-widget">
+                <h3><i class="fas fa-bars"></i> Opciones</h3>
+                <div class="account-sidebar-nav">
+                    <button class="account-sidebar-btn active" data-tab="info">
+                        <i class="fas fa-id-card"></i>
+                        <span>Información</span>
+                    </button>
+                    <button class="account-sidebar-btn" data-tab="gchat">
+                        <i class="fas fa-comments"></i>
+                        <span>GChat</span>
+                    </button>
+                    <button class="account-sidebar-btn" data-tab="skins" disabled style="opacity:0.4; cursor: not-allowed;">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Skins (Pronto)</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="account-content">
+            <!-- Pestaña de Información -->
+            <div class="account-tab-content active" id="account-tab-info">
+                <div class="section-header">
+                    <h2><i class="fas fa-id-card"></i> Información de Cuenta</h2>
+                </div>
+                <div class="account-info-grid">
+                    <div class="info-tile">
+                        <span class="it-label">Nombre de jugador</span>
+                        <span class="it-value" id="info-playername">Jugador</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Tipo de cuenta</span>
+                        <span class="it-value" id="info-accounttype">Offline</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">UUID</span>
+                        <span class="it-value mono" id="info-uuid">00000000-0000-0000-0000-000000000000</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Versión seleccionada</span>
+                        <span class="it-value" id="info-selversion">Ninguna</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Mods activos</span>
+                        <span class="it-value" id="info-activemods">0</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Estado</span>
+                        <span class="it-value text-success" id="info-status">● En línea</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña de GChat -->
+            <div class="account-tab-content is-chat-tab" id="account-tab-gchat">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> GChat Global</h2>
+                </div>
+                <div class="gchat-container">
+                    <div class="gchat-messages" id="gchat-messages-box"></div>
+                    <div class="gchat-input-area">
+                        <button id="gchat-gif-btn" class="top-bar-btn" title="Enviar GIF"><i class="fas fa-photo-video"></i></button>
+                        <input type="text" id="gchat-input" placeholder="Escribe un mensaje...">
+                        <button id="gchat-send-btn" class="top-bar-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

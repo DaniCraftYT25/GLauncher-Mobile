@@ -1,0 +1,63 @@
+<!-- ════════════════════════════════════════════
+     VIEW: MODS
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-mods">
+    <div class="section-header">
+        <h2><i class="fas fa-puzzle-piece"></i> Gestor de Mods</h2>
+        <span class="section-subtitle">Explora y gestiona tus mods favoritos</span>
+    </div>
+
+    <div class="mods-search-bar" id="mod-search-view">
+        <div style="display: flex; gap: 8px; width: 100%;">
+            <i class="fas fa-search" style="color:var(--primary);"></i>
+            <input type="text" id="mod-search" placeholder="Buscar en Modrinth...">
+            <button class="top-bar-btn" id="view-installed-btn" title="Ver Instalados">
+                <i class="fas fa-archive"></i>
+            </button>
+        </div>
+        <div class="loader-tabs" style="padding: 2px; flex-shrink: 0; width: 100%;">
+            <button class="loader-tab active" data-project-type="mod">
+                <i class="fas fa-puzzle-piece"></i> Mods
+            </button>
+            <button class="loader-tab" data-project-type="resourcepack">
+                <i class="fas fa-palette"></i> Texturas
+            </button>
+            <button class="loader-tab" data-project-type="modpack">
+                <i class="fas fa-box-open"></i> Modpacks
+            </button>
+            <button class="loader-tab" data-project-type="world">
+                <i class="fas fa-globe"></i> Mapas
+            </button>
+        </div>
+    </div>
+
+    <div class="mods-grid" id="mods-grid">
+        <div class="loading-spinner" id="mods-loader" style="grid-column:1/-1;">
+            <div class="spinner"></div>
+            <span>Buscando mods...</span>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     VIEW: INSTALLED ASSETS (Mods, Texturas, etc.)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-installed-assets">
+    <div class="section-header" style="align-items: center;">
+        <div>
+            <h2><i class="fas fa-archive"></i> Assets Instalados</h2>
+            <span class="section-subtitle">Gestiona tus mods, texturas y más</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+             <button class="btn" id="add-local-mod-btn" style="font-size: 0.6rem; padding: 8px 14px;">
+                <i class="fas fa-plus"></i> Añadir Archivo
+            </button>
+            <button class="btn btn-primary" id="back-to-search-btn" style="font-size: 0.6rem; padding: 8px 14px;">
+                <i class="fas fa-search"></i> Volver a Búsqueda
+            </button>
+        </div>
+    </div>
+
+    <div class="installed-assets-list" id="installed-assets-list">
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<!-- ════════════════════════════════════════════
+     VIEW: VERSIONES (Versions)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-versions">
+    <div class="versions-layout">
+        <!-- Left: Version List -->
+        <div class="versions-main">
+            <!-- Loader Tabs -->
+            <div class="loader-tabs" id="loader-tabs">
+                <button class="loader-tab active" data-loader="vanilla">
+                    <i class="fas fa-cube"></i>
+                    Vanilla
+                </button>
+                <button class="loader-tab" data-loader="fabric">
+                    <i class="fas fa-scroll"></i>
+                    Fabric
+                </button>
+                <button class="loader-tab" data-loader="forge">
+                    <i class="fas fa-hammer"></i>
+                    Forge
+                </button>
+                <button class="loader-tab" data-loader="neoforge">
+                    <i class="fas fa-fire"></i>
+                    NeoForge
+                </button>
+            </div>
+
+            <!-- Search + Filters -->
+            <div class="version-search" style="position:relative;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="version-search-input" id="version-search" placeholder="Buscar versión...">
+                <button class="version-filter-btn" id="filter-releases" title="Solo Releases">
+                    <i class="fas fa-check-circle"></i>
+                </button>
+                <button class="version-filter-btn" id="filter-snapshots" title="Incluir Snapshots">
+                    <i class="fas fa-flask"></i>
+                </button>
+            </div>
+
+            <!-- Version Count -->
+            <div class="version-count">
+                <i class="fas fa-list"></i>
+                <span><strong id="version-count-num">0</strong> versiones encontradas</span>
+            </div>
+
+            <!-- Version List -->
+            <div class="version-list" id="version-list">
+                <div class="loading-spinner" id="versions-loader">
+                    <div class="spinner"></div>
+                    <span>Cargando versiones...</span>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="version-pagination" id="version-pagination" style="display:none;">
+                <button class="pagination-btn" id="page-prev" disabled>
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </button>
+                <span class="pagination-info" id="page-info">Página 1 de 1</span>
+                <button class="pagination-btn" id="page-next">
+                    Siguiente <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right: Version Detail -->
+        <div class="versions-sidebar">
+            <div class="version-detail-panel" id="version-detail">
+                <div class="vd-header">
+                    <img src="icons/version_vanilla.png" alt="" id="vd-icon">
+                    <h3 id="vd-name">Selecciona una versión</h3>
+                    <p id="vd-type">Toca una versión de la lista para ver sus detalles</p>
+                </div>
+                <div class="vd-meta" id="vd-meta" style="display:none;">
+                    <div class="vd-meta-item">
+                        <span class="vd-label">Tipo</span>
+                        <span class="vd-value" id="vd-type-val">—</span>
+                    </div>
+                    <div class="vd-meta-item">
+                        <span class="vd-label">Fecha</span>
+                        <span class="vd-value" id="vd-date-val">—</span>
+                    </div>
+                    <div class="vd-meta-item">
+                        <span class="vd-label">Loader</span>
+                        <span class="vd-value" id="vd-loader-val">Vanilla</span>
+                    </div>
+                </div>
+                <!-- Download Progress -->
+                <div id="vd-download-progress" style="display:none; margin-bottom:10px;">
+                    <span id="vd-progress-text" style="font-family:'Minecraftia';font-size:0.55rem;color:var(--primary);display:block;margin-bottom:4px;">Descargando... 0%</span>
+                    <div class="progress-bar">
+                        <div id="vd-progress-fill" class="progress-bar-fill" style="width:0%;"></div>
+                    </div>
+                </div>
+                <button class="vd-install-btn" id="vd-install-btn" style="display:none;">
+                    <i class="fas fa-download"></i> INSTALAR
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

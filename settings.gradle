@@ -10,7 +10,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Para las librerías oficiales de Mojang (authlib, etc.)
+        maven { url 'https://libraries.minecraft.net/' }
+        // Para las librerías de GitHub (PojavLauncher, etc.)
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "GLauncher"
 include ':app'
+include ':pojavlauncher:app_pojavlauncher'

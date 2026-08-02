@@ -19,6 +19,9 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/vc_editor.css">
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -100,517 +103,581 @@
             <!-- ─── Content Area ─── -->
             <div class="content-area" id="content-area">
 
-                <!-- ════════════════════════════════════════════
-                     VIEW: HOME (Inicio)
-                     ════════════════════════════════════════════ -->
-                <div class="view active" id="view-home">
-                    <div class="home-layout">
-                        <div class="home-main">
-                            <!-- Hero Card -->
-                            <div class="hero-card">
-                                <img src="icons/minecraft_title.png" alt="GLauncher" class="hero-logo">
-                                <div class="hero-info">
-                                    <h1>GLauncher</h1>
-                                    <p>Tu launcher de Minecraft para Android. Juega con Vanilla, Fabric, Forge y NeoForge.</p>
-                                    <div class="hero-actions">
-                                        <div class="hero-version-selector" id="hero-version-selector">
-                                            <span id="hero-version-selected-text">Seleccionar versión</span>
-                                            <i class="fas fa-chevron-down"></i>
-                                            <div class="hero-version-dropdown" id="hero-version-dropdown"></div>
-                                        </div>
-                                        <button class="hero-play-btn" id="btn-play-hero">
-                                            <i class="fas fa-play"></i> JUGAR
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Quick Stats -->
-                            <div class="quick-stats">
-                                <div class="stat-card">
-                                    <div class="stat-icon"><i class="fas fa-gamepad"></i></div>
-                                    <span class="stat-value" id="stat-installed">0</span>
-                                    <span class="stat-label">Instaladas</span>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                                    <span class="stat-value" id="stat-playtime">0h</span>
-                                    <span class="stat-label">Jugado</span>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon"><i class="fas fa-puzzle-piece"></i></div>
-                                    <span class="stat-value" id="stat-mods">0</span>
-                                    <span class="stat-label">Mods</span>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
-                                    <span class="stat-value" id="stat-versions">—</span>
-                                    <span class="stat-label">Disponibles</span>
-                                </div>
-                            </div>
-
-                            <!-- News Feed -->
-                            <div>
-                                <div class="section-header">
-                                    <h2><i class="fas fa-newspaper"></i> Novedades</h2>
-                                </div>
-                                <div class="news-scroll" id="news-scroll">
-                                    <div class="news-card">
-                                        <span class="news-tag update">Actualización</span>
-                                        <h4>Minecraft 1.21.5</h4>
-                                        <p>Nueva actualización con el bioma de Pale Garden y nuevas criaturas.</p>
-                                    </div>
-                                    <div class="news-card">
-                                        <span class="news-tag fabric">Fabric</span>
-                                        <h4>Fabric Loader 0.16.x</h4>
-                                        <p>Nuevo loader con mejoras de rendimiento y compatibilidad.</p>
-                                    </div>
-                                    <div class="news-card">
-                                        <span class="news-tag forge">Forge</span>
-                                        <h4>Forge para 1.21</h4>
-                                        <p>Soporte completo de Forge para las últimas versiones de MC.</p>
-                                    </div>
-                                    <div class="news-card">
-                                        <span class="news-tag mod">NeoForge</span>
-                                        <h4>NeoForge Estable</h4>
-                                        <p>El sucesor de Forge continúa ganando popularidad y mods.</p>
-                                    </div>
-                                    <div class="news-card">
-                                        <span class="news-tag">GLauncher</span>
-                                        <h4>GLauncher v1.0</h4>
-                                        <p>Primera versión estable del launcher para Android. ¡Disfrútalo!</p>
-                                    </div>
-                                </div>
-                            </div>
+<!-- ════════════════════════════════════════════
+     VIEW: HOME (Inicio)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-home">
+    <div class="home-layout">
+        <div class="home-main">
+            <!-- Hero Card -->
+            <div class="hero-card">
+                <img src="icons/minecraft_title.png" alt="GLauncher" class="hero-logo">
+                <div class="hero-info">
+                    <h1>GLauncher</h1>
+                    <p>Tu launcher de Minecraft para Android. Juega con Vanilla, Fabric, Forge y NeoForge.</p>
+                    <div class="hero-actions" id="hero-actions">
+                        <div class="hero-version-selector" id="hero-version-selector">
+                            <span id="hero-version-selected-text">
+                                Seleccionar versión
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                            <div class="hero-version-dropdown" id="hero-version-dropdown"></div>
                         </div>
-
-                        <!-- Sidebar Right -->
-                        <div class="home-sidebar-right">
-                            <!-- Profile Widget -->
-                            <div class="widget-card profile-widget">
-                                <h3><i class="fas fa-user"></i> Perfil</h3>
-                                <img src="images/default_avatar.png" alt="Avatar" class="pw-avatar" id="home-avatar">
-                                <span class="pw-name" id="home-username">Jugador</span>
-                                <span class="pw-tag">Modo Offline</span>
-                                <div class="pw-status">
-                                    <span class="pw-status-dot"></span>
-                                    En línea
-                                </div>
-                            </div>
-
-                            <!-- Quick Launch Widget -->
-                            <div class="widget-card">
-                                <h3><i class="fas fa-rocket"></i> Lanzamiento Rápido</h3>
-                                <div class="quick-launch-list" id="quick-launch-list">
-                                    <div class="ql-item" data-version="1.21.5">
-                                        <img src="icons/version_vanilla.png" alt="" class="ql-icon">
-                                        <div class="ql-info">
-                                            <span class="ql-name">1.21.5</span>
-                                            <span class="ql-version">Vanilla • Release</span>
-                                        </div>
-                                        <i class="fas fa-play ql-play"></i>
-                                    </div>
-                                    <div class="ql-item" data-version="1.20.4">
-                                        <img src="icons/version_vanilla.png" alt="" class="ql-icon">
-                                        <div class="ql-info">
-                                            <span class="ql-name">1.20.4</span>
-                                            <span class="ql-version">Vanilla • Release</span>
-                                        </div>
-                                        <i class="fas fa-play ql-play"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ════════════════════════════════════════════
-                     VIEW: VERSIONES (Versions)
-                     ════════════════════════════════════════════ -->
-                <div class="view" id="view-versions">
-                    <div class="versions-layout">
-                        <!-- Left: Version List -->
-                        <div class="versions-main">
-                            <!-- Loader Tabs -->
-                            <div class="loader-tabs" id="loader-tabs">
-                                <button class="loader-tab active" data-loader="vanilla">
-                                    <i class="fas fa-cube"></i>
-                                    Vanilla
-                                </button>
-                                <button class="loader-tab" data-loader="fabric">
-                                    <i class="fas fa-scroll"></i>
-                                    Fabric
-                                </button>
-                                <button class="loader-tab" data-loader="forge">
-                                    <i class="fas fa-hammer"></i>
-                                    Forge
-                                </button>
-                                <button class="loader-tab" data-loader="neoforge">
-                                    <i class="fas fa-fire"></i>
-                                    NeoForge
-                                </button>
-                            </div>
-
-                            <!-- Search + Filters -->
-                            <div class="version-search" style="position:relative;">
-                                <i class="fas fa-search search-icon"></i>
-                                <input type="text" class="version-search-input" id="version-search" placeholder="Buscar versión...">
-                                <button class="version-filter-btn" id="filter-releases" title="Solo Releases">
-                                    <i class="fas fa-check-circle"></i>
-                                </button>
-                                <button class="version-filter-btn" id="filter-snapshots" title="Incluir Snapshots">
-                                    <i class="fas fa-flask"></i>
-                                </button>
-                            </div>
-
-                            <!-- Version Count -->
-                            <div class="version-count">
-                                <i class="fas fa-list"></i>
-                                <span><strong id="version-count-num">0</strong> versiones encontradas</span>
-                            </div>
-
-                            <!-- Version List -->
-                            <div class="version-list" id="version-list">
-                                <div class="loading-spinner" id="versions-loader">
-                                    <div class="spinner"></div>
-                                    <span>Cargando versiones...</span>
-                                </div>
-                            </div>
-
-                            <!-- Pagination -->
-                            <div class="version-pagination" id="version-pagination" style="display:none;">
-                                <button class="pagination-btn" id="page-prev" disabled>
-                                    <i class="fas fa-chevron-left"></i> Anterior
-                                </button>
-                                <span class="pagination-info" id="page-info">Página 1 de 1</span>
-                                <button class="pagination-btn" id="page-next">
-                                    Siguiente <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Right: Version Detail -->
-                        <div class="versions-sidebar">
-                            <div class="version-detail-panel" id="version-detail">
-                                <div class="vd-header">
-                                    <img src="icons/version_vanilla.png" alt="" id="vd-icon">
-                                    <h3 id="vd-name">Selecciona una versión</h3>
-                                    <p id="vd-type">Toca una versión de la lista para ver sus detalles</p>
-                                </div>
-                                <div class="vd-meta" id="vd-meta" style="display:none;">
-                                    <div class="vd-meta-item">
-                                        <span class="vd-label">Tipo</span>
-                                        <span class="vd-value" id="vd-type-val">—</span>
-                                    </div>
-                                    <div class="vd-meta-item">
-                                        <span class="vd-label">Fecha</span>
-                                        <span class="vd-value" id="vd-date-val">—</span>
-                                    </div>
-                                    <div class="vd-meta-item">
-                                        <span class="vd-label">Loader</span>
-                                        <span class="vd-value" id="vd-loader-val">Vanilla</span>
-                                    </div>
-                                </div>
-                                <!-- Download Progress -->
-                                <div id="vd-download-progress" style="display:none; margin-bottom:10px;">
-                                    <span id="vd-progress-text" style="font-family:'Minecraftia';font-size:0.55rem;color:var(--primary);display:block;margin-bottom:4px;">Descargando... 0%</span>
-                                    <div class="progress-bar">
-                                        <div id="vd-progress-fill" class="progress-bar-fill" style="width:0%;"></div>
-                                    </div>
-                                </div>
-                                <button class="vd-install-btn" id="vd-install-btn" style="display:none;">
-                                    <i class="fas fa-download"></i> INSTALAR
-                                </button>
-                            </div>
-
-                            <!-- Installed Versions -->
-                            <div class="widget-card" id="installed-widget">
-                                <h3><i class="fas fa-check-circle"></i> Instaladas</h3>
-                                <div class="installed-list" id="installed-list">
-                                    <div class="empty-state" style="padding:15px;">
-                                        <i class="fas fa-inbox" style="font-size:1.2rem;"></i>
-                                        <p style="font-size:0.5rem;">Ninguna versión instalada</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ════════════════════════════════════════════
-                     VIEW: MODS
-                     ════════════════════════════════════════════ -->
-                <div class="view" id="view-mods">
-                    <div class="section-header">
-                        <h2><i class="fas fa-puzzle-piece"></i> Gestor de Mods</h2>
-                        <span class="section-subtitle">Explora y gestiona tus mods favoritos</span>
-                    </div>
-
-                    <div class="mods-search-bar">
-                        <i class="fas fa-search" style="color:var(--primary);"></i>
-                        <input type="text" id="mod-search" placeholder="Buscar mods...">
-                        <select id="mod-filter">
-                            <option value="all">Todos</option>
-                            <option value="fabric">Fabric</option>
-                            <option value="forge">Forge</option>
-                            <option value="neoforge">NeoForge</option>
-                        </select>
-                    </div>
-
-                    <div class="mods-grid" id="mods-grid">
-                        <div class="loading-spinner" id="mods-loader" style="grid-column:1/-1;">
-                            <div class="spinner"></div>
-                            <span>Buscando mods...</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ════════════════════════════════════════════
-                     VIEW: GMUSIC
-                     ════════════════════════════════════════════ -->
-                <div class="view" id="view-gmusic">
-                    <div class="section-header">
-                        <h2><i class="fas fa-music"></i> GMusic Player</h2>
-                        <span class="section-subtitle">Reproductor de música de fondo sin video</span>
-                    </div>
-
-                    <div class="mods-search-bar" style="margin-bottom: 14px; display: flex; gap: 8px; align-items: center;">
-                        <div style="position: relative; flex: 1; display: flex; align-items: center;">
-                            <i class="fas fa-search" style="position: absolute; left: 12px; color: var(--primary); font-size: 0.8rem;"></i>
-                            <input type="text" id="gmusic-search-input" placeholder="Buscar canción o artista en YouTube..." style="padding-left: 34px;">
-                        </div>
-                        <button class="btn btn-primary" id="gmusic-search-btn" style="padding: 10px 20px; font-size: 0.7rem; display: flex; align-items: center; gap: 6px; background: var(--primary-gradient); border: 1px solid var(--primary-glow); box-shadow: var(--shadow-glow); border-radius: var(--radius-sm); font-family: 'MinecraftTen'; letter-spacing: 0.5px; cursor: pointer; transition: all var(--transition-fast);">
-                            <i class="fas fa-search"></i> BUSCAR
+                        <button class="hero-play-btn" id="btn-play-hero">
+                            <i class="fas fa-play"></i> JUGAR
                         </button>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Repositorio / Iframe de YouTube totalmente Oculto (Invisible) -->
-                    <div style="width: 0; height: 0; opacity: 0; overflow: hidden; position: absolute; pointer-events: none;">
-                        <iframe id="gmusic-iframe" src="" style="width: 1px; height: 1px; border: none;" allow="autoplay"></iframe>
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-gamepad"></i></div>
+                    <span class="stat-value" id="stat-installed">0</span>
+                    <span class="stat-label">Instaladas</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <span class="stat-value" id="stat-playtime">0h</span>
+                    <span class="stat-label">Jugado</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <span class="stat-value" id="stat-mods">0</span>
+                    <span class="stat-label">Mods</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                    <span class="stat-value" id="stat-versions">—</span>
+                    <span class="stat-label">Disponibles</span>
+                </div>
+            </div>
+
+            <!-- News Feed -->
+            <div>
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> Novedades</h2>
+                </div>
+                <div class="news-scroll" id="news-scroll">
+                    <div class="news-card">
+                        <span class="news-tag update">Actualización</span>
+                        <h4>Minecraft 1.21.5</h4>
+                        <p>Nueva actualización con el bioma de Pale Garden y nuevas criaturas.</p>
                     </div>
+                    <div class="news-card">
+                        <span class="news-tag fabric">Fabric</span>
+                        <h4>Fabric Loader 0.16.x</h4>
+                        <p>Nuevo loader con mejoras de rendimiento y compatibilidad.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag forge">Forge</span>
+                        <h4>Forge para 1.21</h4>
+                        <p>Soporte completo de Forge para las últimas versiones de MC.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag mod">NeoForge</span>
+                        <h4>NeoForge Estable</h4>
+                        <p>El sucesor de Forge continúa ganando popularidad y mods.</p>
+                    </div>
+                    <div class="news-card">
+                        <span class="news-tag">GLauncher</span>
+                        <h4>GLauncher v1.0</h4>
+                        <p>Primera versión estable del launcher para Android. ¡Disfrútalo!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <div style="display: flex; gap: 16px; align-items: flex-start; height: calc(100% - 70px);">
-                        <!-- Izquierda: Resultados de Búsqueda y Playlists -->
-                        <div style="flex: 1; display: flex; flex-direction: column; gap: 14px; max-height: 380px;">
-                            <!-- Categoría de Playlists Rápidas -->
-                            <div class="widget-card" style="padding: 10px 14px;">
-                                <h3><i class="fas fa-list-ul"></i> Playlists Recomendadas</h3>
-                                <div style="display: flex; gap: 8px; overflow-x: auto; padding-top: 6px;" id="gmusic-playlists-container">
-                                    <button class="gmusic-playlist-chip active" data-query="Minecraft OST C418">
-                                        <i class="fas fa-compact-disc"></i> Minecraft OST
-                                    </button>
-                                    <button class="gmusic-playlist-chip" data-query="Minecraft Pigstep Remix">
-                                        <i class="fas fa-fire"></i> Pigstep & Remixes
-                                    </button>
-                                    <button class="gmusic-playlist-chip" data-query="Lofi Minecraft Chill">
-                                        <i class="fas fa-coffee"></i> Lofi Chill
-                                    </button>
-                                    <button class="gmusic-playlist-chip" data-query="Minecraft Synthwave">
-                                        <i class="fas fa-bolt"></i> Synthwave
-                                    </button>
-                                </div>
-                            </div>
+<!-- ════════════════════════════════════════════
+     VIEW: VERSIONES (Versions)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-versions">
+    <div class="versions-layout">
+        <!-- Left: Version List -->
+        <div class="versions-main">
+            <!-- Loader Tabs -->
+            <div class="loader-tabs" id="loader-tabs">
+                <button class="loader-tab active" data-loader="vanilla">
+                    <i class="fas fa-cube"></i>
+                    Vanilla
+                </button>
+                <button class="loader-tab" data-loader="fabric">
+                    <i class="fas fa-scroll"></i>
+                    Fabric
+                </button>
+                <button class="loader-tab" data-loader="forge">
+                    <i class="fas fa-hammer"></i>
+                    Forge
+                </button>
+                <button class="loader-tab" data-loader="neoforge">
+                    <i class="fas fa-fire"></i>
+                    NeoForge
+                </button>
+            </div>
 
-                            <!-- Resultados -->
-                            <div style="flex: 1; overflow-y: auto;" id="gmusic-results-container">
-                                <div class="empty-state">
-                                    <i class="fas fa-music" style="font-size: 2rem; color: var(--primary);"></i>
-                                    <h3>GMusic Player</h3>
-                                    <p>Busca tu música favorita o elige una playlist arriba (servidor local 192.168.0.100:3000)</p>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Search + Filters -->
+            <div class="version-search" style="position:relative;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="version-search-input" id="version-search" placeholder="Buscar versión...">
+                <button class="version-filter-btn" id="filter-releases" title="Solo Releases">
+                    <i class="fas fa-check-circle"></i>
+                </button>
+                <button class="version-filter-btn" id="filter-snapshots" title="Incluir Snapshots">
+                    <i class="fas fa-flask"></i>
+                </button>
+            </div>
 
-                        <!-- Derecha: Interfaz de Audio (Sin Video) -->
-                        <div style="width: 280px; flex-shrink: 0;" class="widget-card">
-                            <h3><i class="fas fa-compact-disc"></i> En Reproducción</h3>
-                            
-                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 0;">
-                                <!-- Disco de Vinilo Rotatorio estilo Minecraft -->
-                                <div id="gmusic-disc-cover" style="width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, #222 20%, #111 60%, var(--primary) 100%); border: 3px solid var(--primary-glow); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--primary-glow); transition: transform 0.5s ease; position: relative;">
-                                    <div style="width: 35px; height: 35px; border-radius: 50%; background: #000; border: 2px solid var(--glass-border); display: flex; align-items: center; justify-content: center;">
-                                        <i class="fas fa-music" id="gmusic-disc-icon" style="font-size: 0.8rem; color: var(--primary);"></i>
-                                    </div>
-                                </div>
+            <!-- Version Count -->
+            <div class="version-count">
+                <i class="fas fa-list"></i>
+                <span><strong id="version-count-num">0</strong> versiones encontradas</span>
+            </div>
 
-                                <div style="text-align: center; margin-top: 15px; width: 100%;">
-                                    <h4 id="gmusic-playing-title" style="font-family: 'MinecraftTen'; font-size: 0.8rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 4px;">Selecciona una canción</h4>
-                                    <span id="gmusic-playing-channel" style="font-family: 'Minecraftia'; font-size: 0.6rem; color: var(--text-muted); display: block;">GMusic Player</span>
-                                </div>
+            <!-- Version List -->
+            <div class="version-list" id="version-list">
+                <div class="loading-spinner" id="versions-loader">
+                    <div class="spinner"></div>
+                    <span>Cargando versiones...</span>
+                </div>
+            </div>
 
-                                <!-- Controles: Retroceder 15s | Play/Pause | Adelantar 15s -->
-                                <div style="display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 15px; width: 100%;">
-                                    <button class="top-bar-btn" id="gmusic-btn-rewind" title="Retroceder 15s" style="width: 40px; height: 40px; border-radius: 50%; font-size: 0.75rem;">
-                                        -15s
-                                    </button>
-                                    <button class="top-bar-btn" id="gmusic-btn-play" title="Reproducir / Pausar" style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary-gradient); color: white; box-shadow: var(--shadow-glow); font-size: 1rem;">
-                                        <i class="fas fa-play" id="gmusic-play-icon"></i>
-                                    </button>
-                                    <button class="top-bar-btn" id="gmusic-btn-forward" title="Adelantar 15s" style="width: 40px; height: 40px; border-radius: 50%; font-size: 0.75rem;">
-                                        +15s
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Pagination -->
+            <div class="version-pagination" id="version-pagination" style="display:none;">
+                <button class="pagination-btn" id="page-prev" disabled>
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </button>
+                <span class="pagination-info" id="page-info">Página 1 de 1</span>
+                <button class="pagination-btn" id="page-next">
+                    Siguiente <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right: Version Detail -->
+        <div class="versions-sidebar">
+            <div class="version-detail-panel" id="version-detail">
+                <div class="vd-header">
+                    <img src="icons/version_vanilla.png" alt="" id="vd-icon">
+                    <h3 id="vd-name">Selecciona una versión</h3>
+                    <p id="vd-type">Toca una versión de la lista para ver sus detalles</p>
+                </div>
+                <div class="vd-meta" id="vd-meta" style="display:none;">
+                    <div class="vd-meta-item">
+                        <span class="vd-label">Tipo</span>
+                        <span class="vd-value" id="vd-type-val">—</span>
+                    </div>
+                    <div class="vd-meta-item">
+                        <span class="vd-label">Fecha</span>
+                        <span class="vd-value" id="vd-date-val">—</span>
+                    </div>
+                    <div class="vd-meta-item">
+                        <span class="vd-label">Loader</span>
+                        <span class="vd-value" id="vd-loader-val">Vanilla</span>
+                    </div>
+                </div>
+                <!-- Download Progress -->
+                <div id="vd-download-progress" style="display:none; margin-bottom:10px;">
+                    <span id="vd-progress-text" style="font-family:'Minecraftia';font-size:0.55rem;color:var(--primary);display:block;margin-bottom:4px;">Descargando... 0%</span>
+                    <div class="progress-bar">
+                        <div id="vd-progress-fill" class="progress-bar-fill" style="width:0%;"></div>
+                    </div>
+                </div>
+                <button class="vd-install-btn" id="vd-install-btn" style="display:none;">
+                    <i class="fas fa-download"></i> INSTALAR
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     VIEW: MODS
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-mods">
+    <div class="section-header">
+        <h2><i class="fas fa-puzzle-piece"></i> Gestor de Mods</h2>
+        <span class="section-subtitle">Explora y gestiona tus mods favoritos</span>
+    </div>
+
+    <div class="mods-search-bar" id="mod-search-view">
+        <div style="display: flex; gap: 8px; width: 100%;">
+            <i class="fas fa-search" style="color:var(--primary);"></i>
+            <input type="text" id="mod-search" placeholder="Buscar en Modrinth...">
+            <button class="top-bar-btn" id="view-installed-btn" title="Ver Instalados">
+                <i class="fas fa-archive"></i>
+            </button>
+        </div>
+        <div class="loader-tabs" style="padding: 2px; flex-shrink: 0; width: 100%;">
+            <button class="loader-tab active" data-project-type="mod">
+                <i class="fas fa-puzzle-piece"></i> Mods
+            </button>
+            <button class="loader-tab" data-project-type="resourcepack">
+                <i class="fas fa-palette"></i> Texturas
+            </button>
+            <button class="loader-tab" data-project-type="modpack">
+                <i class="fas fa-box-open"></i> Modpacks
+            </button>
+            <button class="loader-tab" data-project-type="world">
+                <i class="fas fa-globe"></i> Mapas
+            </button>
+        </div>
+    </div>
+
+    <div class="mods-grid" id="mods-grid">
+        <div class="loading-spinner" id="mods-loader" style="grid-column:1/-1;">
+            <div class="spinner"></div>
+            <span>Buscando mods...</span>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     VIEW: INSTALLED ASSETS (Mods, Texturas, etc.)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-installed-assets">
+    <div class="section-header" style="align-items: center;">
+        <div>
+            <h2><i class="fas fa-archive"></i> Assets Instalados</h2>
+            <span class="section-subtitle">Gestiona tus mods, texturas y más</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+             <button class="btn" id="add-local-mod-btn" style="font-size: 0.6rem; padding: 8px 14px;">
+                <i class="fas fa-plus"></i> Añadir Archivo
+            </button>
+            <button class="btn btn-primary" id="back-to-search-btn" style="font-size: 0.6rem; padding: 8px 14px;">
+                <i class="fas fa-search"></i> Volver a Búsqueda
+            </button>
+        </div>
+    </div>
+
+    <div class="installed-assets-list" id="installed-assets-list">
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     VIEW: GMUSIC
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-gmusic">
+    <div class="section-header">
+        <h2><i class="fas fa-music"></i> GMusic Player</h2>
+        <span class="section-subtitle">Reproductor de música de fondo sin video</span>
+    </div>
+
+    <div class="mods-search-bar" style="margin-bottom: 14px; display: flex; gap: 8px; align-items: center;">
+        <div style="position: relative; flex: 1; display: flex; align-items: center;">
+            <i class="fas fa-search" style="position: absolute; left: 12px; color: var(--primary); font-size: 0.8rem;"></i>
+            <input type="text" id="gmusic-search-input" placeholder="Buscar canción o artista en YouTube..." style="padding-left: 34px;">
+        </div>
+        <button class="btn btn-primary" id="gmusic-search-btn" style="padding: 10px 20px; font-size: 0.7rem; display: flex; align-items: center; gap: 6px; background: var(--primary-gradient); border: 1px solid var(--primary-glow); box-shadow: var(--shadow-glow); border-radius: var(--radius-sm); font-family: 'MinecraftTen'; letter-spacing: 0.5px; cursor: pointer; transition: all var(--transition-fast);">
+            <i class="fas fa-search"></i> BUSCAR
+        </button>
+    </div>
+
+    <div style="display: flex; gap: 16px; align-items: flex-start; height: calc(100% - 70px);">
+        <!-- Izquierda: Resultados de Búsqueda y Playlists -->
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 14px; max-height: 380px;">
+            <!-- Categoría de Playlists Rápidas -->
+            <div class="widget-card" style="padding: 10px 14px;">
+                <h3><i class="fas fa-list-ul"></i> Playlists Recomendadas</h3>
+                <div style="display: flex; gap: 8px; overflow-x: auto; padding-top: 6px;" id="gmusic-playlists-container">
+                    <button class="gmusic-playlist-chip active" data-query="Minecraft OST C418">
+                        <i class="fas fa-compact-disc"></i> Minecraft OST
+                    </button>
+                    <button class="gmusic-playlist-chip" data-query="Minecraft Pigstep Remix">
+                        <i class="fas fa-fire"></i> Pigstep & Remixes
+                    </button>
+                    <button class="gmusic-playlist-chip" data-query="Lofi Minecraft Chill">
+                        <i class="fas fa-coffee"></i> Lofi Chill
+                    </button>
+                    <button class="gmusic-playlist-chip" data-query="Minecraft Synthwave">
+                        <i class="fas fa-bolt"></i> Synthwave
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resultados -->
+            <div style="flex: 1; overflow-y: auto;" id="gmusic-results-container">
+                <div class="empty-state">
+                    <i class="fas fa-music" style="font-size: 2rem; color: var(--primary);"></i>
+                    <h3>GMusic Player</h3>
+                    <p>Busca tu música favorita o elige una playlist arriba.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Derecha: Interfaz de Audio (Sin Video) -->
+        <div style="width: 280px; flex-shrink: 0;" class="widget-card">
+            <h3><i class="fas fa-compact-disc"></i> En Reproducción</h3>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 0;">
+                <div id="gmusic-disc-cover" style="width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, #222 20%, #111 60%, var(--primary) 100%); border: 3px solid var(--primary-glow); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px var(--primary-glow); transition: transform 0.5s ease; position: relative;">
+                    <div style="width: 35px; height: 35px; border-radius: 50%; background: #000; border: 2px solid var(--glass-border); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-music" id="gmusic-disc-icon" style="font-size: 0.8rem; color: var(--primary);"></i>
                     </div>
                 </div>
 
-                <!-- ════════════════════════════════════════════
-                     VIEW: CUENTA (Account)
-                     ════════════════════════════════════════════ -->
-                <div class="view" id="view-account">
-                    <div class="account-layout">
-                        <div class="account-panel">
-                            <div class="profile-card">
-                                <img src="images/default_avatar.png" alt="Avatar" class="pc-avatar" id="account-avatar">
-                                <span class="pc-name" id="account-name">Jugador</span>
-                                <span class="pc-uuid" id="account-uuid">UUID: —</span>
-                                <span class="pc-type-badge" id="account-type">Offline</span>
-
-                                <div class="login-section">
-                                    <button class="login-btn microsoft" id="btn-login-ms">
-                                        <i class="fab fa-microsoft"></i> Microsoft
-                                    </button>
-                                    <button class="login-btn offline" id="btn-login-offline">
-                                        <i class="fas fa-user-secret"></i> Modo Offline
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="account-content">
-                            <div class="section-header">
-                                <h2><i class="fas fa-id-card"></i> Información de Cuenta</h2>
-                            </div>
-
-                            <div class="account-info-grid">
-                                <div class="info-tile">
-                                    <span class="it-label">Nombre de jugador</span>
-                                    <span class="it-value" id="info-playername">Jugador</span>
-                                </div>
-                                <div class="info-tile">
-                                    <span class="it-label">Tipo de cuenta</span>
-                                    <span class="it-value" id="info-accounttype">Offline</span>
-                                </div>
-                                <div class="info-tile">
-                                    <span class="it-label">UUID</span>
-                                    <span class="it-value mono" id="info-uuid">00000000-0000-0000-0000-000000000000</span>
-                                </div>
-                                <div class="info-tile">
-                                    <span class="it-label">Versión seleccionada</span>
-                                    <span class="it-value" id="info-selversion">Ninguna</span>
-                                </div>
-                                <div class="info-tile">
-                                    <span class="it-label">Mods activos</span>
-                                    <span class="it-value" id="info-activemods">0</span>
-                                </div>
-                                <div class="info-tile">
-                                    <span class="it-label">Estado</span>
-                                    <span class="it-value text-success" id="info-status">● En línea</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div style="text-align: center; margin-top: 15px; width: 100%;">
+                    <h4 id="gmusic-playing-title" style="font-family: 'MinecraftTen'; font-size: 0.8rem; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 4px;">Selecciona una canción</h4>
+                    <span id="gmusic-playing-channel" style="font-family: 'Minecraftia'; font-size: 0.6rem; color: var(--text-muted); display: block;">GMusic Player</span>
                 </div>
 
-                <!-- ════════════════════════════════════════════
-                     VIEW: AJUSTES (Settings)
-                     ════════════════════════════════════════════ -->
-                <div class="view" id="view-settings">
-                    <div class="section-header">
-                        <h2><i class="fas fa-cog"></i> Ajustes</h2>
-                        <span class="section-subtitle">Personaliza tu experiencia</span>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 15px; width: 100%;">
+                    <button class="top-bar-btn" id="gmusic-btn-rewind" title="Retroceder 15s" style="width: 40px; height: 40px; border-radius: 50%; font-size: 0.75rem;">-15s</button>
+                    <button class="top-bar-btn" id="gmusic-btn-play" title="Reproducir / Pausar" style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary-gradient); color: white; box-shadow: var(--shadow-glow); font-size: 1rem;"><i class="fas fa-play" id="gmusic-play-icon"></i></button>
+                    <button class="top-bar-btn" id="gmusic-btn-forward" title="Adelantar 15s" style="width: 40px; height: 40px; border-radius: 50%; font-size: 0.75rem;">+15s</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     VIEW: CUENTA (Account)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-account">
+    <div class="account-layout">
+        <div class="account-panel">
+            <div class="profile-card">
+                <img src="images/default_avatar.png" alt="Avatar" class="pc-avatar" id="account-avatar">
+                <span class="pc-name" id="account-name">Jugador</span>
+                <span class="pc-uuid" id="account-uuid">UUID: —</span>
+                <span class="pc-type-badge" id="account-type">Offline</span>
+
+                <div class="login-section">
+                    <button class="login-btn microsoft" id="btn-login-ms">
+                        <i class="fab fa-microsoft"></i> Microsoft
+                    </button>
+                    <button class="login-btn offline" id="btn-login-offline">
+                        <i class="fas fa-user-secret"></i> Modo Offline
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barra lateral de opciones de cuenta -->
+            <div class="widget-card account-sidebar-widget">
+                <h3><i class="fas fa-bars"></i> Opciones</h3>
+                <div class="account-sidebar-nav">
+                    <button class="account-sidebar-btn active" data-tab="info">
+                        <i class="fas fa-id-card"></i>
+                        <span>Información</span>
+                    </button>
+                    <button class="account-sidebar-btn" data-tab="gchat">
+                        <i class="fas fa-comments"></i>
+                        <span>GChat</span>
+                    </button>
+                    <button class="account-sidebar-btn" data-tab="skins" disabled style="opacity:0.4; cursor: not-allowed;">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Skins (Pronto)</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="account-content">
+            <!-- Pestaña de Información -->
+            <div class="account-tab-content active" id="account-tab-info">
+                <div class="section-header">
+                    <h2><i class="fas fa-id-card"></i> Información de Cuenta</h2>
+                </div>
+                <div class="account-info-grid">
+                    <div class="info-tile">
+                        <span class="it-label">Nombre de jugador</span>
+                        <span class="it-value" id="info-playername">Jugador</span>
                     </div>
-
-                    <div class="settings-layout">
-                        <!-- Java & Runtime -->
-                        <div class="settings-category">
-                            <h3><i class="fas fa-microchip"></i> Java y Runtime</h3>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Memoria RAM (MB)</span>
-                                    <span class="setting-desc">Cantidad de RAM asignada al juego</span>
-                                </div>
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <input type="range" class="setting-slider" id="ram-slider" min="512" max="4096" step="256" value="2048">
-                                    <span class="font-title text-primary" id="ram-display">2048</span>
-                                </div>
-                            </div>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Argumentos JVM</span>
-                                    <span class="setting-desc">Argumentos adicionales de Java</span>
-                                </div>
-                                <input type="text" class="setting-select" id="jvm-args" value="-XX:+UseG1GC" style="width:160px;font-size:0.55rem;">
-                            </div>
-                        </div>
-
-                        <!-- Gráficos -->
-                        <div class="settings-category">
-                            <h3><i class="fas fa-palette"></i> Gráficos</h3>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Partículas de fondo</span>
-                                    <span class="setting-desc">Efecto de partículas flotantes</span>
-                                </div>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="toggle-particles" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Animaciones</span>
-                                    <span class="setting-desc">Transiciones y micro-animaciones</span>
-                                </div>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="toggle-animations" checked>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Launcher -->
-                        <div class="settings-category">
-                            <h3><i class="fas fa-rocket"></i> Launcher</h3>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Cerrar al lanzar</span>
-                                    <span class="setting-desc">Cierra el launcher al iniciar Minecraft</span>
-                                </div>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="toggle-close-launch">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Incluir Snapshots</span>
-                                    <span class="setting-desc">Mostrar versiones snapshot en la lista</span>
-                                </div>
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="toggle-snapshots">
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                            <div class="setting-row">
-                                <div>
-                                    <span class="setting-label">Directorio de juego</span>
-                                    <span class="setting-desc">Carpeta donde se almacenan los datos</span>
-                                </div>
-                                <span class="font-body text-muted" style="font-size:0.55rem;">/sdcard/GLauncher/</span>
-                            </div>
-                        </div>
-
-                        <!-- Acerca de -->
-                        <div class="about-card">
-                            <img src="icons/minecraft_title.png" alt="GLauncher" class="about-logo">
-                            <h2>GLauncher</h2>
-                            <span class="about-version">v1.0.0 — Build 2025</span>
-                            <p>Launcher de Minecraft para Android desarrollado con ❤️. Compatible con Vanilla, Fabric, Forge y NeoForge a través de APIs unificadas.</p>
-                        </div>
+                    <div class="info-tile">
+                        <span class="it-label">Tipo de cuenta</span>
+                        <span class="it-value" id="info-accounttype">Offline</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">UUID</span>
+                        <span class="it-value mono" id="info-uuid">00000000-0000-0000-0000-000000000000</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Versión seleccionada</span>
+                        <span class="it-value" id="info-selversion">Ninguna</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Mods activos</span>
+                        <span class="it-value" id="info-activemods">0</span>
+                    </div>
+                    <div class="info-tile">
+                        <span class="it-label">Estado</span>
+                        <span class="it-value text-success" id="info-status">● En línea</span>
                     </div>
                 </div>
+            </div>
+
+            <!-- Pestaña de GChat -->
+            <div class="account-tab-content is-chat-tab" id="account-tab-gchat">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> GChat Global</h2>
+                </div>
+                <div class="gchat-container">
+                    <div class="gchat-messages" id="gchat-messages-box"></div>
+                    <div class="gchat-input-area">
+                        <button id="gchat-gif-btn" class="top-bar-btn" title="Enviar GIF"><i class="fas fa-photo-video"></i></button>
+                        <input type="text" id="gchat-input" placeholder="Escribe un mensaje...">
+                        <button id="gchat-send-btn" class="top-bar-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     VIEW: AJUSTES (Settings)
+     ════════════════════════════════════════════ -->
+<div class="view" id="view-settings">
+    <div class="section-header">
+        <h2><i class="fas fa-cog"></i> Ajustes</h2>
+        <span class="section-subtitle">Personaliza tu experiencia</span>
+    </div>
+
+    <div class="settings-layout">
+        <!-- Java & Runtime -->
+        <div class="settings-category">
+            <h3><i class="fas fa-microchip"></i> Java y Runtime</h3>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Memoria RAM (MB)</span>
+                    <span class="setting-desc">Cantidad de RAM asignada al juego</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="range" class="setting-slider" id="ram-slider" min="512" max="4096" step="256" value="2048">
+                    <span class="font-title text-primary" id="ram-display">2048</span>
+                </div>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Argumentos JVM</span>
+                    <span class="setting-desc">Argumentos adicionales de Java</span>
+                </div>
+                <input type="text" class="setting-select" id="jvm-args" value="-XX:+UseG1GC" style="width:160px;font-size:0.55rem;">
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="settings-category">
+            <h3><i class="fas fa-palette"></i> Gráficos</h3>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Partículas de fondo</span>
+                    <span class="setting-desc">Efecto de partículas flotantes</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-particles" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Animaciones</span>
+                    <span class="setting-desc">Transiciones y micro-animaciones</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-animations" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Zoom de la Interfaz (%)</span>
+                    <span class="setting-desc">Ajusta el tamaño general de la UI</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="range" class="setting-slider" id="ui-zoom-slider" min="80" max="120" step="5" value="100">
+                    <span class="font-title text-primary" id="ui-zoom-display">100</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Apariencia -->
+        <div class="settings-category">
+            <h3><i class="fas fa-paint-brush"></i> Apariencia</h3>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Fondo personalizado</span>
+                    <span class="setting-desc">Elige una imagen o video de fondo</span>
+                </div>
+                <div style="display:flex; gap: 8px;">
+                    <button class="btn" id="btn-select-bg" style="padding: 8px 14px; font-size: 0.6rem;">
+                        <i class="fas fa-image"></i> Seleccionar
+                    </button>
+                    <button class="btn" id="btn-reset-bg" style="padding: 8px 14px; font-size: 0.6rem;">
+                        <i class="fas fa-undo"></i> Resetear
+                    </button>
+                </div>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Desenfoque de fondo</span>
+                    <span class="setting-desc">Ajusta el nivel de blur</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="range" class="setting-slider" id="bg-blur-slider" min="0" max="20" step="1" value="1">
+                    <span class="font-title text-primary" id="bg-blur-display">1</span>
+                </div>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Saturación de fondo</span>
+                    <span class="setting-desc">Ajusta la intensidad del color</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="range" class="setting-slider" id="bg-saturate-slider" min="0" max="200" step="10" value="120">
+                    <span class="font-title text-primary" id="bg-saturate-display">120</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Launcher -->
+        <div class="settings-category">
+            <h3><i class="fas fa-rocket"></i> Launcher</h3>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Cerrar al lanzar</span>
+                    <span class="setting-desc">Cierra el launcher al iniciar Minecraft</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-close-launch">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Incluir Snapshots</span>
+                    <span class="setting-desc">Mostrar versiones snapshot en la lista</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-snapshots">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <div>
+                    <span class="setting-label">Directorio de juego</span>
+                    <span class="setting-desc">Carpeta donde se almacenan los datos</span>
+                </div>
+                <span class="font-body text-muted" style="font-size:0.55rem;">/sdcard/GLauncher/</span>
+            </div>
+        </div>
+
+        <!-- Acerca de -->
+        <div class="about-card">
+            <img src="icons/minecraft_title.png" alt="GLauncher" class="about-logo">
+            <h2>GLauncher</h2>
+            <span class="about-version">v1.0.0 — Build 2025</span>
+            <p>Launcher de Minecraft para Android desarrollado con ❤️. Compatible con Vanilla, Fabric, Forge y NeoForge a través de APIs unificadas.</p>
+        </div>
+    </div>
+</div>
 
             </div><!-- /content-area -->
         </div><!-- /main-area -->
@@ -639,37 +706,10 @@
 
     <!-- ═══ Virtual Controls FULL EDITOR ═══ -->
     <div class="vc-editor-overlay" id="vc-editor" style="display:none;">
-        <!-- Top bar -->
-        <div class="vc-editor-topbar">
-            <div class="vc-editor-logo">
-                <i class="fas fa-gamepad"></i>
-                <span>Editor de Controles Virtuales</span>
-            </div>
-            <!-- Presets -->
-            <div class="vc-presets-bar">
-                <span class="vc-presets-label">Preset:</span>
-                <button class="vc-preset-btn active" data-preset="0" id="vc-preset-0">1</button>
-                <button class="vc-preset-btn" data-preset="1" id="vc-preset-1">2</button>
-                <button class="vc-preset-btn" data-preset="2" id="vc-preset-2">3</button>
-            </div>
-            <!-- Actions -->
-            <div class="vc-editor-actions">
-                <button class="vc-action-btn" id="vc-reset-btn" title="Resetear preset">
-                    <i class="fas fa-undo"></i> Reset
-                </button>
-                <button class="vc-action-btn success" id="vc-save-editor-btn" title="Guardar">
-                    <i class="fas fa-save"></i> Guardar
-                </button>
-                <button class="vc-action-btn danger" id="vc-close-editor-btn" title="Cerrar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-
         <!-- Main editor layout -->
         <div class="vc-editor-main">
 
-            <!-- Left Palette -->
+            <!-- Left Palette (Añadir Controles) -->
             <div class="vc-palette" id="vc-palette">
                 <div class="vc-palette-header">Añadir Control</div>
                 <div class="vc-palette-content">
@@ -683,20 +723,6 @@
                         </div>
                         <span>Joystick</span>
                     </button>
-                    <button class="vc-palette-item" id="vc-add-attack" title="Añadir botón de ataque (clic izquierdo)">
-                        <div class="vc-palette-icon" style="border-radius:6px;"><i class="fas fa-hand-rock"></i></div>
-                        <span>Atacar</span>
-                    </button>
-                    <button class="vc-palette-item" id="vc-add-use" title="Añadir botón de usar (clic derecho)">
-                        <div class="vc-palette-icon" style="border-radius:6px;"><i class="fas fa-hand-paper"></i></div>
-                        <span>Usar</span>
-                    </button>
-                    <button class="vc-palette-item" id="vc-toggle-mouse-mode" title="Activar/desactivar modo de mouse virtual">
-                        <div class="vc-palette-icon" style="border-radius:6px;" id="vc-mouse-mode-icon">
-                            <i class="fas fa-mouse"></i>
-                        </div>
-                        <span>Mouse</span>
-                    </button>
                     <div class="vc-palette-divider"></div>
                     <div class="vc-palette-help">
                         <p><i class="fas fa-hand-point-up"></i> Arrastra para mover</p>
@@ -708,7 +734,7 @@
 
             <!-- Canvas Area -->
             <div class="vc-canvas-wrapper">
-                <div class="vc-canvas-label">Vista previa — Pantalla del juego (16:9)</div>
+                <!-- <div class="vc-canvas-label">Vista previa — Pantalla del juego (16:9)</div> -->
 
                 <!-- Templates para los controles (JS los usará para clonar) -->
                 <template id="vc-tpl-button">
@@ -738,7 +764,27 @@
 
             <!-- Right Properties Panel -->
             <div class="vc-properties" id="vc-properties">
-                <div class="vc-prop-title"><i class="fas fa-sliders-h"></i> Propiedades</div>
+                <div class="vc-prop-title">
+                    <i class="fas fa-sliders-h"></i> Propiedades
+                    <div class="vc-editor-actions" style="margin-left: auto;">
+                        <button class="vc-action-btn success" id="vc-save-editor-btn" title="Guardar y Cerrar">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button class="vc-action-btn danger" id="vc-close-editor-btn" title="Cerrar sin guardar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="vc-presets-bar" id="vc-presets-bar">
+                    <span class="vc-presets-label">Preset:</span>
+                    <button class="vc-preset-btn active" data-preset="0" id="vc-preset-0">1</button>
+                    <button class="vc-preset-btn" data-preset="1" id="vc-preset-1">2</button>
+                    <button class="vc-preset-btn" data-preset="2" id="vc-preset-2">3</button>
+                    <button class="vc-action-btn" id="vc-reset-btn" title="Resetear preset actual" style="margin-left: auto;">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                </div>
+
                 <div class="vc-no-selection" id="vc-no-selection">
                     <i class="fas fa-mouse-pointer" style="font-size:1.5rem;opacity:0.3;"></i>
                     <p>Selecciona un elemento</p>
@@ -965,6 +1011,65 @@
         </div>
     </div>
 
+    <!-- ═══ Modal Confirmación de Borrado ═══ -->
+    <div class="modal-overlay" id="delete-confirm-modal">
+        <div class="modal-panel" style="width: 420px; text-align: center;">
+            <div style="font-size: 2.5rem; color: var(--danger); margin-bottom: 12px;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 id="delete-modal-title" style="font-family: 'MinecraftTen'; font-size: 1.1rem; color: var(--text); margin-bottom: 8px;">¿Confirmar Borrado?</h3>
+            <p id="delete-modal-text" style="font-family: 'Minecraftia'; font-size: 0.65rem; color: var(--text-dim); margin-bottom: 20px;">
+                Estás a punto de eliminar permanentemente la versión <strong id="delete-modal-version-name" class="text-primary"></strong>. Esta acción no se puede deshacer.
+            </p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button id="delete-modal-cancel-btn" class="btn" style="background: rgba(255,255,255,0.1);">Cancelar</button>
+                <button id="delete-modal-confirm-btn" class="btn" style="background: var(--danger); border-color: var(--danger);">
+                    <i class="fas fa-trash"></i> Confirmar Borrado
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Modal Búsqueda de GIFs (Giphy) ═══ -->
+    <div class="modal-overlay" id="giphy-modal">
+        <div class="modal-panel" style="width: 500px; height: 450px; display: flex; flex-direction: column;">
+            <button class="modal-close" id="giphy-modal-close"><i class="fas fa-times"></i></button>
+            <div class="mods-search-bar" style="padding: 0; background: transparent; border: none; margin-bottom: 10px;">
+                <div style="position: relative; width: 100%; display: flex; align-items: center;">
+                    <i class="fas fa-search" style="position: absolute; left: 12px; color: var(--primary); font-size: 0.8rem;"></i>
+                    <input type="text" id="giphy-search-input" placeholder="Buscar GIFs en GIPHY..." style="padding-left: 34px; width: 100%;">
+                </div>
+            </div>
+            <div id="giphy-results" style="flex: 1; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px;">
+                <!-- Los GIFs aparecerán aquí -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══ Tutorial por Señales ═══ -->
+    <div class="tutorial-overlay" id="tutorial-overlay">
+        <div class="tutorial-spotlight" id="tutorial-spotlight"></div>
+        <div class="tutorial-tooltip" id="tutorial-tooltip">
+            <div class="tutorial-tooltip-content">
+                <h3 class="tutorial-title" id="tutorial-title"></h3>
+                <p class="tutorial-desc" id="tutorial-desc"></p>
+            </div>
+
+            <div class="tutorial-navigation">
+                <button class="tutorial-btn" id="tutorial-prev" style="visibility: hidden;">
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <div class="tutorial-dots" id="tutorial-dots"></div>
+                <button class="tutorial-btn" id="tutorial-next">
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="tutorial-btn success" id="tutorial-finish" style="display: none;">
+                    Finalizar <i class="fas fa-flag-checkered"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- ═══ JavaScript ═══ -->
     <script src="js/app.js"></script>

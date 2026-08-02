@@ -6,6 +6,15 @@ android {
     namespace 'com.glauncher.mobile'
     compileSdk 34
 
+    signingConfigs {
+        release {
+            storeFile file('glauncher.keystore')
+            storePassword '123456'
+            keyAlias 'glauncher_alias'
+            keyPassword '123456'
+        }
+    }
+
     defaultConfig {
         applicationId "com.glauncher.mobile"
         minSdk 24
@@ -18,13 +27,36 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // AÑADIDO PARA GENERAR APKs SEPARADOS Y MÁS PEQUEÑOS
+    splits {
+        abi {
+            enable true
+            reset()
+            include "armeabi-v7a", "arm64-v8a"
+            universalApk false // No generar el APK universal gigante
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    // Necesario para evitar conflictos con las librerías del launcher
+    packagingOptions {
+        exclude 'META-INF/versions/9/module-info.class'
+        pickFirst '**/libbytehook.so'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -32,6 +64,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.webkit:webkit:1.9.0'
-    // Añadida la librería para descomprimir archivos .tar.gz
     implementation 'org.apache.commons:commons-compress:1.26.1'
+
+    // Usar el código de PojavLauncher como un módulo local
+    implementation project(':pojavlauncher:app_pojavlauncher')
 }

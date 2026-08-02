@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
    GLauncher — Virtual Controls Editor
-   Editor full-screen para configurar botones táctiles en Android
+   Editor a pantalla completa para configurar botones táctiles en Android
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ─── Overlay Full-Screen ─── */
@@ -18,20 +18,6 @@
 @keyframes vcEditorOpen {
     from { opacity: 0; transform: scale(0.97); }
     to   { opacity: 1; transform: scale(1); }
-}
-
-/* ─── Top Bar ─── */
-.vc-editor-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    height: 52px;
-    background: rgba(13, 13, 25, 0.98);
-    border-bottom: 1px solid rgba(155, 89, 182, 0.25);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.5);
-    flex-shrink: 0;
-    gap: 16px;
 }
 
 .vc-editor-logo {
@@ -53,9 +39,9 @@
 .vc-presets-bar {
     display: flex;
     align-items: center;
-    gap: 8px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(155, 89, 182, 0.15);
 }
-
 .vc-presets-label {
     font-size: 0.5rem;
     color: var(--text-muted);
@@ -63,8 +49,8 @@
 
 .vc-preset-btn {
     width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    height: 32px;
+    border-radius: 6px;
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(155,89,182,0.2);
     color: var(--text-dim);
@@ -92,13 +78,13 @@
 .vc-editor-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .vc-action-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     padding: 7px 14px;
     border-radius: 8px;
     background: rgba(255,255,255,0.06);
@@ -109,6 +95,13 @@
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
+}
+
+.vc-properties .vc-action-btn {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
 }
 
 .vc-action-btn:hover {
@@ -264,8 +257,6 @@
     flex: 1;
     position: absolute;
     inset: 0;
-    padding: 16px;
-    padding: 16px;
     background: #0a0a12;
     gap: 8px;
     overflow: hidden;
@@ -344,6 +335,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10; /* Asegura que los elementos estén sobre el trackpad */
     overflow: hidden;
 }
 
@@ -438,6 +430,7 @@
     overflow-y: auto;
     flex-shrink: 0;
     transition: opacity 0.2s ease, transform 0.2s ease;
+    max-height: calc(100% - 40px); /* Limita la altura para permitir el scroll */
     display: none; /* Oculto por defecto */
 }
 
@@ -453,7 +446,7 @@
     border-bottom: 1px solid rgba(155,89,182,0.15);
     flex-shrink: 0;
 }
-
+.vc-prop-title { justify-content: space-between; }
 .vc-no-selection {
     flex: 1;
     display: flex;
