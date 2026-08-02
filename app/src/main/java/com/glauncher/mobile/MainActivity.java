@@ -499,19 +499,28 @@ public class MainActivity extends AppCompatActivity {
         public void launchMinecraftVersion(final String versionId, final int ramMb) {
             Log.d("GLauncher_ManoDura", "launchMinecraftVersion llamado para " + versionId + " con " + ramMb + "MB RAM");
 
-            if (versionId == null || versionId.trim().isEmpty()) {
+            if (versionId == null || versionId.trim().isEmpty() || "undefined".equalsIgnoreCase(versionId.trim())) {
                 runOnUiThread(() -> runJs("showNotification('Error: ID de versión inválido', 'error')"));
                 return;
             }
 
-            // Lanzar GameActivity inmediatamente — ella gestionará el JRE internamente
+            File baseDir = new File(MainActivity.this.getExternalFilesDir(null), "GLauncher");
+            File versionDir = new File(baseDir, "versions/" + versionId);
+            File versionJar = new File(versionDir, versionId + ".jar");
+            File nativesDir = new File(baseDir, "natives/" + versionId);
+
+            if (!versionJar.exists() || !nativesDir.exists() || nativesDir.listFiles() == null || nativesDir.listFiles().length == 0) {
+                runOnUiThread(() -> runJs("showNotification('Primero instala la versión para poder lanzarla', 'warning')"));
+                return;
+            }
+
             runOnUiThread(() -> {
                 try {
                     SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                     String virtualControlsConfig = prefs.getString("virtual_controls_config", "[]");
 
                     String jreDirName = resolveJreDirName(versionId);
-                    File jreHome = new File(new File(MainActivity.this.getExternalFilesDir(null), "GLauncher"), "jres/" + jreDirName);
+                    File jreHome = new File(baseDir, "jres/" + jreDirName);
 
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     intent.putExtra("versionId", versionId);

@@ -305,6 +305,7 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback {
         final boolean useJre17 = intent.getBooleanExtra("useJre17", false);
         final String requestedJreDirName = intent.getStringExtra("jreDirName") != null ? intent.getStringExtra("jreDirName") : (useJre17 ? "jre17" : "jre8");
         final String selectedJreDirName = chooseBestJreName(requestedJreDirName);
+        final float resolutionScale = intent.getFloatExtra("resolutionScale", 1.0f);
         File storageRoot = getExternalFilesDir(null);
         if (storageRoot == null) {
             storageRoot = getFilesDir();
@@ -330,6 +331,20 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback {
                     setExecutableRecursively(actualJre);
                 }
 
+                // Asegurar permisos nativos por comando de sistema (chmod 755) para evitar el código de error -1
+                try {
+                    String javaPath = new File(actualJre, "bin/java").getAbsolutePath();
+                    Runtime.getRuntime().exec("chmod 755 " + javaPath).waitFor();
+                    File[] binFiles = new File(actualJre, "bin").listFiles();
+                    if (binFiles != null) {
+                        for (File binFile : binFiles) {
+                            Runtime.getRuntime().exec("chmod 755 " + binFile.getAbsolutePath()).waitFor();
+                        }
+                    }
+                } catch (Exception ePermissions) {
+                    Log.w(TAG, "No se pudo ejecutar chmod nativo", ePermissions);
+                }
+
                 String username = getUsername();
                 File baseDir = new File(getExternalFilesDir(null), "GLauncher");
                 String launchJrePath = actualJre.getAbsolutePath();
@@ -340,11 +355,14 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback {
                 }
                 Log.d("GLauncher_ManoDura", "Construyendo argumentos para PojavLauncher con JRE en: " + launchJrePath);
 
-                // Obtener dimensiones reales de la pantalla del dispositivo dinámicamente
+                // Obtener dimensiones reales de la pantalla del dispositivo dinámicamente y aplicar factor de escala
                 DisplayMetrics displayMetrics = new DisplayMetrics();
                 getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
-                String screenWidth = String.valueOf(displayMetrics.widthPixels);
-                String screenHeight = String.valueOf(displayMetrics.heightPixels);
+                int rawWidth = displayMetrics.widthPixels;
+                int rawHeight = displayMetrics.heightPixels;
+                
+                String screenWidth = String.valueOf((int)(rawWidth * resolutionScale));
+                String screenHeight = String.valueOf((int)(rawHeight * resolutionScale));
 
                 ArrayList<String> args = PojavLauncher.constructArguments(
                     GameActivity.this, launchJrePath,
@@ -356,9 +374,13 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback {
                     username, "0", "invalid", "mojang", "", screenWidth, screenHeight, "en_US"
                 );
 
+
                 Log.d("GLauncher_ManoDura", "Argumentos construidos: " + args.toString());
 
                 pojavLauncher = new PojavLauncher(args);
+
+                // Initialize JVM runtime BEFORE launching (loads native libs, sets env vars, etc.)
+                pojavLauncher.initRuntime(GameActivity.this, launchJrePath, baseDir.getAbsolutePath());
 
                 if (currentHolder != null && currentHolder.getSurface() != null) {
                     Log.i("GLauncher_ManoDura", "Sincronizando Surface con PojavLauncher...");
@@ -370,14 +392,55 @@ public class GameActivity extends Activity implements SurfaceHolder.Callback {
                 Log.i("GLauncher_ManoDura", "PojavLauncher finalizó con código: " + exitCode);
 
                 if (exitCode != 0) {
-                    runOnUiThread(() -> Toast.makeText(GameActivity.this, "El juego se cerró inesperadamente (Código " + exitCode + ")", Toast.LENGTH_LONG).show());
+                    final String fullLog = pojavLauncher.getLog();
+                    runOnUiThread(() -> {
+                        android.widget.ScrollView scrollView = new android.widget.ScrollView(GameActivity.this);
+                        android.widget.TextView logView = new android.widget.TextView(GameActivity.this);
+                        logView.setText("EXIT CODE: " + exitCode + "\n\n" + fullLog);
+                        logView.setTextSize(11f);
+                        logView.setTypeface(android.graphics.Typeface.MONOSPACE);
+                        logView.setTextColor(0xFFCCCCCC);
+                        logView.setPadding(24, 24, 24, 24);
+                        logView.setTextIsSelectable(true);
+                        scrollView.addView(logView);
+                        scrollView.setBackgroundColor(0xFF1A1A2E);
+
+                        new android.app.AlertDialog.Builder(GameActivity.this)
+                            .setTitle("GLauncher - Error Console")
+                            .setView(scrollView)
+                            .setPositiveButton("Cerrar", (d, w) -> finish())
+                            .setCancelable(false)
+                            .show();
+                    });
+                    return; // No llamar finish() aquí, el dialog lo hará
                 }
                 finish();
             } catch (Exception e) {
                 Log.e("GLauncher_ManoDura", "Error fatal al iniciar PojavLauncher", e);
-                runOnUiThread(() -> Toast.makeText(GameActivity.this,
-                    "Error al iniciar Minecraft: " + e.getMessage(), Toast.LENGTH_LONG).show());
-                finish();
+                final String fullLog = (pojavLauncher != null ? pojavLauncher.getLog() : "") + "\n\nEXCEPTION: " + e.getClass().getSimpleName() + ": " + e.getMessage();
+                final StringBuilder stackTrace = new StringBuilder(fullLog);
+                for (StackTraceElement el : e.getStackTrace()) {
+                    stackTrace.append("\n    at ").append(el.toString());
+                }
+                runOnUiThread(() -> {
+                    android.widget.ScrollView scrollView = new android.widget.ScrollView(GameActivity.this);
+                    android.widget.TextView logView = new android.widget.TextView(GameActivity.this);
+                    logView.setText(stackTrace.toString());
+                    logView.setTextSize(11f);
+                    logView.setTypeface(android.graphics.Typeface.MONOSPACE);
+                    logView.setTextColor(0xFFCCCCCC);
+                    logView.setPadding(24, 24, 24, 24);
+                    logView.setTextIsSelectable(true);
+                    scrollView.addView(logView);
+                    scrollView.setBackgroundColor(0xFF1A1A2E);
+
+                    new android.app.AlertDialog.Builder(GameActivity.this)
+                        .setTitle("GLauncher - Fatal Error")
+                        .setView(scrollView)
+                        .setPositiveButton("Cerrar", (d, w) -> finish())
+                        .setCancelable(false)
+                        .show();
+                });
             }
         }).start();
     }

@@ -1,0 +1,32 @@
+EXIT CODE: -1
+
+[INFO] PojavLauncher creado con args: [java, -Xmx2048M, -Xms2048M, -Dminecraft.app.dir=/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher, -Duser.home=/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher, -Djava.library.path=/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/natives/undefined, -XX:ActiveProcessorCount=4, -cp, /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/versions/undefined/undefined.jar, net.minecraft.client.main.Main, --username, Jugador, --version, undefined, --gameDir, /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher, --uuid, 0, --accessToken, invalid, --userType, mojang, --width, 1612, --height, 720]
+[INFO] === INIT RUNTIME START ===
+[INFO] JRE Home: /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/jres/jre8
+[INFO] Game Dir: /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher
+[INFO] Native lib dir: /data/app/~~DZcCR0unEqRubfU-2eQM1w==/com.glauncher.mobile-aFDoAcJvxhpg2mAnKqh3uQ==/lib/arm64
+[INFO] Native libs encontradas (0):
+[INFO] OS arch: aarch64
+[INFO] JRE arch detectado: aarch64
+[INFO] Buscando lib dir en: /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/jres/jre8/lib/aarch64 -> existe=true
+[INFO] JRE lib subdir: lib/aarch64
+[INFO] bin/java existe: true | ejecutable: false
+[INFO] LD_LIBRARY_PATH: /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/jres/jre8/lib/aarch64/jli:/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/jres/jre8/lib/aarch64:/system/lib64:/vendor/lib64:/vendor/lib64/hw:/data/app/~~DZcCR0unEqRubfU-2eQM1w==/com.glauncher.mobile-aFDoAcJvxhpg2mAnKqh3uQ==/lib/arm64
+[INFO] Configurando variables de entorno...
+[INFO] Variables de entorno configuradas OK
+[INFO] server/libjvm.so existe: true
+[INFO] client/libjvm.so existe: false
+[INFO] JVM library path: /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/jres/jre8/lib/aarch64/server
+[INFO] Llamando setLdLibraryPath...
+[INFO] setLdLibraryPath OK
+[INFO] GL4ES cargado: false
+[INFO] Llamando initJavaRuntime...
+[INFO] initJavaRuntime completado OK
+[INFO] Configurando exit hooks...
+[INFO] Hooks configurados OK
+[INFO] Cambiando directorio a: /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher
+[INFO] chdir OK
+[INFO] === INIT RUNTIME COMPLETADO EXITOSAMENTE ===
+[INFO] === LANZANDO JVM ===
+[INFO] Args finales: [java, -Xmx2048M, -Xms2048M, -Dminecraft.app.dir=/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher, -Duser.home=/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher, -Djava.library.path=/storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/natives/undefined, -XX:ActiveProcessorCount=4, -cp, /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher/versions/undefined/undefined.jar, net.minecraft.client.main.Main, --username, Jugador, --version, undefined, --gameDir, /storage/emulated/0/Android/data/com.glauncher.mobile/files/GLauncher, --uuid, 0, --accessToken, invalid, --userType, mojang, --width, 1612, --height, 720]
+[INFO] JVM retornó código: -1

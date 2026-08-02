@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.glauncher.mobile.app-mergeReleaseResources-36:/values-bn-rIN/values-bn-rIN.xml",
+            "map": [
+                {
+                    "source": "C:\\dev\\GLauncher\\pojavlauncher\\app_pojavlauncher\\build\\intermediates\\packaged_res\\release\\packageReleaseResources\\values-bn-rIN\\values-bn-rIN.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,210",
+                        "endColumns": "154,59",
+                        "endOffsets": "205,265"
+                    }
+                }
+            ]
+        }
+    ]
+}

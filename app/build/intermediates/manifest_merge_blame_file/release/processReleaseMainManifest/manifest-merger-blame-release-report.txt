@@ -1,0 +1,373 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.glauncher.mobile"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Permisos necesarios -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:6:5-67
+12-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:7:5-79
+13-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:7:22-76
+14    <uses-permission
+14-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:8:5-80
+15        android:name="android.permission.READ_EXTERNAL_STORAGE"
+15-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:8:22-77
+16        android:maxSdkVersion="28" />
+16-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:19:9-35
+17    <uses-permission
+17-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:9:5-108
+18        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+18-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:9:22-78
+19        android:maxSdkVersion="28" />
+19-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:9:79-105
+20
+21    <uses-feature android:glEsVersion="0x00020000" />
+21-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:5-54
+21-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:19-51
+22    <uses-feature
+22-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:9:5-11:36
+23        android:name="android.hardware.type.pc"
+23-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:9-48
+24        android:required="false" />
+24-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:11:9-33
+25
+26    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+26-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:13:5-77
+26-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:13:22-74
+27    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+27-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:22:5-71
+27-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:22:22-68
+28    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+28-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:23:5-77
+28-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:23:22-74
+29    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+29-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:24:5-87
+29-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:24:22-84
+30    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+30-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:25:5-89
+30-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:25:22-86
+31
+32    <queries>
+32-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:27:5-29:15
+33        <package android:name="net.kdt.pojavlaunch.ffmpeg" />
+33-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:28:9-62
+33-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:28:18-59
+34    </queries>
+35
+36    <permission
+36-->[androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+37        android:name="com.glauncher.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+37-->[androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+38        android:protectionLevel="signature" />
+38-->[androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+39
+40    <uses-permission android:name="com.glauncher.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+40-->[androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+40-->[androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+41
+42    <application
+42-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:11:5-50:19
+43        android:name="net.kdt.pojavlaunch.PojavApplication"
+43-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:32:9-60
+44        android:allowBackup="true"
+44-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:12:9-35
+45        android:allowNativeHeapPointerTagging="false"
+45-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:34:9-54
+46        android:appCategory="game"
+46-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:35:9-35
+47        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+47-->[androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+48        android:extractNativeLibs="false"
+49        android:fullBackupContent="@xml/backup_rules"
+49-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:13:9-54
+50        android:hasFragileUserData="true"
+50-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:36:9-42
+51        android:icon="@mipmap/ic_launcher"
+51-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:14:9-43
+52        android:isGame="true"
+52-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:37:9-30
+53        android:label="@string/app_name"
+53-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:15:9-41
+54        android:process=":launcher"
+54-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:38:9-36
+55        android:requestLegacyExternalStorage="true"
+55-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:20:9-52
+56        android:resizeableActivity="true"
+56-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:39:9-42
+57        android:roundIcon="@mipmap/ic_launcher"
+57-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:16:9-48
+58        android:supportsRtl="true"
+58-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:17:9-35
+59        android:theme="@style/Theme.GLauncher"
+59-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:18:9-47
+60        android:usesCleartextTraffic="true" >
+60-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:19:9-44
+61        <activity
+61-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:24:9-34:20
+62            android:name="com.glauncher.mobile.SplashActivity"
+62-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:25:13-43
+63            android:configChanges="orientation|screenSize|keyboardHidden"
+63-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:28:13-74
+64            android:exported="true"
+64-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:26:13-36
+65            android:screenOrientation="sensorLandscape"
+65-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:27:13-56
+66            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+66-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:29:13-77
+67            <intent-filter>
+67-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:30:13-33:29
+68                <action android:name="android.intent.action.MAIN" />
+68-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:31:17-69
+68-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:31:25-66
+69
+70                <category android:name="android.intent.category.LAUNCHER" />
+70-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:32:17-77
+70-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:32:27-74
+71            </intent-filter>
+72        </activity>
+73        <activity
+73-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:36:9-42:20
+74            android:name="com.glauncher.mobile.MainActivity"
+74-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:37:13-41
+75            android:configChanges="orientation|screenSize|keyboardHidden"
+75-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:40:13-74
+76            android:exported="true"
+76-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:38:13-36
+77            android:screenOrientation="sensorLandscape"
+77-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:39:13-56
+78            android:theme="@style/Theme.AppCompat.NoActionBar" >
+78-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:41:13-63
+79        </activity>
+80        <activity
+80-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:44:9-49:74
+81            android:name="com.glauncher.mobile.GameActivity"
+81-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:45:13-41
+82            android:configChanges="orientation|screenSize|keyboardHidden"
+82-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:48:13-74
+83            android:exported="false"
+83-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:46:13-37
+84            android:screenOrientation="sensorLandscape"
+84-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:47:13-56
+85            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+85-->C:\dev\GLauncher\app\src\main\AndroidManifest.xml:49:13-71
+86        <activity
+86-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:41:9-43:40
+87            android:name="net.kdt.pojavlaunch.MissingStorageActivity"
+87-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:42:13-70
+88            android:exported="false" />
+88-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:43:13-37
+89
+90        <meta-data
+90-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:45:9-47:43
+91            android:name="android.max_aspect"
+91-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:46:13-46
+92            android:value="ratio_float" />
+92-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:47:13-40
+93
+94        <activity
+94-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:49:9-53:20
+95            android:name="net.kdt.pojavlaunch.TestStorageActivity"
+95-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:50:13-67
+96            android:exported="false"
+96-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:51:13-37
+97            android:launchMode="singleTop" >
+97-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:52:13-43
+98        </activity>
+99        <activity
+99-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:54:9-56:58
+100            android:name="net.kdt.pojavlaunch.LauncherActivity"
+100-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:55:13-64
+101            android:windowSoftInputMode="adjustResize" />
+101-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:56:13-55
+102        <activity
+102-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:57:9-76:20
+103            android:name="net.kdt.pojavlaunch.ImportControlActivity"
+103-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:58:13-69
+104            android:configChanges="keyboard|keyboardHidden"
+104-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:59:13-60
+105            android:exported="true"
+105-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:60:13-36
+106            android:launchMode="singleInstance"
+106-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:61:13-48
+107            android:windowSoftInputMode="stateVisible" >
+107-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:62:13-55
+108            <intent-filter
+108-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:63:13-75:29
+109                android:label="@string/import_control_label"
+109-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:64:17-61
+110                android:scheme="content" >
+110-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:65:17-41
+111                <action android:name="android.intent.action.VIEW" />
+111-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:67:17-69
+111-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:67:25-66
+112                <action android:name="android.intent.action.SEND" />
+112-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:68:17-69
+112-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:68:25-66
+113
+114                <category android:name="android.intent.category.DEFAULT" />
+114-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:70:17-76
+114-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:70:27-73
+115
+116                <data android:mimeType="application/json" />
+116-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:17-61
+116-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:23-58
+117                <data android:mimeType="text/json" />
+117-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:17-61
+117-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:23-58
+118                <data android:mimeType="text/plain" />
+118-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:17-61
+118-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:23-58
+119            </intent-filter>
+120        </activity>
+121        <activity
+121-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:77:9-80:70
+122            android:name="net.kdt.pojavlaunch.FatalErrorActivity"
+122-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:78:13-66
+123            android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
+123-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:79:13-94
+124            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+124-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:80:13-67
+125        <activity
+125-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:81:9-84:70
+126            android:name="net.kdt.pojavlaunch.ShowErrorActivity"
+126-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:82:13-65
+127            android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
+127-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:83:13-94
+128            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+128-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:84:13-67
+129        <activity
+129-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:85:9-88:70
+130            android:name="net.kdt.pojavlaunch.ExitActivity"
+130-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:86:13-60
+131            android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
+131-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:87:13-94
+132            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+132-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:88:13-67
+133        <activity
+133-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:89:9-93:59
+134            android:name="net.kdt.pojavlaunch.JavaGUILauncherActivity"
+134-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:90:13-71
+135            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation|uiMode"
+135-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:91:13-133
+136            android:process=":gui_installer"
+136-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:92:13-45
+137            android:screenOrientation="sensorLandscape" />
+137-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:93:13-56
+138        <activity
+138-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:94:9-104:20
+139            android:name="net.kdt.pojavlaunch.CustomControlsActivity"
+139-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:95:13-70
+140            android:configChanges="keyboardHidden|orientation|screenSize|keyboard|navigation"
+140-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:96:13-94
+141            android:exported="false"
+141-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:97:13-37
+142            android:screenOrientation="sensorLandscape" >
+142-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:98:13-56
+143            <intent-filter>
+143-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:99:13-103:29
+144                <action android:name=".CustomControlsActivity" />
+145
+146                <category android:name="android.intent.category.DEFAULT" />
+146-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:70:17-76
+146-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:70:27-73
+147            </intent-filter>
+148        </activity>
+149        <activity
+149-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:105:9-110:59
+150            android:name="net.kdt.pojavlaunch.MainActivity"
+150-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:106:13-60
+151            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|keyboard|navigation|uiMode"
+151-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:107:13-133
+152            android:launchMode="singleTop"
+152-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:108:13-43
+153            android:process=":game"
+153-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:109:13-36
+154            android:screenOrientation="sensorLandscape" />
+154-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:110:13-56
+155
+156        <provider
+156-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:112:9-121:20
+157            android:name="net.kdt.pojavlaunch.scoped.FolderProvider"
+157-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:113:13-69
+158            android:authorities="@string/storageProviderAuthorities"
+158-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:114:13-69
+159            android:exported="true"
+159-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:115:13-36
+160            android:grantUriPermissions="true"
+160-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:116:13-47
+161            android:permission="android.permission.MANAGE_DOCUMENTS" >
+161-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:117:13-69
+162            <intent-filter>
+162-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:118:13-120:29
+163                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+163-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:119:17-84
+163-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:119:25-81
+164            </intent-filter>
+165        </provider>
+166
+167        <service
+167-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:123:9-125:56
+168            android:name="net.kdt.pojavlaunch.services.ProgressService"
+168-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:124:13-72
+169            android:foregroundServiceType="dataSync" />
+169-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:125:13-53
+170        <service
+170-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:126:9-133:19
+171            android:name="net.kdt.pojavlaunch.services.GameService"
+171-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:127:13-68
+172            android:foregroundServiceType="specialUse"
+172-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:128:13-55
+173            android:process=":game" >
+173-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:129:13-36
+174            <property
+174-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:130:13-132:248
+175                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+175-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:131:17-76
+176                android:value="This application is intended to run a 3rd-party piece of software which cannot be managed using the activity&apos;s saved instance state. This service is used for background persistence of this piece of software." />
+176-->[:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:132:17-245
+177        </service>
+178
+179        <provider
+179-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+180            android:name="androidx.startup.InitializationProvider"
+180-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+181            android:authorities="com.glauncher.mobile.androidx-startup"
+181-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+182            android:exported="false" >
+182-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+183            <meta-data
+183-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+184                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+184-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+185                android:value="androidx.startup" />
+185-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+186            <meta-data
+186-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+187                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+187-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+188                android:value="androidx.startup" />
+188-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+189        </provider>
+190
+191        <uses-library
+191-->[androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+192            android:name="androidx.window.extensions"
+192-->[androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+193            android:required="false" />
+193-->[androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+194        <uses-library
+194-->[androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+195            android:name="androidx.window.sidecar"
+195-->[androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+196            android:required="false" />
+196-->[androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+197    </application>
+198
+199</manifest>

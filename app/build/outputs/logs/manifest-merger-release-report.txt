@@ -1,0 +1,564 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:2:1-52:12
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:2:1-52:12
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:2:1-136:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\477df890b986caf4002afc15b59aa3eb\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\565f298e5ec34138528ccceea2f5f52c\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.preference:preference:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f3082b744f01f4572954dc4ca0a5edd1\transformed\preference-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\dad829e6fe6135bbf83b102b8e3e2cd0\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.webkit:webkit:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\0a1722093f3ca59590c8548ae3e27851\transformed\webkit-1.9.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta01] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ae0217377b0f220a275eaf298171c64a\transformed\jetified-viewpager2-1.1.0-beta01\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment-ktx:1.3.6] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3e699dbe605d2db871f348ec534e52a4\transformed\jetified-fragment-ktx-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\fd0b8c4f72199aebed3d68a7a409b5a6\transformed\fragment-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity-ktx:1.6.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f5fb48c715a3b3f7bac5ed45f12a5e87\transformed\jetified-activity-ktx-1.6.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.6.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\41c216cb180a36080ae1fd2fafe3b7ef\transformed\jetified-activity-1.6.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d1f3d24844904e30723214fc69406a45\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d2eedf081ed32fc1be54005f1beca905\transformed\drawerlayout-1.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3a9cb4c131ea6983201ff88b0fb19cdb\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a64986524ace441367ef1c2846fc5b01\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\26247806478854a1c9d4b815b6c6ac00\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f22457002e15b85605615dc25a4b7dd6\transformed\jetified-lifecycle-viewmodel-ktx-2.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\7b396653896b6284f75c6eff2470d2a7\transformed\lifecycle-viewmodel-2.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d9122771e1aaf78c23ee3ff9992c190d\transformed\jetified-lifecycle-viewmodel-savedstate-2.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a2400ee3ca1d4cc1434213b96009df24\transformed\jetified-core-ktx-1.9.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\41ccf3a10b7a4ff7adfd2725ff0eb459\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a39211ea7f85c5a642b93305fb7e2c2d\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\9fa8aa989706197cd8e524237e7f9203\transformed\recyclerview-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\be49be73a1b6eec24f9f7ef3e94e3618\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ecece9cd48f78ac678e81ece365dc423\transformed\transition-1.4.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\aa707574c82e2c0289872da4d975f484\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:17:1-37:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\18301f69becc87cd3ddde1052a638d54\transformed\jetified-lifecycle-runtime-ktx-2.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\c8f2053f6553f236374e1ae66ca75c7a\transformed\lifecycle-runtime-2.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\51aec029044b8b02ba6165da06f57057\transformed\jetified-savedstate-ktx-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b3e2e95967c949b5128537602b3482dd\transformed\jetified-savedstate-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\884237a13f979651cfe1ffa64be98232\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b93e413a7bd4e7d4ac33545d2f5006a6\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\253919fb37fffb53f1a8afd95b7441f1\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3c15d28c76b83413dc88c97a880a6c68\transformed\jetified-lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5dbd6ff13549a041010552e5e920fd55\transformed\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\10ba0d4a940b1ecef3aac169364441dc\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\7ccdb92c10239d3ff67a1769f7c1bd96\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b090d6d30f7860a5d18353eb670d2041\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.PojavLauncherTeam:portrait-sdp:ed33e89cbc] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\2a28bdd0e1ab2b05644cb4820b6f404b\transformed\jetified-portrait-sdp-ed33e89cbc\AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.PojavLauncherTeam:portrait-ssp:6c02fd739b] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ca445ee416788d9db9a0e491480ebec5\transformed\jetified-portrait-ssp-6c02fd739b\AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.duanhong169:checkerboarddrawable:1.0.2] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\df11d34430a80ba05686831537688ea4\transformed\jetified-checkerboarddrawable-1.0.2\AndroidManifest.xml:2:1-11:12
+MERGED from [com.github.Mathias-Boulay:ExtendedView:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\396a033c06de8af3b56e8dddeca35c94\transformed\jetified-ExtendedView-1.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.github.Mathias-Boulay:android_gamepad_remapper:2.0.3] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e28fcb7fa825c614d141c55cbd5fcef3\transformed\jetified-android_gamepad_remapper-2.0.3\AndroidManifest.xml:2:1-9:12
+MERGED from [com.github.Mathias-Boulay:virtual-joystick-android:1.14] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f8bcee59f4e06d635ac58bbbd50dc39e\transformed\jetified-virtual-joystick-android-1.14\AndroidManifest.xml:2:1-9:12
+MERGED from [com.bytedance:bytehook:1.0.9] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\dbea95261b3aded230fe9717f8b185ba\transformed\jetified-bytehook-1.0.9\AndroidManifest.xml:2:1-7:12
+	package
+		INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:6:5-67
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:20:5-67
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:20:5-67
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:7:5-79
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:21:5-79
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:21:5-79
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:8:5-80
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:17:5-19:38
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:17:5-19:38
+	android:maxSdkVersion
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:19:9-35
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:8:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:9:5-108
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:14:5-16:38
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:14:5-16:38
+	android:maxSdkVersion
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:9:79-105
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:9:22-78
+application
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:11:5-50:19
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:11:5-50:19
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:31:5-134:19
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:31:5-134:19
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\477df890b986caf4002afc15b59aa3eb\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\477df890b986caf4002afc15b59aa3eb\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:25:5-35:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:25:5-35:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b93e413a7bd4e7d4ac33545d2f5006a6\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b93e413a7bd4e7d4ac33545d2f5006a6\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+	android:process
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:38:9-36
+	android:extractNativeLibs
+		INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+	android:requestLegacyExternalStorage
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:20:9-52
+	android:appCategory
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:35:9-35
+	android:roundIcon
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:16:9-48
+	android:icon
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:14:9-43
+	android:allowNativeHeapPointerTagging
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:34:9-54
+	android:hasFragileUserData
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:36:9-42
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:15:9-41
+	android:fullBackupContent
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:13:9-54
+	android:resizeableActivity
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:39:9-42
+	tools:targetApi
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:21:9-29
+	android:allowBackup
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:12:9-35
+	android:theme
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:18:9-47
+		REJECTED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:40:9-40
+	android:isGame
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:37:9-30
+	tools:replace
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:22:9-38
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:32:9-60
+	android:usesCleartextTraffic
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:19:9-44
+activity#com.glauncher.mobile.SplashActivity
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:24:9-34:20
+	android:screenOrientation
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:27:13-56
+	android:exported
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:26:13-36
+	android:configChanges
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:28:13-74
+	android:theme
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:29:13-77
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:25:13-43
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:30:13-33:29
+action#android.intent.action.MAIN
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:31:17-69
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:31:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:32:17-77
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:32:27-74
+activity#com.glauncher.mobile.MainActivity
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:36:9-42:20
+	android:screenOrientation
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:39:13-56
+	android:exported
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:38:13-36
+	android:configChanges
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:40:13-74
+	android:theme
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:41:13-63
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:37:13-41
+activity#com.glauncher.mobile.GameActivity
+ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:44:9-49:74
+	android:screenOrientation
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:47:13-56
+	android:exported
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:46:13-37
+	android:configChanges
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:48:13-74
+	android:theme
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:49:13-71
+	android:name
+		ADDED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml:45:13-41
+uses-sdk
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:6:5-44
+MERGED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:6:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\477df890b986caf4002afc15b59aa3eb\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\477df890b986caf4002afc15b59aa3eb\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\565f298e5ec34138528ccceea2f5f52c\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\565f298e5ec34138528ccceea2f5f52c\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.preference:preference:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f3082b744f01f4572954dc4ca0a5edd1\transformed\preference-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.preference:preference:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f3082b744f01f4572954dc4ca0a5edd1\transformed\preference-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\dad829e6fe6135bbf83b102b8e3e2cd0\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\dad829e6fe6135bbf83b102b8e3e2cd0\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\0a1722093f3ca59590c8548ae3e27851\transformed\webkit-1.9.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.webkit:webkit:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\0a1722093f3ca59590c8548ae3e27851\transformed\webkit-1.9.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta01] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ae0217377b0f220a275eaf298171c64a\transformed\jetified-viewpager2-1.1.0-beta01\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.1.0-beta01] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ae0217377b0f220a275eaf298171c64a\transformed\jetified-viewpager2-1.1.0-beta01\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.3.6] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3e699dbe605d2db871f348ec534e52a4\transformed\jetified-fragment-ktx-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.3.6] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3e699dbe605d2db871f348ec534e52a4\transformed\jetified-fragment-ktx-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\fd0b8c4f72199aebed3d68a7a409b5a6\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\fd0b8c4f72199aebed3d68a7a409b5a6\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity-ktx:1.6.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f5fb48c715a3b3f7bac5ed45f12a5e87\transformed\jetified-activity-ktx-1.6.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-ktx:1.6.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f5fb48c715a3b3f7bac5ed45f12a5e87\transformed\jetified-activity-ktx-1.6.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.6.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\41c216cb180a36080ae1fd2fafe3b7ef\transformed\jetified-activity-1.6.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.6.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\41c216cb180a36080ae1fd2fafe3b7ef\transformed\jetified-activity-1.6.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d1f3d24844904e30723214fc69406a45\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d1f3d24844904e30723214fc69406a45\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d2eedf081ed32fc1be54005f1beca905\transformed\drawerlayout-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d2eedf081ed32fc1be54005f1beca905\transformed\drawerlayout-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3a9cb4c131ea6983201ff88b0fb19cdb\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3a9cb4c131ea6983201ff88b0fb19cdb\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a64986524ace441367ef1c2846fc5b01\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a64986524ace441367ef1c2846fc5b01\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\26247806478854a1c9d4b815b6c6ac00\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\26247806478854a1c9d4b815b6c6ac00\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f22457002e15b85605615dc25a4b7dd6\transformed\jetified-lifecycle-viewmodel-ktx-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f22457002e15b85605615dc25a4b7dd6\transformed\jetified-lifecycle-viewmodel-ktx-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\7b396653896b6284f75c6eff2470d2a7\transformed\lifecycle-viewmodel-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\7b396653896b6284f75c6eff2470d2a7\transformed\lifecycle-viewmodel-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d9122771e1aaf78c23ee3ff9992c190d\transformed\jetified-lifecycle-viewmodel-savedstate-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\d9122771e1aaf78c23ee3ff9992c190d\transformed\jetified-lifecycle-viewmodel-savedstate-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a2400ee3ca1d4cc1434213b96009df24\transformed\jetified-core-ktx-1.9.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a2400ee3ca1d4cc1434213b96009df24\transformed\jetified-core-ktx-1.9.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\41ccf3a10b7a4ff7adfd2725ff0eb459\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\41ccf3a10b7a4ff7adfd2725ff0eb459\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a39211ea7f85c5a642b93305fb7e2c2d\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a39211ea7f85c5a642b93305fb7e2c2d\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\9fa8aa989706197cd8e524237e7f9203\transformed\recyclerview-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\9fa8aa989706197cd8e524237e7f9203\transformed\recyclerview-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\be49be73a1b6eec24f9f7ef3e94e3618\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\be49be73a1b6eec24f9f7ef3e94e3618\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ecece9cd48f78ac678e81ece365dc423\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ecece9cd48f78ac678e81ece365dc423\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\aa707574c82e2c0289872da4d975f484\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\aa707574c82e2c0289872da4d975f484\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\18301f69becc87cd3ddde1052a638d54\transformed\jetified-lifecycle-runtime-ktx-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\18301f69becc87cd3ddde1052a638d54\transformed\jetified-lifecycle-runtime-ktx-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\c8f2053f6553f236374e1ae66ca75c7a\transformed\lifecycle-runtime-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\c8f2053f6553f236374e1ae66ca75c7a\transformed\lifecycle-runtime-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\51aec029044b8b02ba6165da06f57057\transformed\jetified-savedstate-ktx-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\51aec029044b8b02ba6165da06f57057\transformed\jetified-savedstate-ktx-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b3e2e95967c949b5128537602b3482dd\transformed\jetified-savedstate-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b3e2e95967c949b5128537602b3482dd\transformed\jetified-savedstate-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\884237a13f979651cfe1ffa64be98232\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\884237a13f979651cfe1ffa64be98232\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b93e413a7bd4e7d4ac33545d2f5006a6\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b93e413a7bd4e7d4ac33545d2f5006a6\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\253919fb37fffb53f1a8afd95b7441f1\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\253919fb37fffb53f1a8afd95b7441f1\transformed\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3c15d28c76b83413dc88c97a880a6c68\transformed\jetified-lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.3.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\3c15d28c76b83413dc88c97a880a6c68\transformed\jetified-lifecycle-livedata-core-ktx-2.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5dbd6ff13549a041010552e5e920fd55\transformed\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5dbd6ff13549a041010552e5e920fd55\transformed\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\10ba0d4a940b1ecef3aac169364441dc\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\10ba0d4a940b1ecef3aac169364441dc\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\7ccdb92c10239d3ff67a1769f7c1bd96\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\7ccdb92c10239d3ff67a1769f7c1bd96\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b090d6d30f7860a5d18353eb670d2041\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\b090d6d30f7860a5d18353eb670d2041\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [com.github.PojavLauncherTeam:portrait-sdp:ed33e89cbc] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\2a28bdd0e1ab2b05644cb4820b6f404b\transformed\jetified-portrait-sdp-ed33e89cbc\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.PojavLauncherTeam:portrait-sdp:ed33e89cbc] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\2a28bdd0e1ab2b05644cb4820b6f404b\transformed\jetified-portrait-sdp-ed33e89cbc\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.PojavLauncherTeam:portrait-ssp:6c02fd739b] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ca445ee416788d9db9a0e491480ebec5\transformed\jetified-portrait-ssp-6c02fd739b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.PojavLauncherTeam:portrait-ssp:6c02fd739b] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\ca445ee416788d9db9a0e491480ebec5\transformed\jetified-portrait-ssp-6c02fd739b\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.duanhong169:checkerboarddrawable:1.0.2] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\df11d34430a80ba05686831537688ea4\transformed\jetified-checkerboarddrawable-1.0.2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.duanhong169:checkerboarddrawable:1.0.2] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\df11d34430a80ba05686831537688ea4\transformed\jetified-checkerboarddrawable-1.0.2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.Mathias-Boulay:ExtendedView:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\396a033c06de8af3b56e8dddeca35c94\transformed\jetified-ExtendedView-1.0.0\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.Mathias-Boulay:ExtendedView:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\396a033c06de8af3b56e8dddeca35c94\transformed\jetified-ExtendedView-1.0.0\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.Mathias-Boulay:android_gamepad_remapper:2.0.3] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e28fcb7fa825c614d141c55cbd5fcef3\transformed\jetified-android_gamepad_remapper-2.0.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.Mathias-Boulay:android_gamepad_remapper:2.0.3] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e28fcb7fa825c614d141c55cbd5fcef3\transformed\jetified-android_gamepad_remapper-2.0.3\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.Mathias-Boulay:virtual-joystick-android:1.14] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f8bcee59f4e06d635ac58bbbd50dc39e\transformed\jetified-virtual-joystick-android-1.14\AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.Mathias-Boulay:virtual-joystick-android:1.14] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\f8bcee59f4e06d635ac58bbbd50dc39e\transformed\jetified-virtual-joystick-android-1.14\AndroidManifest.xml:5:5-7:41
+MERGED from [com.bytedance:bytehook:1.0.9] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\dbea95261b3aded230fe9717f8b185ba\transformed\jetified-bytehook-1.0.9\AndroidManifest.xml:5:5-44
+MERGED from [com.bytedance:bytehook:1.0.9] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\dbea95261b3aded230fe9717f8b185ba\transformed\jetified-bytehook-1.0.9\AndroidManifest.xml:5:5-44
+	android:targetSdkVersion
+		INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\dev\GLauncher\app\src\main\AndroidManifest.xml
+uses-feature#0x00020000
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:5-54
+	android:glEsVersion
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:8:19-51
+uses-feature#android.hardware.type.pc
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:9:5-11:36
+	android:required
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:11:9-33
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:10:9-48
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:13:5-77
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:13:22-74
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:22:5-71
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:22:22-68
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:23:5-77
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:23:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_DATA_SYNC
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:24:5-87
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:24:22-84
+uses-permission#android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:25:5-89
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:25:22-86
+queries
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:27:5-29:15
+package#net.kdt.pojavlaunch.ffmpeg
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:28:9-62
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:28:18-59
+activity#net.kdt.pojavlaunch.MissingStorageActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:41:9-43:40
+	android:exported
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:43:13-37
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:42:13-70
+meta-data#android.max_aspect
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:45:9-47:43
+	android:value
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:47:13-40
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:46:13-46
+activity#net.kdt.pojavlaunch.TestStorageActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:49:9-53:20
+	android:launchMode
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:52:13-43
+	android:exported
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:51:13-37
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:50:13-67
+activity#net.kdt.pojavlaunch.LauncherActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:54:9-56:58
+	android:windowSoftInputMode
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:56:13-55
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:55:13-64
+activity#net.kdt.pojavlaunch.ImportControlActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:57:9-76:20
+	android:launchMode
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:61:13-48
+	android:windowSoftInputMode
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:62:13-55
+	android:exported
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:60:13-36
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:59:13-60
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:58:13-69
+intent-filter#action:name:android.intent.action.SEND+action:name:android.intent.action.VIEW+category:name:android.intent.category.DEFAULT+data:mimeType:application/json+data:mimeType:text/json+data:mimeType:text/plain
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:63:13-75:29
+	android:label
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:64:17-61
+	android:scheme
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:65:17-41
+	tools:ignore
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:66:17-47
+action#android.intent.action.VIEW
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:67:17-69
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:67:25-66
+action#android.intent.action.SEND
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:68:17-69
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:68:25-66
+category#android.intent.category.DEFAULT
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:70:17-76
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:70:27-73
+data
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:17-61
+	android:mimeType
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:72:23-58
+activity#net.kdt.pojavlaunch.FatalErrorActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:77:9-80:70
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:79:13-94
+	android:theme
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:80:13-67
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:78:13-66
+activity#net.kdt.pojavlaunch.ShowErrorActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:81:9-84:70
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:83:13-94
+	android:theme
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:84:13-67
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:82:13-65
+activity#net.kdt.pojavlaunch.ExitActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:85:9-88:70
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:87:13-94
+	android:theme
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:88:13-67
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:86:13-60
+activity#net.kdt.pojavlaunch.JavaGUILauncherActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:89:9-93:59
+	android:screenOrientation
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:93:13-56
+	android:process
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:92:13-45
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:91:13-133
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:90:13-71
+activity#net.kdt.pojavlaunch.CustomControlsActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:94:9-104:20
+	android:screenOrientation
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:98:13-56
+	android:exported
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:97:13-37
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:96:13-94
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:95:13-70
+intent-filter#action:name:.CustomControlsActivity+category:name:android.intent.category.DEFAULT
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:99:13-103:29
+action#net.kdt.pojavlaunch.CustomControlsActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:100:17-66
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:100:25-63
+activity#net.kdt.pojavlaunch.MainActivity
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:105:9-110:59
+	android:screenOrientation
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:110:13-56
+	android:process
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:109:13-36
+	android:launchMode
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:108:13-43
+	android:configChanges
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:107:13-133
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:106:13-60
+provider#net.kdt.pojavlaunch.scoped.FolderProvider
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:112:9-121:20
+	android:grantUriPermissions
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:116:13-47
+	android:authorities
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:114:13-69
+	android:exported
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:115:13-36
+	android:permission
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:117:13-69
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:113:13-69
+intent-filter#action:name:android.content.action.DOCUMENTS_PROVIDER
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:118:13-120:29
+action#android.content.action.DOCUMENTS_PROVIDER
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:119:17-84
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:119:25-81
+service#net.kdt.pojavlaunch.services.ProgressService
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:123:9-125:56
+	android:foregroundServiceType
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:125:13-53
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:124:13-72
+service#net.kdt.pojavlaunch.services.GameService
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:126:9-133:19
+	android:process
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:129:13-36
+	android:foregroundServiceType
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:128:13-55
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:127:13-68
+property#android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE
+ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:130:13-132:248
+	android:value
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:132:17-245
+	android:name
+		ADDED from [:pojavlauncher:app_pojavlauncher] C:\dev\GLauncher\pojavlauncher\app_pojavlauncher\build\intermediates\merged_manifest\release\processReleaseManifest\AndroidManifest.xml:131:17-76
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:26:9-34:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:26:9-34:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\e38c59d1d20b17cad8b54555c27c4d8a\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\a7009754370ae149a71e3f0a1217a11b\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\258133d7089d579f6d855eb433c4c681\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+permission#com.glauncher.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+uses-permission#com.glauncher.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.9.0] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\06de64f0861402d0d8b15c992a79c117\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Administrador\.gradle\caches\9.6.1\transforms\5abd5b87071a0be7ac1824c7097135ce\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78

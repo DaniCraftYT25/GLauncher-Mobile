@@ -767,19 +767,22 @@
 
 
     function launchVersion(versionId) {
-        // FIX: Asegurarse de que versionId sea siempre una cadena, no un objeto.
         const idToLaunch = (typeof versionId === 'object' && versionId !== null) ? versionId.id : versionId;
+        const versionName = typeof idToLaunch === 'string' ? idToLaunch.trim() : '';
 
-        showNotification(`Lanzando Minecraft ${versionId}...`, 'success');
+        if (!versionName) {
+            showNotification('Selecciona una versión válida antes de lanzar', 'warning');
+            return;
+        }
+
+        showNotification(`Lanzando Minecraft ${versionName}...`, 'success');
         
-        // Vibration feedback (Android)
         if (navigator.vibrate) {
             navigator.vibrate(50);
         }
 
-        // Llamada al puente nativo de Android
         if (window.GLauncher && window.GLauncher.launchMinecraftVersion) {
-            window.GLauncher.launchMinecraftVersion(idToLaunch, state.settings.ram);
+            window.GLauncher.launchMinecraftVersion(versionName, state.settings.ram);
         }
     }
 
@@ -1819,11 +1822,10 @@
         const playBtn = $('#btn-play-hero');
         if (playBtn) {
             playBtn.addEventListener('click', () => {
-                if (state.selectedVersion) {
+                if (state.selectedVersion && typeof state.selectedVersion.id === 'string' && state.selectedVersion.id.trim()) {
                     launchVersion(state.selectedVersion.id);
                 } else {
                     showNotification('Selecciona o instala una versión primero', 'warning');
-                    // Navigate to versions
                     $$('.nav-item').forEach(n => n.classList.remove('active'));
                     $('#nav-versions').classList.add('active');
                     switchView('versions');

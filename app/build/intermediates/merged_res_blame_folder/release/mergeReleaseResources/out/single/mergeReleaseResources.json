@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "com.glauncher.mobile.app-main-39:/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/xml_backup_rules.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/layout_activity_main.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/layout_activity_splash.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/xml_data_extraction_rules.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/layout_activity_game.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.glauncher.mobile.app-release-38:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.glauncher.mobile.app-main-39:/mipmap-anydpi-v26/ic_launcher.xml"
+    }
+]

@@ -1,0 +1,607 @@
+/* ═══════════════════════════════════════════════════════════════════
+   GLauncher — Virtual Controls Editor
+   Editor a pantalla completa para configurar botones táctiles en Android
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Overlay Full-Screen ─── */
+.vc-editor-overlay {
+    position: fixed;
+    inset: 0;
+    background: #07070f;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Minecraftia', sans-serif;
+    animation: vcEditorOpen 0.25s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes vcEditorOpen {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.vc-editor-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'MinecraftTen', sans-serif;
+    font-size: 0.85rem;
+    color: var(--primary);
+    text-shadow: 0 0 12px var(--primary-glow);
+    white-space: nowrap;
+}
+
+.vc-editor-logo i {
+    font-size: 1.2rem;
+}
+
+/* ─── Presets Bar ─── */
+.vc-presets-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-top: 1px solid rgba(155, 89, 182, 0.15);
+}
+.vc-presets-label {
+    font-size: 0.5rem;
+    color: var(--text-muted);
+}
+
+.vc-preset-btn {
+    width: 36px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(155,89,182,0.2);
+    color: var(--text-dim);
+    font-family: 'MinecraftTen', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.vc-preset-btn:hover {
+    background: rgba(155,89,182,0.15);
+    border-color: var(--primary);
+    color: white;
+}
+
+.vc-preset-btn.active {
+    background: var(--primary-gradient);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* ─── Editor Actions ─── */
+.vc-editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vc-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-dim);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.vc-properties .vc-action-btn {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+}
+
+.vc-action-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.vc-action-btn.success {
+    background: rgba(46, 204, 113, 0.15);
+    border-color: rgba(46, 204, 113, 0.3);
+    color: #2ecc71;
+}
+
+.vc-action-btn.success:hover {
+    background: rgba(46, 204, 113, 0.3);
+    box-shadow: 0 0 12px rgba(46,204,113,0.3);
+}
+
+.vc-action-btn.danger {
+    background: rgba(231, 76, 60, 0.12);
+    border-color: rgba(231, 76, 60, 0.25);
+    color: var(--danger);
+}
+
+.vc-action-btn.danger:hover {
+    background: rgba(231, 76, 60, 0.25);
+}
+
+/* ─── Main Editor Layout ─── */
+.vc-editor-main {
+    flex: 1;
+    position: relative; /* Clave para los paneles flotantes */
+    overflow: hidden;
+}
+
+/* ─── Left Palette ─── */
+.vc-palette {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 110px;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(155, 89, 182, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    z-index: 10;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.vc-palette-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.vc-palette-header {
+    padding: 8px;
+    text-align: center;
+    font-size: 0.5rem;
+    color: var(--text-dim);
+    background: rgba(155, 89, 182, 0.1);
+    border-bottom: 1px solid rgba(155, 89, 182, 0.2);
+    cursor: grab;
+    user-select: none;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+}
+.vc-palette-header:active {
+    cursor: grabbing;
+}
+
+.vc-palette.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+.vc-palette-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(155,89,182,0.15);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-dim);
+    font-size: 0.45rem;
+    font-family: 'Minecraftia', sans-serif;
+}
+
+.vc-palette-item:hover {
+    background: rgba(155,89,182,0.15);
+    border-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(155,89,182,0.25);
+}
+
+.vc-palette-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(155, 89, 182, 0.2);
+    border: 1px solid rgba(155,89,182,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'MinecraftTen', sans-serif;
+    font-size: 1rem;
+    color: var(--primary);
+    position: relative;
+}
+
+.joystick-icon {
+    border-radius: 50% !important;
+}
+
+.vc-palette-divider {
+    height: 1px;
+    background: rgba(155,89,182,0.15);
+    margin: 4px 0;
+}
+
+.vc-palette-help {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.vc-palette-help p {
+    font-size: 0.4rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.4;
+}
+
+.vc-palette-help i {
+    color: var(--primary);
+    width: 10px;
+}
+
+/* ─── Canvas Wrapper ─── */
+.vc-canvas-wrapper {
+    flex: 1;
+    position: absolute;
+    inset: 0;
+    background: #0a0a12;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.vc-canvas-label {
+    font-size: 0.45rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+/* ─── Canvas (16:9 game screen) ─── */
+.vc-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 50%, #1a1a2e 0%, #0d0d1a 100%);
+    border: 1px solid rgba(155, 89, 182, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(155, 89, 182, 0.12), inset 0 0 60px rgba(0, 0, 0, 0.5);
+    cursor: crosshair;
+}
+
+.vc-canvas-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(155,89,182,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(155,89,182,0.05) 1px, transparent 1px);
+    background-size: 5% 5%;
+    pointer-events: none;
+}
+
+.vc-canvas-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 0.5rem;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.vc-mouse-trackpad {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(155, 89, 182, 0.1);
+    border-left: 2px dashed var(--primary);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ─── Control Elements on Canvas ─── */
+.vc-element {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select: none;
+    transition: box-shadow 0.15s, border-color 0.15s;
+    border: 2px solid transparent;
+    font-family: 'MinecraftTen', sans-serif;
+    touch-action: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Asegura que los elementos estén sobre el trackpad */
+    overflow: hidden;
+}
+
+.vc-element:active { cursor: grabbing; }
+
+.vc-element.selected {
+    border-color: white !important;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5), 0 0 25px var(--primary-glow) !important;
+    z-index: 100 !important;
+    outline: 1px solid var(--primary);
+}
+
+.vc-element span {
+    pointer-events: none;
+    user-select: none;
+    font-size: 1.2rem;
+}
+
+/* Button element */
+.vc-element.type-button {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Joystick element */
+.vc-element.type-joystick {
+    border-radius: 50% !important;
+    /* Dejamos que el color de JS sea el fondo, pero añadimos un gradiente encima */
+    background-image: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent) !important;
+    border: 2px solid rgba(255,255,255,0.4) !important;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+}
+
+.vc-joystick-thumb {
+    width: 35%;
+    height: 35%;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+
+/* Mouse element */
+.vc-element.type-mouse {
+    border-radius: 8px !important;
+    font-size: 1.1rem;
+    color: white;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.vc-mouse-label {
+    font-size: 0.4rem;
+    font-family: 'Minecraftia', sans-serif;
+    opacity: 0.8;
+}
+
+/* Resize handle */
+.vc-element .vc-resize-handle {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: se-resize;
+    display: none;
+    z-index: 10;
+}
+
+.vc-element.selected .vc-resize-handle { display: block; }
+
+/* ─── Properties Panel ─── */
+.vc-properties {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 220px;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(155, 89, 182, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    z-index: 10;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    max-height: calc(100% - 40px); /* Limita la altura para permitir el scroll */
+    display: none; /* Oculto por defecto */
+}
+
+.vc-prop-title {
+    font-size: 0.5rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(155,89,182,0.15);
+    flex-shrink: 0;
+}
+.vc-prop-title { justify-content: space-between; }
+.vc-no-selection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 0.5rem;
+    text-align: center;
+}
+
+.vc-prop-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vc-prop-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.vc-prop-label {
+    font-size: 0.48rem;
+    color: var(--text-dim);
+    display: block;
+}
+
+.vc-prop-sublabel {
+    font-size: 0.45rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 3px;
+}
+
+.vc-prop-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(155,89,182,0.2);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: white;
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.6rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.vc-prop-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.vc-prop-select {
+    background: rgba(10,10,20,0.9);
+    border: 1px solid rgba(155,89,182,0.2);
+    border-radius: 6px;
+    padding: 7px 8px;
+    color: var(--text);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.48rem;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.vc-prop-select:focus { border-color: var(--primary); }
+.vc-prop-select optgroup { color: var(--primary); font-size: 0.45rem; }
+.vc-prop-select option  { color: white; background: #0d0d1a; }
+ 
+.vc-prop-range {
+    width: 100%;
+    accent-color: var(--primary);
+    cursor: pointer;
+    height: 4px;
+}
+
+/* ─── Shape Toggle ─── */
+.vc-shape-toggle {
+    display: flex;
+    gap: 6px;
+}
+
+.vc-shape-btn {
+    flex: 1;
+    padding: 7px 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(155,89,182,0.2);
+    border-radius: 6px;
+    color: var(--text-dim);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.45rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.vc-shape-btn:hover { background: rgba(155,89,182,0.1); color: white; }
+
+.vc-shape-btn.active {
+    background: rgba(155,89,182,0.25);
+    border-color: var(--primary);
+    color: white;
+    opacity: 1;
+    box-shadow: 0 0 8px var(--primary-glow);
+}
+
+/* ─── Color Swatches ─── */
+.vc-color-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.vc-color-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 2px solid rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+
+.vc-color-swatch:hover { transform: scale(1.2); }
+.vc-color-swatch.active { border-color: white; box-shadow: 0 0 8px rgba(255,255,255,0.5); }
+
+/* ─── Delete Button ─── */
+.vc-delete-btn {
+    width: 100%;
+    padding: 9px;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.25);
+    border-radius: 8px;
+    color: var(--danger);
+    font-family: 'Minecraftia', sans-serif;
+    font-size: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.vc-delete-btn:hover {
+    background: rgba(231,76,60,0.25);
+    box-shadow: 0 0 12px rgba(231,76,60,0.3);
+}
